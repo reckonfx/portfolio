@@ -23,7 +23,11 @@ export function readData(): PortfolioData {
 }
 
 export function writeData(data: PortfolioData): void {
-  fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2), "utf-8");
+  try {
+    fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2), "utf-8");
+  } catch {
+    // Vercel filesystem is read-only at runtime; GitHub sync handles persistence
+  }
 }
 
 // Pushes portfolio.json to GitHub after every admin save.
