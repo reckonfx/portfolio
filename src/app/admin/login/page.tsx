@@ -1,36 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { Terminal, Eye, EyeOff, Lock } from "lucide-react";
+import { actionLogin } from "@/lib/actions";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
-  const [isPending, setIsPending] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError("");
-    setIsPending(true);
     const fd = new FormData(e.currentTarget);
-    const password = fd.get("password") as string;
-    try {
-      const res = await fetch("/api/admin/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password }),
-      });
-      if (!res.ok) {
-        const data = (await res.json()) as { error?: string };
-        setError(data.error ?? "Invalid password");
-      } else {
-        window.location.href = "/admin";
-      }
-    } catch {
-      setError("Something went wrong. Please try again.");
-    } finally {
-      setIsPending(false);
-    }
+    startTransition(async () => {
+      const result = await actionLogin(fd);
+      if (result?.error) setError(result.error);
+    });
   }
 
   return (
