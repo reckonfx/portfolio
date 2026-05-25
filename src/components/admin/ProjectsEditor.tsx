@@ -21,15 +21,16 @@ function emptyProject(id: number): Project {
   };
 }
 
-function MediaPreview({ image, video }: { image: string; video?: string }) {
-  if (!image && !video) return null;
+function MediaPreview({ image, video, previewUrl }: { image: string; video?: string; previewUrl?: string }) {
+  if (!image && !video && !previewUrl) return null;
+  const src = previewUrl || image;
   return (
     <div className="relative rounded-lg overflow-hidden bg-black/30 border border-white/10" style={{ aspectRatio: "16/9" }}>
       {video ? (
         <video src={video} className="w-full h-full object-cover" controls muted loop playsInline />
       ) : (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={image} alt="preview" className="w-full h-full object-cover" />
+        <img src={src} alt="preview" className="w-full h-full object-cover" />
       )}
     </div>
   );
@@ -44,6 +45,7 @@ function ProjectMediaField({
   const [capturing, setCapturing] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [customUrl, setCustomUrl] = useState("");
+  const [previewUrl, setPreviewUrl] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
 
   // Prefer public demo over vercel preview (vercel previews are behind login)
@@ -73,6 +75,9 @@ function ProjectMediaField({
   async function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
+    // Show instant local preview while uploading to GitHub
+    const localBlob = URL.createObjectURL(file);
+    setPreviewUrl(localBlob);
     setUploading(true);
     try {
       const form = new FormData();
@@ -86,8 +91,9 @@ function ProjectMediaField({
       } else {
         onUpdate({ ...project, image: data.path, video: "" });
       }
-      toast.success("Media uploaded!");
+      toast.success("Media uploaded! Will appear on site after auto-deploy (~1 min).");
     } catch (err) {
+      setPreviewUrl("");
       toast.error((err as Error).message);
     } finally {
       setUploading(false);
@@ -97,6 +103,7 @@ function ProjectMediaField({
 
   function clearMedia() {
     onUpdate({ ...project, image: "", video: "" });
+    setPreviewUrl("");
   }
 
   const hasMedia = !!(project.image || project.video);
@@ -112,7 +119,7 @@ function ProjectMediaField({
         )}
       </div>
 
-      {hasMedia && <MediaPreview image={project.image} video={project.video} />}
+      {(hasMedia || previewUrl) && <MediaPreview image={project.image} video={project.video} previewUrl={previewUrl} />}
 
       <div className="space-y-2">
         <div className="flex gap-2 items-center">
