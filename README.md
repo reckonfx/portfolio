@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio — Next.js 16 + Tailwind CSS 4
+
+A world-class, ultra-modern portfolio website for IT professionals and entrepreneurs.
+
+## Stack
+
+- **Framework**: Next.js 16 (App Router, Turbopack)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4
+- **Animations**: Framer Motion
+- **Icons**: Lucide React + custom SVG social icons
+- **Analytics**: Vercel Analytics + Speed Insights
+- **Notifications**: Sonner
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Customizing Your Portfolio
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+All personal data is in **one file**: `src/lib/data.ts`
 
-## Learn More
+| Export | What it controls |
+|---|---|
+| `personalInfo` | Name, bio, location, email, social links, stats |
+| `techStack` | Skills organized by category with proficiency levels |
+| `projects` | Project cards with tech, links, metrics |
+| `services` | Service offerings with descriptions and pricing |
+| `testimonials` | Client quotes and ratings |
+| `experiences` | Work history and education timeline |
+| `certifications` | Professional certifications |
 
-To learn more about Next.js, take a look at the following resources:
+### Adding a Real Avatar
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Replace the emoji placeholder in `src/components/sections/Hero.tsx` with:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```tsx
+import Image from "next/image";
+// inside the avatar container:
+<Image src="/avatar.jpg" alt="Your Name" fill className="object-cover" />
+```
 
-## Deploy on Vercel
+Place `avatar.jpg` in the `public/` folder.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Sections
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Hero** — Animated canvas particles, typing effect, floating stats
+2. **About** — Bio, experience timeline, certifications
+3. **Tech Stack** — Category tabs with skill progress bars
+4. **Projects** — Filterable grid with search, detail modals
+5. **Services** — Service cards with features and pricing
+6. **Testimonials** — Auto-rotating carousel
+7. **Contact** — Form, WhatsApp, Calendly integration
+
+## Features
+
+- Animated loading screen
+- Command palette (`Ctrl+K` / `⌘K`)
+- Scroll-aware sticky navbar
+- SEO: Open Graph, Twitter Cards, sitemap, robots.txt
+- Vercel Analytics & Speed Insights
+
+## Deployment
+
+### Vercel (one command)
+
+```bash
+npx vercel
+```
+
+### Manual
+
+```bash
+npm run build
+npm start
+```
+
+## Project Structure
+
+```
+src/
+  app/
+    layout.tsx        Root layout, fonts, metadata
+    page.tsx          Main page (all sections)
+    globals.css       Global styles & CSS variables
+  components/
+    layout/           Navbar, Footer
+    sections/         Hero, About, TechStack, Projects, Services, Testimonials, Contact
+    ui/               Button, SectionHeader, SocialIcons
+    LoadingScreen.tsx
+    CommandPalette.tsx
+  lib/
+    data.ts           ALL portfolio content — edit this file
+    utils.ts          Helpers
+```
