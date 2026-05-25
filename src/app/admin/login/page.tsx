@@ -1,22 +1,38 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Terminal, Eye, EyeOff, Lock } from "lucide-react";
-import { actionLogin } from "@/lib/actions";
 
 export default function LoginPage() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
-  const [isPending, startTransition] = useTransition();
+  const [isPending, setIsPending] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError("");
+    setIsPending(true);
     const fd = new FormData(e.currentTarget);
-    startTransition(async () => {
-      const result = await actionLogin(fd);
-      if (result?.error) setError(result.error);
-    });
+    const password = fd.get("password") as string;
+    try {
+      const res = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+      if (!res.ok) {
+        const data = (await res.json()) as { error?: string };
+        setError(data.error ?? "Invalid password");
+      } else {
+        router.push("/admin");
+      }
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setIsPending(false);
+    }
   }
 
   return (
