@@ -656,6 +656,37 @@
       "stars": 0,
       "metrics": {},
       "video": ""
+    },
+    {
+      "id": 1779718474320,
+      "title": "Personal portfolio",
+      "description": "Full-stack personal portfolio with a built-in CMS admin panel, multi-format CV generator, and real-time GitHub sync — all self-contained with no external CMS required.",
+      "longDescription": "A production-ready personal portfolio built with Next.js 16 and Tailwind CSS 4, featuring a complete content management system accessible via a password-protected admin panel. All portfolio data — projects, experience,\n  tech stack, services, testimonials, and certifications — is stored in a flat-file JSON CMS and editable live without touching code.\n\n  Key features include:\n  - Admin CMS with sections for every portfolio category, protected by a hashed session cookie with edge-runtime proxy authentication\n  - Multi-format CV generator producing region-specific PDF resumes (Gulf, Saudi, Emirati, Europass, USA, Canadian) using jsPDF with live data population\n  - Email CV sharing — sends the generated PDF as an email attachment via Gmail SMTP\n  - Project media — captures live screenshots from demo URLs via thum.io, or accepts manual image/video uploads\n  - GitHub auto-sync — every admin save commits the JSON data file to GitHub via the API, keeping Vercel's ephemeral filesystem in sync\n  - Light/Dark mode toggle with full theme support across all components\n  - Responsive design with smooth Framer Motion animations throughout\n",
+      "tech": [
+        "Next.js 16",
+        "React 19",
+        "TypeScript",
+        "Tailwind CSS 4",
+        "Framer Motion",
+        "jsPDF",
+        "Nodemailer",
+        "GitHub API",
+        "Vercel",
+        "Turbopack"
+      ],
+      "github": "https://github.com/reckonfx/portfolio.git",
+      "demo": "https://portfolio-95kbt41qc-aamir-ahmed-shamsis-projects.vercel.app/",
+      "vercel": "https://portfolio-95kbt41qc-aamir-ahmed-shamsis-projects.vercel.app/",
+      "image": "",
+      "video": "",
+      "featured": false,
+      "status": "Live",
+      "category": "Portfolio Website",
+      "tags": [],
+      "date": "2026-05-25",
+      "client": "Aamir Ahmed Shamsi",
+      "stars": 0,
+      "metrics": {}
     }
   ],
   "services": [
