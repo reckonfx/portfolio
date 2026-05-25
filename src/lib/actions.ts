@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { readData, writeData } from "./cms";
+import { readData, writeData, syncToGitHub } from "./cms";
 import { login, logout } from "./auth";
 import type { PersonalInfo, Project, TechCategory, Service, Testimonial, Experience, Certification } from "./types";
 
@@ -23,6 +23,7 @@ export async function savePersonalInfo(info: PersonalInfo) {
   data.personalInfo = info;
   writeData(data);
   revalidatePath("/");
+  syncToGitHub(data).catch(console.error);
 }
 
 export async function saveProjects(projects: Project[]) {
@@ -30,6 +31,7 @@ export async function saveProjects(projects: Project[]) {
   data.projects = projects;
   writeData(data);
   revalidatePath("/");
+  syncToGitHub(data).catch(console.error);
 }
 
 export async function saveTechStack(stack: TechCategory[]) {
@@ -37,6 +39,7 @@ export async function saveTechStack(stack: TechCategory[]) {
   data.techStack = stack;
   writeData(data);
   revalidatePath("/");
+  syncToGitHub(data).catch(console.error);
 }
 
 export async function saveServices(services: Service[]) {
@@ -44,6 +47,7 @@ export async function saveServices(services: Service[]) {
   data.services = services;
   writeData(data);
   revalidatePath("/");
+  syncToGitHub(data).catch(console.error);
 }
 
 export async function saveTestimonials(testimonials: Testimonial[]) {
@@ -51,6 +55,7 @@ export async function saveTestimonials(testimonials: Testimonial[]) {
   data.testimonials = testimonials;
   writeData(data);
   revalidatePath("/");
+  syncToGitHub(data).catch(console.error);
 }
 
 export async function saveExperiences(experiences: Experience[]) {
@@ -58,6 +63,7 @@ export async function saveExperiences(experiences: Experience[]) {
   data.experiences = experiences;
   writeData(data);
   revalidatePath("/");
+  syncToGitHub(data).catch(console.error);
 }
 
 export async function saveCertifications(certifications: Certification[]) {
@@ -65,4 +71,5 @@ export async function saveCertifications(certifications: Certification[]) {
   data.certifications = certifications;
   writeData(data);
   revalidatePath("/");
+  syncToGitHub(data).catch(console.error);
 }
