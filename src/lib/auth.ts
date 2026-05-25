@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import crypto from "crypto";
 
 const SESSION_COOKIE = "admin_session";
-const PASSWORD = process.env.ADMIN_PASSWORD ?? "admin123";
+const PASSWORD = (process.env.ADMIN_PASSWORD ?? "admin123").trim();
 
 function hash(value: string) {
   return crypto.createHash("sha256").update(value).digest("hex");
