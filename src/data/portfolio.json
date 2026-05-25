@@ -892,13 +892,13 @@
     {
       "name": "Diploma in Computer Science",
       "issuer": "Pakistan Board of Technical Education",
-      "year": 2004,
+      "year": 1998,
       "badge": "💻"
     },
     {
       "name": "Call Center & Communication Training",
       "issuer": "Professional Training Institute, Pakistan",
-      "year": 1998,
+      "year": 2004,
       "badge": "📞"
     },
     {
@@ -907,9 +907,5 @@
       "year": 1996,
       "badge": "🎓"
     }
-  ],
-  "theme": {
-    "colorScheme": "indigo-violet",
-    "mode": "dark"
-  }
+  ]
 }
