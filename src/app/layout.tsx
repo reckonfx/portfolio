@@ -6,6 +6,7 @@ import { ThemeProvider } from "next-themes";
 import { ResumeModalProvider } from "@/components/ResumeModalProvider";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { readData } from "@/lib/cms";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -62,10 +63,14 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const siteTheme = readData().theme;
+  const colorScheme = siteTheme?.colorScheme ?? "indigo-violet";
+  const defaultMode = siteTheme?.mode ?? "dark";
+
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} theme-${colorScheme}`} suppressHydrationWarning>
       <body className="min-h-screen antialiased">
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+        <ThemeProvider attribute="class" defaultTheme={defaultMode} enableSystem={false}>
           <ResumeModalProvider>
             {children}
           </ResumeModalProvider>

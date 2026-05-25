@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { readData, writeData, syncToGitHub } from "./cms";
 import { login, logout } from "./auth";
-import type { PersonalInfo, Project, TechCategory, Service, Testimonial, Experience, Certification } from "./types";
+import type { PersonalInfo, Project, TechCategory, Service, Testimonial, Experience, Certification, SiteTheme } from "./types";
 
 export async function actionLogin(formData: FormData) {
   const password = formData.get("password") as string;
@@ -71,5 +71,14 @@ export async function saveCertifications(certifications: Certification[]) {
   data.certifications = certifications;
   writeData(data);
   revalidatePath("/");
+  syncToGitHub(data).catch(console.error);
+}
+
+export async function saveTheme(theme: SiteTheme) {
+  const data = readData();
+  data.theme = theme;
+  writeData(data);
+  revalidatePath("/");
+  revalidatePath("/admin");
   syncToGitHub(data).catch(console.error);
 }

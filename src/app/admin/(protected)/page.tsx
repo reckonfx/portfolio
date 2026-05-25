@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { readData } from "@/lib/cms";
 import { User, FolderOpen, Layers, Briefcase, Star, Clock, Award, ArrowRight, ExternalLink } from "lucide-react";
+import { AppearanceEditor } from "@/components/admin/AppearanceEditor";
 
 const sections = [
   { href: "/admin/personal", label: "Personal Info", icon: User, description: "Name, bio, contact, social links", color: "#818cf8" },
@@ -14,6 +15,7 @@ const sections = [
 
 export default function AdminDashboard() {
   const data = readData();
+  const siteTheme = data.theme;
 
   const stats = [
     { label: "Projects", value: data.projects.length },
@@ -67,6 +69,14 @@ export default function AdminDashboard() {
             </Link>
           );
         })}
+      </div>
+
+      {/* Appearance */}
+      <div className="mt-8">
+        <AppearanceEditor
+          initialColorScheme={siteTheme?.colorScheme ?? "indigo-violet"}
+          initialMode={(siteTheme?.mode ?? "dark") as "dark" | "light"}
+        />
       </div>
     </div>
   );

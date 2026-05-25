@@ -100,6 +100,11 @@ export interface Certification {
   badge: string;
 }
 
+export interface SiteTheme {
+  colorScheme: string;
+  mode: "dark" | "light";
+}
+
 export interface PortfolioData {
   personalInfo: PersonalInfo;
   techStack: TechCategory[];
@@ -108,4 +113,5 @@ export interface PortfolioData {
   testimonials: Testimonial[];
   experiences: Experience[];
   certifications: Certification[];
+  theme?: SiteTheme;
 }
