@@ -907,5 +907,9 @@
       "year": 1996,
       "badge": "🎓"
     }
-  ]
+  ],
+  "theme": {
+    "colorScheme": "indigo-violet",
+    "mode": "dark"
+  }
 }
