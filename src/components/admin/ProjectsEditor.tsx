@@ -64,6 +64,7 @@ function ProjectMediaField({
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "Screenshot failed");
       onUpdate({ ...project, image: data.path, video: "" });
+      setPreviewUrl(`https://image.thum.io/get/width/1200/crop/630/${screenshotUrl}`);
       toast.success("Screenshot captured!");
     } catch (err) {
       toast.error((err as Error).message);
