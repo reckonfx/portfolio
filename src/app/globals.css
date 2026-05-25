@@ -96,7 +96,8 @@ html.light [class*="bg-[#1a1b1e]"] {
 
 /* Section-level dark bg colors */
 html.light [class*="bg-[#0d0e10]"],
-html.light [class*="bg-[#0f1014]"] {
+html.light [class*="bg-[#0f1014]"],
+html.light [class*="bg-[#0a0b0e]"] {
   background-color: #f1f5f9 !important;
 }
 
