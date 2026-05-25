@@ -909,7 +909,7 @@
     }
   ],
   "theme": {
-    "colorScheme": "blue-cyan",
-    "mode": "dark"
+    "colorScheme": "indigo-violet",
+    "mode": "light"
   }
 }
