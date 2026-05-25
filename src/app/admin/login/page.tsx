@@ -73,10 +73,6 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <p className="text-center text-slate-600 text-xs mt-4">
-          Default password: <code className="text-slate-400">admin123</code> — change via{" "}
-          <code className="text-slate-400">ADMIN_PASSWORD</code> env var
-        </p>
       </div>
     </div>
   );
