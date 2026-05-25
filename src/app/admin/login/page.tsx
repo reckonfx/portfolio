@@ -1,11 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { Terminal, Eye, EyeOff, Lock } from "lucide-react";
 
 export default function LoginPage() {
-  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [isPending, setIsPending] = useState(false);
@@ -26,7 +24,7 @@ export default function LoginPage() {
         const data = (await res.json()) as { error?: string };
         setError(data.error ?? "Invalid password");
       } else {
-        router.push("/admin");
+        window.location.href = "/admin";
       }
     } catch {
       setError("Something went wrong. Please try again.");
