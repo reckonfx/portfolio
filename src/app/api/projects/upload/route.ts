@@ -36,10 +36,14 @@ export async function POST(request: NextRequest) {
   const filename = `${safeId}-${Date.now()}.${ext}`;
   const uploadDir = path.join(process.cwd(), "public", "projects");
 
-  if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
-
   const buffer = Buffer.from(await file.arrayBuffer());
-  fs.writeFileSync(path.join(uploadDir, filename), buffer);
+
+  try {
+    if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
+    fs.writeFileSync(path.join(uploadDir, filename), buffer);
+  } catch {
+    return NextResponse.json({ error: "File upload is not supported on this deployment. Upload locally and redeploy." }, { status: 503 });
+  }
 
   return NextResponse.json({ path: `/projects/${filename}`, type: isVideo ? "video" : "image" });
 }

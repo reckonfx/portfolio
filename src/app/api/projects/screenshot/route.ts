@@ -43,8 +43,12 @@ export async function POST(request: NextRequest) {
   const filename = `${safeId}-screenshot-${Date.now()}.jpg`;
   const uploadDir = path.join(process.cwd(), "public", "projects");
 
-  if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
-  fs.writeFileSync(path.join(uploadDir, filename), imageBuffer);
-
-  return NextResponse.json({ path: `/projects/${filename}` });
+  try {
+    if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
+    fs.writeFileSync(path.join(uploadDir, filename), imageBuffer);
+    return NextResponse.json({ path: `/projects/${filename}` });
+  } catch {
+    // Vercel read-only filesystem — return the thum.io URL directly
+    return NextResponse.json({ path: thumbUrl });
+  }
 }
