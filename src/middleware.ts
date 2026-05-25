@@ -11,19 +11,18 @@ async function hash(value: string): Promise<string> {
     .join("");
 }
 
-export async function proxy(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (!pathname.startsWith("/admin")) return NextResponse.next();
   if (pathname === "/admin/login") return NextResponse.next();
 
   const token = request.cookies.get(SESSION_COOKIE)?.value;
-  const password = process.env.ADMIN_PASSWORD ?? "admin123";
+  const password = (process.env.ADMIN_PASSWORD ?? "admin123").trim();
   const expected = await hash(password);
 
   if (token !== expected) {
     const loginUrl = new URL("/admin/login", request.url);
-    loginUrl.searchParams.set("from", pathname);
     return NextResponse.redirect(loginUrl);
   }
 
