@@ -9,13 +9,24 @@ function hash(value: string) {
 }
 
 export async function POST(req: NextRequest) {
-  const { password } = (await req.json()) as { password?: string };
+  let password = "";
 
-  if (!password || password !== PASSWORD) {
-    return NextResponse.json({ error: "Invalid password" }, { status: 401 });
+  const ct = req.headers.get("content-type") ?? "";
+  if (ct.includes("application/json")) {
+    const body = (await req.json()) as { password?: string };
+    password = body.password ?? "";
+  } else {
+    const form = await req.formData();
+    password = (form.get("password") as string) ?? "";
   }
 
-  const res = NextResponse.json({ ok: true });
+  const origin = req.nextUrl.origin;
+
+  if (!password || password !== PASSWORD) {
+    return NextResponse.redirect(new URL("/admin/login?error=1", origin), { status: 303 });
+  }
+
+  const res = NextResponse.redirect(new URL("/admin", origin), { status: 303 });
   res.cookies.set(SESSION_COOKIE, hash(PASSWORD), {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",

@@ -1,37 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Terminal, Eye, EyeOff, Lock } from "lucide-react";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
-  const [isPending, setIsPending] = useState(false);
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setError("");
-    setIsPending(true);
-    const fd = new FormData(e.currentTarget);
-    const password = fd.get("password") as string;
-    try {
-      const res = await fetch("/api/admin/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password }),
-      });
-      if (!res.ok) {
-        const data = (await res.json()) as { error?: string };
-        setError(data.error ?? "Invalid password");
-      } else {
-        window.location.href = "/admin";
-      }
-    } catch {
-      setError("Something went wrong. Please try again.");
-    } finally {
-      setIsPending(false);
+  useEffect(() => {
+    if (window.location.search.includes("error=1")) {
+      setError("Invalid password");
     }
-  }
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#0d0e10] flex items-center justify-center px-4">
@@ -47,7 +27,11 @@ export default function LoginPage() {
           <p className="text-slate-400 text-sm mt-1">Enter your password to continue</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="glass-strong rounded-2xl p-6 space-y-4">
+        <form
+          action="/api/admin/login"
+          method="POST"
+          className="glass-strong rounded-2xl p-6 space-y-4"
+        >
           <div>
             <label className="block text-slate-400 text-xs mb-1.5">Password</label>
             <div className="relative">
@@ -60,27 +44,33 @@ export default function LoginPage() {
                 className="w-full pl-10 pr-10 py-3 rounded-xl bg-white/5 border border-white/8 text-slate-200 text-sm placeholder:text-slate-600 focus:outline-none focus:border-indigo-500/50 transition-all"
                 required
               />
-              <button type="button" onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white transition-colors">
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white transition-colors"
+              >
                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
             </div>
           </div>
 
           {error && (
-            <div className="px-3 py-2 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs">{error}</div>
+            <div className="px-3 py-2 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs">
+              {error}
+            </div>
           )}
 
-          <button type="submit" disabled={isPending}
-            className="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 text-white font-medium shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all disabled:opacity-60 flex items-center justify-center gap-2">
-            {isPending ? (
-              <><div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Verifying...</>
-            ) : "Sign In"}
+          <button
+            type="submit"
+            className="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 text-white font-medium shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all flex items-center justify-center gap-2"
+          >
+            Sign In
           </button>
         </form>
 
         <p className="text-center text-slate-600 text-xs mt-4">
-          Default password: <code className="text-slate-400">admin123</code> — change via <code className="text-slate-400">ADMIN_PASSWORD</code> env var
+          Default password: <code className="text-slate-400">admin123</code> — change via{" "}
+          <code className="text-slate-400">ADMIN_PASSWORD</code> env var
         </p>
       </div>
     </div>
