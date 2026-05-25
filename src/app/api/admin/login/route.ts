@@ -20,13 +20,11 @@ export async function POST(req: NextRequest) {
     password = (form.get("password") as string) ?? "";
   }
 
-  const origin = req.nextUrl.origin;
-
   if (!password || password !== PASSWORD) {
-    return NextResponse.redirect(new URL("/admin/login?error=1", origin), { status: 303 });
+    return NextResponse.json({ error: "Invalid password" }, { status: 401 });
   }
 
-  const res = NextResponse.redirect(new URL("/admin", origin), { status: 303 });
+  const res = NextResponse.json({ ok: true });
   res.cookies.set(SESSION_COOKIE, hash(PASSWORD), {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",

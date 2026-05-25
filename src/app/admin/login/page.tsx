@@ -1,17 +1,37 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Terminal, Eye, EyeOff, Lock } from "lucide-react";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const [isPending, setIsPending] = useState(false);
 
-  useEffect(() => {
-    if (window.location.search.includes("error=1")) {
-      setError("Invalid password");
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setError("");
+    setIsPending(true);
+    const fd = new FormData(e.currentTarget);
+    const password = fd.get("password") as string;
+    try {
+      const res = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+      if (!res.ok) {
+        const data = (await res.json()) as { error?: string };
+        setError(data.error ?? "Invalid password");
+      } else {
+        window.location.href = "/admin";
+      }
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setIsPending(false);
     }
-  }, []);
+  }
 
   return (
     <div className="min-h-screen bg-[#0d0e10] flex items-center justify-center px-4">
@@ -27,11 +47,7 @@ export default function LoginPage() {
           <p className="text-slate-400 text-sm mt-1">Enter your password to continue</p>
         </div>
 
-        <form
-          action="/api/admin/login"
-          method="POST"
-          className="glass-strong rounded-2xl p-6 space-y-4"
-        >
+        <form onSubmit={handleSubmit} className="glass-strong rounded-2xl p-6 space-y-4">
           <div>
             <label className="block text-slate-400 text-xs mb-1.5">Password</label>
             <div className="relative">
@@ -62,9 +78,12 @@ export default function LoginPage() {
 
           <button
             type="submit"
-            className="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 text-white font-medium shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all flex items-center justify-center gap-2"
+            disabled={isPending}
+            className="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 text-white font-medium shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all disabled:opacity-60 flex items-center justify-center gap-2"
           >
-            Sign In
+            {isPending ? (
+              <><div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Verifying...</>
+            ) : "Sign In"}
           </button>
         </form>
 

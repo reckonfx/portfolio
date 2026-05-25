@@ -30,7 +30,5 @@ export async function logout() {
 export async function isAuthenticated(): Promise<boolean> {
   const cookieStore = await cookies();
   const token = cookieStore.get(SESSION_COOKIE)?.value;
-  const expected = hash(PASSWORD);
-  console.log("[auth] cookie:", token?.slice(0, 8) ?? "MISSING", "| expected:", expected.slice(0, 8), "| match:", token === expected);
-  return token === expected;
+  return token === hash(PASSWORD);
 }
