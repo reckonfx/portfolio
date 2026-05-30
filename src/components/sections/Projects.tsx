@@ -116,44 +116,76 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
 
 function ProjectCard({ project, onClick }: { project: Project; onClick: () => void }) {
   const status = statusConfig[project.status] ?? statusConfig["Private"];
+  const hasMetrics = project.metrics && Object.keys(project.metrics).length > 0;
   return (
     <motion.div layout initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10 }} whileHover={{ y: -4 }} transition={{ duration: 0.3 }}
-      className="group glass rounded-2xl overflow-hidden cursor-pointer hover:border-indigo-500/30 transition-all duration-300"
+      exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }}
+      className="group glass rounded-2xl overflow-hidden cursor-pointer border border-white/6 hover:border-indigo-500/25 hover:shadow-[0_0_40px_rgba(99,102,241,0.08)] transition-all duration-350"
       onClick={onClick}>
-      <div className="h-40 relative overflow-hidden">
-        <ProjectMediaBanner project={project} className="h-full w-full absolute inset-0" />
+
+      {/* Image banner with overlay reveal on hover */}
+      <div className="h-44 relative overflow-hidden">
+        <ProjectMediaBanner project={project} className="h-full w-full absolute inset-0 group-hover:scale-[1.04] transition-transform duration-500" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#141517]/90 via-[#141517]/20 to-transparent" />
+
+        {/* Hover overlay: metrics or "View Case Study" */}
+        <div className="absolute inset-0 bg-indigo-950/80 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          {hasMetrics ? (
+            <div className="flex gap-4">
+              {Object.entries(project.metrics!).slice(0, 3).map(([key, val]) => (
+                <div key={key} className="text-center">
+                  <div className="text-xl font-bold text-white">{val}</div>
+                  <div className="text-[10px] text-indigo-300 capitalize">{key}</div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="flex items-center gap-2 text-white font-semibold text-sm">
+              View Case Study <ChevronRight className="w-4 h-4" />
+            </div>
+          )}
+        </div>
+
+        {/* Badges */}
         {project.featured && (
-          <div className="absolute top-3 left-3 flex items-center gap-1 px-2 py-0.5 rounded-md bg-amber-500/20 border border-amber-500/30 text-amber-400 text-xs font-medium">
-            <Star className="w-3 h-3 fill-amber-400" />Featured
+          <div className="absolute top-3 left-3 flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-400 text-xs font-medium">
+            <Star className="w-3 h-3 fill-amber-400" /> Featured
           </div>
         )}
-        <div className={cn("absolute top-3 right-3 px-2 py-0.5 rounded-md text-xs font-medium border", status.color)}>{status.label}</div>
+        <div className={cn("absolute top-3 right-3 px-2.5 py-1 rounded-full text-xs font-medium border", status.color)}>
+          {status.label}
+        </div>
       </div>
+
       <div className="p-5">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-xs text-indigo-400 font-medium">{project.category}</span>
+        <div className="flex items-center justify-between mb-2.5">
+          <span className="text-xs text-indigo-400 font-semibold tracking-wide uppercase">{project.category}</span>
           <span className="text-xs text-slate-600">{formatDate(project.date)}</span>
         </div>
-        <h3 className="text-white font-semibold mb-2 line-clamp-1 group-hover:text-indigo-300 transition-colors">{project.title}</h3>
+        <h3 className="text-white font-semibold text-[15px] mb-2 line-clamp-1 group-hover:text-indigo-300 transition-colors duration-200">
+          {project.title}
+        </h3>
         <p className="text-slate-400 text-sm leading-relaxed line-clamp-2 mb-4">{project.description}</p>
+
+        {/* Tech stack */}
         <div className="flex flex-wrap gap-1.5 mb-4">
           {project.tech.slice(0, 4).map((t) => (
-            <span key={t} className="px-2 py-0.5 rounded-md bg-white/5 border border-white/8 text-slate-400 text-xs">{t}</span>
+            <span key={t} className="px-2 py-0.5 rounded-lg bg-indigo-500/8 border border-indigo-500/15 text-indigo-300/80 text-xs">{t}</span>
           ))}
           {project.tech.length > 4 && <span className="px-2 py-0.5 text-xs text-slate-500">+{project.tech.length - 4}</span>}
         </div>
+
         <div className="flex items-center justify-between pt-4 border-t border-white/5">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             {project.github && (
               <a href={project.github} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}
-                className="p-1.5 rounded-lg text-slate-500 hover:text-white hover:bg-white/5 transition-colors">
+                className="p-1.5 rounded-lg text-slate-500 hover:text-white hover:bg-white/6 transition-colors">
                 <GithubIcon className="w-3.5 h-3.5" />
               </a>
             )}
             {project.demo && (
               <a href={project.demo} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}
-                className="p-1.5 rounded-lg text-slate-500 hover:text-white hover:bg-white/5 transition-colors">
+                className="p-1.5 rounded-lg text-slate-500 hover:text-white hover:bg-white/6 transition-colors">
                 <ExternalLink className="w-3.5 h-3.5" />
               </a>
             )}
@@ -161,9 +193,9 @@ function ProjectCard({ project, onClick }: { project: Project; onClick: () => vo
               <span className="flex items-center gap-1 text-slate-600 text-xs"><Lock className="w-3 h-3" /> Private</span>
             )}
           </div>
-          <div className="flex items-center gap-1 text-indigo-400 text-xs font-medium">
-            View Details
-            <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+          <div className="flex items-center gap-1 text-indigo-400 text-xs font-semibold">
+            View Case Study
+            <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" />
           </div>
         </div>
       </div>
@@ -191,8 +223,8 @@ export function Projects({ data }: { data: Project[] }) {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-indigo-500/20 to-transparent" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeader badge="Projects" title="Things I've " highlight="Built"
-          description="A showcase of products, tools, and experiments I've crafted over the years." />
+        <SectionHeader badge="Real Impact" title="Real Solutions. " highlight="Real Impact."
+          description="Products, platforms, and tools built to solve real business problems — from idea to deployed product." />
 
         <div className="flex flex-col sm:flex-row gap-4 mb-8">
           <div className="relative flex-1 max-w-xs">

@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import Image from "next/image";
-import { Mail, ArrowDown, ExternalLink, MapPin, Circle } from "lucide-react";
+import { Mail, ArrowDown, MapPin, Circle, Briefcase } from "lucide-react";
 import { GithubIcon, LinkedinIcon, TwitterIcon } from "@/components/ui/SocialIcons";
 import { ResumeModal } from "@/components/ResumeModal";
 import type { PersonalInfo } from "@/lib/types";
@@ -87,7 +87,6 @@ function Particles() {
   return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />;
 }
 
-
 export function Hero({ data }: { data: PersonalInfo }) {
   const socialLinks = [
     { icon: GithubIcon, href: data.social.github, label: "GitHub" },
@@ -98,133 +97,150 @@ export function Hero({ data }: { data: PersonalInfo }) {
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 grid-bg opacity-50" />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0d0e10]/50 to-[#0d0e10]" />
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute top-1/2 left-1/4 w-[300px] h-[300px] bg-violet-600/8 rounded-full blur-[80px] pointer-events-none" />
+      {/* Background */}
+      <div className="absolute inset-0 grid-bg opacity-40" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0d0e10]/60 to-[#0d0e10]" />
+
+      {/* Ambient glows */}
+      <div className="absolute top-1/4 left-1/3 w-[700px] h-[700px] bg-indigo-600/8 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-violet-600/10 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] bg-indigo-500/6 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="absolute inset-0">
         <Particles />
       </div>
 
+      {/* Main hero content */}
+      <div className="relative z-10 w-full max-w-6xl xl:max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 pt-28 pb-12 flex flex-col lg:flex-row items-center gap-12 lg:gap-16 xl:gap-20">
 
-      <div className="relative z-10 w-full max-w-6xl xl:max-w-7xl 2xl:max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 pt-24 pb-16 flex flex-col lg:flex-row items-center gap-12 lg:gap-16 xl:gap-24 2xl:gap-32">
-        <div className="flex-1 text-center lg:text-left">
+        {/* ── Left: Text ── */}
+        <div className="flex-1 text-center lg:text-left min-w-0">
+
+          {/* Availability pill */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 mb-6 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium"
+            className="inline-flex items-center gap-2 mb-6 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium tracking-wide"
           >
             <Circle className="w-2 h-2 fill-emerald-400 animate-pulse" />
             {data.availability}
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
+          {/* Business value headline */}
+          <motion.h1
+            initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 0.65, delay: 0.1 }}
+            className="text-[2.6rem] sm:text-5xl lg:text-6xl xl:text-[4rem] font-bold text-white tracking-tight leading-[1.1] mb-5"
           >
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-none mb-2">
-              {data.name.split(" ")[0]}
-            </h1>
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-none mb-6 gradient-text">
-              {data.name.split(" ").slice(1).join(" ")}
-            </h1>
-          </motion.div>
+            {data.bio}
+          </motion.h1>
 
+          {/* Typing specialization */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="h-8 mb-6"
+            className="h-8 mb-5"
           >
             <TypeAnimation
-              sequence={data.taglines.flatMap((t) => [t, 2000])}
+              sequence={data.taglines.flatMap((t) => [t, 2200])}
               wrapper="span"
               speed={50}
               repeat={Infinity}
-              className="text-lg sm:text-xl text-indigo-400 font-medium"
+              className="text-base sm:text-lg text-indigo-400 font-medium"
             />
           </motion.div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="text-slate-400 text-base sm:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0 mb-8"
-          >
-            {data.bio}
-          </motion.p>
-
+          {/* Name + location row */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="flex items-center gap-1.5 text-slate-500 text-sm mb-8 justify-center lg:justify-start"
+            transition={{ delay: 0.4 }}
+            className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-slate-500 mb-8 justify-center lg:justify-start"
           >
-            <MapPin className="w-3.5 h-3.5" />
-            {data.location}
+            <span className="font-semibold text-slate-300">{data.name}</span>
+            <span className="hidden sm:inline w-px h-3.5 bg-white/15" />
+            <span className="flex items-center gap-1.5">
+              <MapPin className="w-3.5 h-3.5" />
+              {data.location}
+            </span>
           </motion.div>
 
+          {/* CTA buttons */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
             className="flex flex-wrap items-center gap-3 justify-center lg:justify-start mb-10"
           >
-            <a href="#projects" className="px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 text-white font-medium shadow-xl shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all flex items-center gap-2">
-              <ExternalLink className="w-4 h-4" />
-              View Projects
+            <a
+              href="#contact"
+              className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 text-white text-sm font-semibold shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
+            >
+              <Briefcase className="w-4 h-4" />
+              Start a Project
             </a>
-            <a href="#contact" className="px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition-all flex items-center gap-2">
-              <Mail className="w-4 h-4" />
-              Contact Me
+            <a
+              href="#projects"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm font-semibold hover:bg-white/10 hover:border-white/20 active:scale-[0.98] transition-all duration-200"
+            >
+              View My Work
             </a>
             <ResumeModal />
           </motion.div>
 
+          {/* Social icons */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
-            className="flex items-center gap-3 justify-center lg:justify-start"
+            transition={{ delay: 0.65 }}
+            className="flex items-center gap-2.5 justify-center lg:justify-start"
           >
             {socialLinks.map(({ icon: Icon, href, label }) => (
-              <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
-                className="p-2.5 rounded-xl bg-white/5 border border-white/8 text-slate-400 hover:text-white hover:bg-white/10 hover:border-white/15 transition-all">
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="p-2.5 rounded-xl bg-white/4 border border-white/8 text-slate-400 hover:text-white hover:bg-white/10 hover:border-white/15 transition-all duration-200"
+              >
                 <Icon className="w-4 h-4" />
               </a>
             ))}
           </motion.div>
         </div>
 
+        {/* ── Right: Photo ── */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9, x: 40 }}
+          initial={{ opacity: 0, scale: 0.92, x: 40 }}
           animate={{ opacity: 1, scale: 1, x: 0 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
+          transition={{ duration: 0.75, delay: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="relative flex-shrink-0"
         >
-          {/* Soft glow behind the photo */}
-          <div className="absolute -inset-8 bg-gradient-to-br from-indigo-500/25 to-violet-600/25 rounded-full blur-3xl" />
+          {/* Wide ambient glow behind photo */}
+          <div className="absolute -inset-16 bg-gradient-to-br from-indigo-600/20 via-violet-600/15 to-transparent rounded-full blur-3xl" />
+          <div className="absolute -inset-8 bg-gradient-to-tr from-violet-500/15 to-indigo-500/20 rounded-full blur-2xl" />
 
           {/* Outer pulsing ring */}
           <motion.div
-            animate={{ scale: [1, 1.16, 1], opacity: [0.55, 0, 0.55] }}
-            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -inset-5 rounded-full border-2 border-indigo-500/50"
+            animate={{ scale: [1, 1.14, 1], opacity: [0.5, 0, 0.5] }}
+            transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -inset-5 rounded-full border border-indigo-500/40"
           />
 
-          {/* Inner pulsing ring (offset phase) */}
+          {/* Inner pulsing ring */}
           <motion.div
-            animate={{ scale: [1, 1.09, 1], opacity: [0.7, 0.1, 0.7] }}
-            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 0.9 }}
-            className="absolute -inset-2 rounded-full border border-violet-400/45"
+            animate={{ scale: [1, 1.08, 1], opacity: [0.65, 0.05, 0.65] }}
+            transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            className="absolute -inset-2 rounded-full border border-violet-400/35"
           />
 
-          {/* Gradient border ring */}
-          <div className="relative p-[3px] rounded-full bg-gradient-to-br from-indigo-500 via-purple-500 to-violet-600 shadow-[0_0_45px_rgba(99,102,241,0.45)]">
-            <div className="w-64 h-64 sm:w-72 sm:h-72 rounded-full overflow-hidden bg-gradient-to-br from-indigo-900 to-violet-900 relative">
+          {/* Gradient border */}
+          <div className="relative p-[3px] rounded-full bg-gradient-to-br from-indigo-500 via-purple-500 to-violet-600 shadow-[0_0_55px_rgba(99,102,241,0.4)]">
+            <div className="w-60 h-60 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden bg-gradient-to-br from-indigo-900 to-violet-900 relative">
               <Image
                 src={data.avatar}
                 alt={data.name}
@@ -235,46 +251,60 @@ export function Hero({ data }: { data: PersonalInfo }) {
             </div>
           </div>
 
-          {/* Floating stat badges */}
+          {/* Floating stat badge — top right */}
           <motion.div
-            animate={{ y: [0, -6, 0] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -top-2 -right-6 glass-strong rounded-xl px-3 py-2 shadow-xl z-10"
+            animate={{ y: [0, -7, 0] }}
+            transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -top-2 -right-4 sm:-right-8 glass-strong rounded-2xl px-3.5 py-2.5 shadow-xl z-10 border border-white/8"
           >
-            <div className="text-xs text-slate-400">GitHub Stars</div>
-            <div className="text-lg font-bold text-white">{data.stats[3]?.value}{data.stats[3]?.suffix} ⭐</div>
+            <div className="text-[10px] text-slate-400 mb-0.5">{data.stats[3]?.label ?? "GitHub Stars"}</div>
+            <div className="text-lg font-bold text-white leading-none">{data.stats[3]?.value}{data.stats[3]?.suffix} ⭐</div>
           </motion.div>
+
+          {/* Floating stat badge — bottom left */}
           <motion.div
-            animate={{ y: [0, 6, 0] }}
-            transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-            className="absolute -bottom-2 -left-6 glass-strong rounded-xl px-3 py-2 shadow-xl z-10"
+            animate={{ y: [0, 7, 0] }}
+            transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
+            className="absolute -bottom-2 -left-4 sm:-left-8 glass-strong rounded-2xl px-3.5 py-2.5 shadow-xl z-10 border border-white/8"
           >
-            <div className="text-xs text-slate-400">Projects</div>
-            <div className="text-lg font-bold text-white">{data.stats[1]?.value}{data.stats[1]?.suffix} 🚀</div>
+            <div className="text-[10px] text-slate-400 mb-0.5">{data.stats[1]?.label ?? "Projects"}</div>
+            <div className="text-lg font-bold text-white leading-none">{data.stats[1]?.value}{data.stats[1]?.suffix} 🚀</div>
           </motion.div>
         </motion.div>
       </div>
 
+      {/* ── Stats bar ── */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.8 }}
-        className="relative z-10 w-full max-w-4xl xl:max-w-5xl 2xl:max-w-6xl mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 mb-8"
+        transition={{ duration: 0.6, delay: 0.85 }}
+        className="relative z-10 w-full max-w-3xl xl:max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 mb-10"
       >
-        <div className="glass rounded-2xl px-8 py-5 grid grid-cols-2 md:grid-cols-4 gap-6">
-          {data.stats.map((stat, i) => (
-            <div key={i} className="text-center">
-              <div className="text-2xl sm:text-3xl font-bold gradient-text">{stat.value}{stat.suffix}</div>
-              <div className="text-slate-500 text-xs mt-1">{stat.label}</div>
-            </div>
-          ))}
+        <div className="relative rounded-2xl overflow-hidden border border-white/6">
+          <div className="absolute inset-0 bg-white/[0.025] backdrop-blur-sm" />
+          <div className="relative flex divide-x divide-white/6">
+            {data.stats.map((stat, i) => (
+              <div key={i} className="flex-1 py-5 px-4 text-center group">
+                <div className="text-2xl sm:text-3xl font-bold gradient-text mb-1 group-hover:scale-105 transition-transform duration-200">
+                  {stat.value}{stat.suffix}
+                </div>
+                <div className="text-slate-500 text-[11px] sm:text-xs tracking-wide leading-tight">{stat.label}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </motion.div>
 
-      <motion.a href="#about" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2 }}
-        className="relative z-10 flex flex-col items-center gap-2 text-slate-600 hover:text-slate-400 transition-colors">
-        <span className="text-xs tracking-widest uppercase">Scroll</span>
-        <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
+      {/* Scroll indicator */}
+      <motion.a
+        href="#about"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.3 }}
+        className="relative z-10 flex flex-col items-center gap-2 text-slate-600 hover:text-slate-400 transition-colors pb-6"
+      >
+        <span className="text-[10px] tracking-widest uppercase">Scroll</span>
+        <motion.div animate={{ y: [0, 5, 0] }} transition={{ duration: 1.6, repeat: Infinity }}>
           <ArrowDown className="w-4 h-4" />
         </motion.div>
       </motion.a>
