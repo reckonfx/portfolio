@@ -1585,10 +1585,18 @@ export function CVPreview({ data, format }: { data: PortfolioData; format: strin
       {/* Instruction bar — hidden when printing */}
       <div className="print:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 py-3 text-sm"
         style={{ background: "#0d1117", borderBottom: "1px solid rgba(255,255,255,0.1)", color: "#fff" }}>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => { if (window.history.length > 1) window.history.back(); else window.close(); }}
+            className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-sm transition-colors"
+            style={{ background: "#1f2937", color: "#9ca3af" }}
+            title="Back"
+          >
+            ← <span className="hidden sm:inline">Back</span>
+          </button>
           <span className="font-semibold text-indigo-400">{FORMAT_NAMES[format] ?? "CV"} Preview</span>
           <span className="text-slate-400 text-xs hidden md:block">
-            Click <strong>⬇ Download PDF</strong> for a full-color PDF · or use <strong>Print</strong> with Background graphics enabled
+            Click <strong>⬇ Download PDF</strong> for a full-color PDF
           </span>
         </div>
         <div className="flex gap-2">

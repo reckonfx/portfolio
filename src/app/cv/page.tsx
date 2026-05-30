@@ -463,17 +463,17 @@ export default function CVBuilderPage() {
         {stepContent[step]}
       </div>
 
-      {/* Navigation */}
-      {!isLast && (
-        <div className="fixed bottom-0 left-0 right-0 z-20 bg-[#0d1117]/95 backdrop-blur border-t border-white/[0.06]">
-          <div className="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
-            {!isFirst ? (
-              <button type="button" onClick={() => setStep(s => s - 1)}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-white/10 text-slate-400 hover:text-white hover:border-white/20 transition-colors text-sm">
-                <ChevronLeft className="w-4 h-4" /> Back
-              </button>
-            ) : <div />}
+      {/* Navigation — always visible */}
+      <div className="fixed bottom-0 left-0 right-0 z-20 bg-[#0d1117]/95 backdrop-blur border-t border-white/[0.06]">
+        <div className="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+          {!isFirst ? (
+            <button type="button" onClick={() => setStep(s => s - 1)}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-white/10 text-slate-400 hover:text-white hover:border-white/20 transition-colors text-sm">
+              <ChevronLeft className="w-4 h-4" /> Back
+            </button>
+          ) : <div />}
 
+          {!isLast && (
             <div className="flex items-center gap-3">
               {(step === 4 || step === 5) && (
                 <button type="button" onClick={() => setStep(s => s + 1)}
@@ -488,8 +488,9 @@ export default function CVBuilderPage() {
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>
-          </div>
+          )}
         </div>
+      </div>
       )}
     </div>
   );
