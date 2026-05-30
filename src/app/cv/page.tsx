@@ -40,7 +40,8 @@ const CV_FORMATS = [
 
 // ─── Styling helpers ───────────────────────────────────────────────────────────
 
-const inp = "w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2.5 text-slate-100 text-sm placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:bg-slate-700/80 transition-colors cursor-text";
+const inp = "w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2.5 text-sm placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:bg-slate-700/80 transition-colors cursor-text";
+const inpStyle = { color: "#e2e8f0", caretColor: "#e2e8f0" };
 const lbl = "block text-slate-300 text-xs font-medium mb-1.5";
 const ta  = inp + " resize-none";
 const card = "bg-slate-900 border border-slate-800 rounded-xl p-5";
@@ -193,17 +194,17 @@ export default function CVBuilderPage() {
       <div className={card}>
         <h3 className="text-white font-semibold mb-4">Basic Information</h3>
         <div className="grid sm:grid-cols-2 gap-4">
-          <Field label="Full Name *"><input className={inp} value={personal.name} onChange={e => sp("name")(e.target.value)} placeholder="John Smith" /></Field>
-          <Field label="Job Title / Profession *"><input className={inp} value={personal.title} onChange={e => sp("title")(e.target.value)} placeholder="Software Engineer" /></Field>
-          <Field label="Email *"><input className={inp} type="email" value={personal.email} onChange={e => sp("email")(e.target.value)} placeholder="john@example.com" /></Field>
-          <Field label="Phone *"><input className={inp} value={personal.phone} onChange={e => sp("phone")(e.target.value)} placeholder="+971 50 123 4567" /></Field>
-          <Field label="Location *"><input className={inp} value={personal.location} onChange={e => sp("location")(e.target.value)} placeholder="Dubai, UAE" /></Field>
-          <Field label="Website"><input className={inp} value={personal.website} onChange={e => sp("website")(e.target.value)} placeholder="https://yoursite.com" /></Field>
-          <Field label="LinkedIn"><input className={inp} value={personal.linkedin} onChange={e => sp("linkedin")(e.target.value)} placeholder="linkedin.com/in/yourname" /></Field>
-          <Field label="GitHub"><input className={inp} value={personal.github} onChange={e => sp("github")(e.target.value)} placeholder="github.com/yourname" /></Field>
+          <Field label="Full Name *"><input className={inp} style={inpStyle} value={personal.name} onChange={e => sp("name")(e.target.value)} placeholder="John Smith" /></Field>
+          <Field label="Job Title / Profession *"><input className={inp} style={inpStyle} value={personal.title} onChange={e => sp("title")(e.target.value)} placeholder="Software Engineer" /></Field>
+          <Field label="Email *"><input className={inp} style={inpStyle} type="email" value={personal.email} onChange={e => sp("email")(e.target.value)} placeholder="john@example.com" /></Field>
+          <Field label="Phone *"><input className={inp} style={inpStyle} value={personal.phone} onChange={e => sp("phone")(e.target.value)} placeholder="+971 50 123 4567" /></Field>
+          <Field label="Location *"><input className={inp} style={inpStyle} value={personal.location} onChange={e => sp("location")(e.target.value)} placeholder="Dubai, UAE" /></Field>
+          <Field label="Website"><input className={inp} style={inpStyle} value={personal.website} onChange={e => sp("website")(e.target.value)} placeholder="https://yoursite.com" /></Field>
+          <Field label="LinkedIn"><input className={inp} style={inpStyle} value={personal.linkedin} onChange={e => sp("linkedin")(e.target.value)} placeholder="linkedin.com/in/yourname" /></Field>
+          <Field label="GitHub"><input className={inp} style={inpStyle} value={personal.github} onChange={e => sp("github")(e.target.value)} placeholder="github.com/yourname" /></Field>
         </div>
         <Field label="Professional Summary *" className="mt-4">
-          <textarea className={ta} rows={4} value={personal.bio} onChange={e => sp("bio")(e.target.value)}
+          <textarea className={ta} style={inpStyle} rows={4} value={personal.bio} onChange={e => sp("bio")(e.target.value)}
             placeholder="Write a 2-4 sentence professional summary describing your background, key skills, and what you bring to the table..." />
         </Field>
       </div>
@@ -217,12 +218,12 @@ export default function CVBuilderPage() {
         </button>
         {showRegional && (
           <div className="grid sm:grid-cols-2 gap-4 mt-4">
-            <Field label="Nationality"><input className={inp} value={personal.nationality} onChange={e => sp("nationality")(e.target.value)} placeholder="Pakistani" /></Field>
-            <Field label="Date of Birth"><input className={inp} value={personal.dateOfBirth} onChange={e => sp("dateOfBirth")(e.target.value)} placeholder="15 March 1990" /></Field>
-            <Field label="Place of Birth"><input className={inp} value={personal.placeOfBirth} onChange={e => sp("placeOfBirth")(e.target.value)} placeholder="Karachi, Pakistan" /></Field>
-            <Field label="Religion"><input className={inp} value={personal.religion} onChange={e => sp("religion")(e.target.value)} placeholder="Islam" /></Field>
-            <Field label="Marital Status"><input className={inp} value={personal.maritalStatus} onChange={e => sp("maritalStatus")(e.target.value)} placeholder="Married" /></Field>
-            <Field label="CNIC / National ID"><input className={inp} value={personal.cnic} onChange={e => sp("cnic")(e.target.value)} placeholder="42101-1234567-8" /></Field>
+            <Field label="Nationality"><input className={inp} style={inpStyle} value={personal.nationality} onChange={e => sp("nationality")(e.target.value)} placeholder="Pakistani" /></Field>
+            <Field label="Date of Birth"><input className={inp} style={inpStyle} value={personal.dateOfBirth} onChange={e => sp("dateOfBirth")(e.target.value)} placeholder="15 March 1990" /></Field>
+            <Field label="Place of Birth"><input className={inp} style={inpStyle} value={personal.placeOfBirth} onChange={e => sp("placeOfBirth")(e.target.value)} placeholder="Karachi, Pakistan" /></Field>
+            <Field label="Religion"><input className={inp} style={inpStyle} value={personal.religion} onChange={e => sp("religion")(e.target.value)} placeholder="Islam" /></Field>
+            <Field label="Marital Status"><input className={inp} style={inpStyle} value={personal.maritalStatus} onChange={e => sp("maritalStatus")(e.target.value)} placeholder="Married" /></Field>
+            <Field label="CNIC / National ID"><input className={inp} style={inpStyle} value={personal.cnic} onChange={e => sp("cnic")(e.target.value)} placeholder="42101-1234567-8" /></Field>
           </div>
         )}
       </div>
@@ -248,17 +249,17 @@ export default function CVBuilderPage() {
             </div>
           </div>
           <div className="grid sm:grid-cols-2 gap-4">
-            <Field label="Job Title *"><input className={inp} value={e.title} onChange={ev => setWork(w => w.map((x, j) => j === i ? { ...x, title: ev.target.value } : x))} placeholder="Senior Developer" /></Field>
-            <Field label="Company / Organization"><input className={inp} value={e.company} onChange={ev => setWork(w => w.map((x, j) => j === i ? { ...x, company: ev.target.value } : x))} placeholder="Acme Corp" /></Field>
-            <Field label="Period" className="sm:col-span-2"><input className={inp} value={e.period} onChange={ev => setWork(w => w.map((x, j) => j === i ? { ...x, period: ev.target.value } : x))} placeholder="Jan 2021 – Present" /></Field>
+            <Field label="Job Title *"><input className={inp} style={inpStyle} value={e.title} onChange={ev => setWork(w => w.map((x, j) => j === i ? { ...x, title: ev.target.value } : x))} placeholder="Senior Developer" /></Field>
+            <Field label="Company / Organization"><input className={inp} style={inpStyle} value={e.company} onChange={ev => setWork(w => w.map((x, j) => j === i ? { ...x, company: ev.target.value } : x))} placeholder="Acme Corp" /></Field>
+            <Field label="Period" className="sm:col-span-2"><input className={inp} style={inpStyle} value={e.period} onChange={ev => setWork(w => w.map((x, j) => j === i ? { ...x, period: ev.target.value } : x))} placeholder="Jan 2021 – Present" /></Field>
           </div>
           <Field label="Description / Responsibilities" className="mt-4">
-            <textarea className={ta} rows={3} value={e.description}
+            <textarea className={ta} style={inpStyle} rows={3} value={e.description}
               onChange={ev => setWork(w => w.map((x, j) => j === i ? { ...x, description: ev.target.value } : x))}
               placeholder="Describe your key responsibilities and achievements. Include numbers where possible (e.g. Led team of 5, increased performance by 40%)." />
           </Field>
           <Field label="Technologies Used (comma-separated)" className="mt-4">
-            <input className={inp} value={e.tech} onChange={ev => setWork(w => w.map((x, j) => j === i ? { ...x, tech: ev.target.value } : x))} placeholder="React, Node.js, PostgreSQL, Docker" />
+            <input className={inp} style={inpStyle} value={e.tech} onChange={ev => setWork(w => w.map((x, j) => j === i ? { ...x, tech: ev.target.value } : x))} placeholder="React, Node.js, PostgreSQL, Docker" />
           </Field>
         </div>
       ))}
@@ -274,12 +275,12 @@ export default function CVBuilderPage() {
             {edu.length > 1 && <DelBtn onClick={() => setEdu(d => d.filter((_, j) => j !== i))} />}
           </div>
           <div className="grid sm:grid-cols-2 gap-4">
-            <Field label="Degree / Qualification *"><input className={inp} value={e.degree} onChange={ev => setEdu(d => d.map((x, j) => j === i ? { ...x, degree: ev.target.value } : x))} placeholder="BSc Computer Science" /></Field>
-            <Field label="Institution *"><input className={inp} value={e.institution} onChange={ev => setEdu(d => d.map((x, j) => j === i ? { ...x, institution: ev.target.value } : x))} placeholder="University of London" /></Field>
-            <Field label="Period" className="sm:col-span-2"><input className={inp} value={e.period} onChange={ev => setEdu(d => d.map((x, j) => j === i ? { ...x, period: ev.target.value } : x))} placeholder="2016 – 2020" /></Field>
+            <Field label="Degree / Qualification *"><input className={inp} style={inpStyle} value={e.degree} onChange={ev => setEdu(d => d.map((x, j) => j === i ? { ...x, degree: ev.target.value } : x))} placeholder="BSc Computer Science" /></Field>
+            <Field label="Institution *"><input className={inp} style={inpStyle} value={e.institution} onChange={ev => setEdu(d => d.map((x, j) => j === i ? { ...x, institution: ev.target.value } : x))} placeholder="University of London" /></Field>
+            <Field label="Period" className="sm:col-span-2"><input className={inp} style={inpStyle} value={e.period} onChange={ev => setEdu(d => d.map((x, j) => j === i ? { ...x, period: ev.target.value } : x))} placeholder="2016 – 2020" /></Field>
           </div>
           <Field label="Description / Achievements" className="mt-4">
-            <textarea className={ta} rows={2} value={e.description}
+            <textarea className={ta} style={inpStyle} rows={2} value={e.description}
               onChange={ev => setEdu(d => d.map((x, j) => j === i ? { ...x, description: ev.target.value } : x))}
               placeholder="Graduated with honours. Thesis on machine learning. CGPA: 3.8/4.0" />
           </Field>
@@ -299,10 +300,10 @@ export default function CVBuilderPage() {
           </div>
           <div className="grid sm:grid-cols-3 gap-4">
             <Field label="Category Name *">
-              <input className={inp} value={s.category} onChange={ev => setSkills(sk => sk.map((x, j) => j === i ? { ...x, category: ev.target.value } : x))} placeholder="Frontend" />
+              <input className={inp} style={inpStyle} value={s.category} onChange={ev => setSkills(sk => sk.map((x, j) => j === i ? { ...x, category: ev.target.value } : x))} placeholder="Frontend" />
             </Field>
             <Field label="Skills (comma-separated) *" className="sm:col-span-2">
-              <input className={inp} value={s.items} onChange={ev => setSkills(sk => sk.map((x, j) => j === i ? { ...x, items: ev.target.value } : x))} placeholder="React, TypeScript, Next.js, Tailwind CSS" />
+              <input className={inp} style={inpStyle} value={s.items} onChange={ev => setSkills(sk => sk.map((x, j) => j === i ? { ...x, items: ev.target.value } : x))} placeholder="React, TypeScript, Next.js, Tailwind CSS" />
             </Field>
           </div>
         </div>
@@ -326,16 +327,16 @@ export default function CVBuilderPage() {
             <DelBtn onClick={() => setProjects(pr => pr.filter((_, j) => j !== i))} />
           </div>
           <div className="grid sm:grid-cols-2 gap-4">
-            <Field label="Project Name *"><input className={inp} value={p.title} onChange={ev => setProjects(pr => pr.map((x, j) => j === i ? { ...x, title: ev.target.value } : x))} placeholder="My SaaS App" /></Field>
-            <Field label="URL / Link"><input className={inp} value={p.url} onChange={ev => setProjects(pr => pr.map((x, j) => j === i ? { ...x, url: ev.target.value } : x))} placeholder="https://myapp.com" /></Field>
+            <Field label="Project Name *"><input className={inp} style={inpStyle} value={p.title} onChange={ev => setProjects(pr => pr.map((x, j) => j === i ? { ...x, title: ev.target.value } : x))} placeholder="My SaaS App" /></Field>
+            <Field label="URL / Link"><input className={inp} style={inpStyle} value={p.url} onChange={ev => setProjects(pr => pr.map((x, j) => j === i ? { ...x, url: ev.target.value } : x))} placeholder="https://myapp.com" /></Field>
           </div>
           <Field label="Description" className="mt-4">
-            <textarea className={ta} rows={2} value={p.description}
+            <textarea className={ta} style={inpStyle} rows={2} value={p.description}
               onChange={ev => setProjects(pr => pr.map((x, j) => j === i ? { ...x, description: ev.target.value } : x))}
               placeholder="Brief description of what the project does and your role." />
           </Field>
           <Field label="Technologies (comma-separated)" className="mt-4">
-            <input className={inp} value={p.tech} onChange={ev => setProjects(pr => pr.map((x, j) => j === i ? { ...x, tech: ev.target.value } : x))} placeholder="Next.js, Stripe, Supabase" />
+            <input className={inp} style={inpStyle} value={p.tech} onChange={ev => setProjects(pr => pr.map((x, j) => j === i ? { ...x, tech: ev.target.value } : x))} placeholder="Next.js, Stripe, Supabase" />
           </Field>
         </div>
       ))}
@@ -360,9 +361,9 @@ export default function CVBuilderPage() {
             <DelBtn onClick={() => setCerts(cs => cs.filter((_, j) => j !== i))} />
           </div>
           <div className="grid sm:grid-cols-3 gap-4">
-            <Field label="Certificate Name *" className="sm:col-span-2"><input className={inp} value={c.name} onChange={ev => setCerts(cs => cs.map((x, j) => j === i ? { ...x, name: ev.target.value } : x))} placeholder="AWS Solutions Architect" /></Field>
-            <Field label="Year"><input className={inp} value={c.year} onChange={ev => setCerts(cs => cs.map((x, j) => j === i ? { ...x, year: ev.target.value } : x))} placeholder="2024" /></Field>
-            <Field label="Issuer" className="sm:col-span-3"><input className={inp} value={c.issuer} onChange={ev => setCerts(cs => cs.map((x, j) => j === i ? { ...x, issuer: ev.target.value } : x))} placeholder="Amazon Web Services" /></Field>
+            <Field label="Certificate Name *" className="sm:col-span-2"><input className={inp} style={inpStyle} value={c.name} onChange={ev => setCerts(cs => cs.map((x, j) => j === i ? { ...x, name: ev.target.value } : x))} placeholder="AWS Solutions Architect" /></Field>
+            <Field label="Year"><input className={inp} style={inpStyle} value={c.year} onChange={ev => setCerts(cs => cs.map((x, j) => j === i ? { ...x, year: ev.target.value } : x))} placeholder="2024" /></Field>
+            <Field label="Issuer" className="sm:col-span-3"><input className={inp} style={inpStyle} value={c.issuer} onChange={ev => setCerts(cs => cs.map((x, j) => j === i ? { ...x, issuer: ev.target.value } : x))} placeholder="Amazon Web Services" /></Field>
           </div>
         </div>
       ))}
@@ -401,7 +402,7 @@ export default function CVBuilderPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0b0e] text-white">
+    <div className="min-h-screen bg-[#0a0b0e] text-white" style={{ colorScheme: "dark" }}>
       {/* Header */}
       <div className="border-b border-white/[0.06] bg-[#0d1117]/80 backdrop-blur sticky top-0 z-10">
         <div className="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between">
