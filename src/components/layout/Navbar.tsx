@@ -12,7 +12,6 @@ const navLinks = [
   { label: "Stack", href: "#stack" },
   { label: "Projects", href: "#projects" },
   { label: "Services", href: "#services" },
-  { label: "Testimonials", href: "#testimonials" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -102,13 +101,17 @@ export function Navbar({ name, resume: _resume }: NavbarProps) {
             ))}
           </ul>
 
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-2">
             <ThemeToggle />
+            <a href="/cv"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-slate-400 text-sm font-medium hover:text-white hover:bg-white/5 border border-transparent hover:border-white/8 transition-all">
+              CV Builder
+            </a>
             <button onClick={openModal}
               className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-sm font-medium hover:bg-indigo-500/20 hover:border-indigo-400/50 transition-all">
               <Download className="w-3.5 h-3.5" />Resume
             </button>
-            <a href="#contact" className="px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 text-white text-sm font-medium shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all">
+            <a href="#contact" className="px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 text-white text-sm font-medium shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:scale-[1.02] transition-all">
               Hire Me
             </a>
           </div>
@@ -135,15 +138,21 @@ export function Navbar({ name, resume: _resume }: NavbarProps) {
                   {link.label}
                 </a>
               ))}
-              <div className="pt-3 mt-2 border-t border-white/5 flex gap-3">
-                <button onClick={() => { setMobileOpen(false); openModal(); }}
-                  className="flex-1 text-center py-2.5 rounded-xl border border-white/10 text-slate-300 text-sm font-medium hover:bg-white/5 transition-colors">
-                  Download Resume
-                </button>
-                <a href="#contact" onClick={() => setMobileOpen(false)}
-                  className="flex-1 text-center py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 text-white text-sm font-medium">
-                  Hire Me
+              <div className="pt-3 mt-2 border-t border-white/5 space-y-2">
+                <a href="/cv" onClick={() => setMobileOpen(false)}
+                  className="block text-center py-2.5 rounded-xl border border-indigo-500/30 text-indigo-300 text-sm font-medium hover:bg-indigo-500/10 transition-colors">
+                  CV Builder
                 </a>
+                <div className="flex gap-3">
+                  <button onClick={() => { setMobileOpen(false); openModal(); }}
+                    className="flex-1 text-center py-2.5 rounded-xl border border-white/10 text-slate-300 text-sm font-medium hover:bg-white/5 transition-colors">
+                    Download Resume
+                  </button>
+                  <a href="#contact" onClick={() => setMobileOpen(false)}
+                    className="flex-1 text-center py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 text-white text-sm font-medium">
+                    Hire Me
+                  </a>
+                </div>
               </div>
             </div>
           </motion.div>

@@ -39,6 +39,63 @@ const CV_FORMATS = [
   { id: "academic",     name: "Academic CV",       flag: "🎓",  region: "Universities",          photo: false, desc: "Research, publications, no page limit" },
 ];
 
+// ─── Template browser metadata ──────────────────────────────────────────────────
+
+const FORMAT_HEADER_COLORS: Record<string, string> = {
+  gulf: "#0a3d6b", saudi: "#00693e", emirati: "#1a1a2e",
+  europass: "#003399", usa: "#1e2433", canada: "#c41a1a",
+  pakIndia: "#1a4731", uk: "#1c3d5a", anz: "#004831",
+  lebenslauf: "#2c3e50", "lebenslauf-de": "#2c3e50", academic: "#1a1a2a",
+};
+
+const FORMAT_ATS: Record<string, { label: string; color: string }> = {
+  usa:            { label: "ATS Optimized",  color: "#10b981" },
+  canada:         { label: "ATS Ready",      color: "#10b981" },
+  uk:             { label: "ATS Ready",      color: "#10b981" },
+  anz:            { label: "ATS Ready",      color: "#10b981" },
+  gulf:           { label: "ATS Friendly",   color: "#10b981" },
+  europass:       { label: "EU Standard",    color: "#3b82f6" },
+  lebenslauf:     { label: "DE Standard",    color: "#8b5cf6" },
+  "lebenslauf-de":{ label: "DE Standard",    color: "#8b5cf6" },
+  saudi:          { label: "Regional",       color: "#f59e0b" },
+  emirati:        { label: "Regional",       color: "#f59e0b" },
+  pakIndia:       { label: "Regional",       color: "#f59e0b" },
+  academic:       { label: "Academic",       color: "#06b6d4" },
+};
+
+const FORMAT_CATEGORIES: Record<string, string[]> = {
+  Modern:   ["usa", "canada", "uk", "anz"],
+  Regional: ["gulf", "saudi", "emirati", "pakIndia"],
+  European: ["europass", "lebenslauf", "lebenslauf-de"],
+  Academic: ["academic"],
+};
+
+function FormatThumb({ fmt }: { fmt: typeof CV_FORMATS[0] }) {
+  const hc = FORMAT_HEADER_COLORS[fmt.id] ?? "#1e2433";
+  return (
+    <div className="w-full aspect-[0.707/1] rounded-md overflow-hidden bg-white shadow-sm border border-black/10 relative flex-shrink-0">
+      {/* Header block */}
+      <div style={{ background: hc }} className="h-[26%] w-full relative">
+        <div className="p-1.5 space-y-0.5">
+          <div className="h-1 w-9 bg-white/75 rounded-sm" />
+          <div className="h-0.5 w-6 bg-white/40 rounded-sm" />
+          <div className="h-0.5 w-12 bg-white/25 rounded-sm" />
+        </div>
+        {fmt.photo && (
+          <div className="absolute bottom-0 right-2 translate-y-1/2 w-5 h-5 rounded-full bg-gray-300 border-2 border-white" />
+        )}
+      </div>
+      {/* Body lines */}
+      <div className="p-1.5 pt-2 space-y-[3px]">
+        {[85, 60, 95, 50, 78, 64, 88, 45, 70].map((w, i) => (
+          <div key={i} style={{ width: `${w}%`, opacity: i % 3 === 0 ? 0.5 : 0.22 }}
+            className="h-[2px] bg-gray-700 rounded-sm" />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // ─── Styling helpers ────────────────────────────────────────────────────────────
 
 const inp = "w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2.5 text-sm placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:bg-slate-700/80 transition-colors cursor-text";
@@ -234,6 +291,7 @@ export default function CVBuilderPage() {
   const [projects, setProjects] = useState<ProjectEntry[]>([]);
   const [certs, setCerts] = useState<CertEntry[]>([]);
   const [showRegional, setShowRegional] = useState(false);
+  const [templateCategory, setTemplateCategory] = useState("All");
   const fileRef = useRef<HTMLInputElement>(null);
 
   const sp = (k: keyof PersonalForm) => (v: string) => setPersonal(p => ({ ...p, [k]: v }));
@@ -484,36 +542,94 @@ export default function CVBuilderPage() {
       )}
     </div>,
 
-    // Step 6: Generate
+    // Step 6: Template browser
     <div key="format" className="space-y-5">
-      <div className={`${card} text-center py-6`}>
-        <FileText className="w-10 h-10 text-indigo-400 mx-auto mb-3" />
-        <h3 className="text-white font-semibold text-lg mb-2">Your CV is ready!</h3>
-        <p className="text-slate-400 text-sm mb-6 max-w-sm mx-auto">
-          Choose a format below to download your CV as a PDF. The <strong className="text-white">Live Preview</strong> on the right updates with your selected format.
-        </p>
-        <p className="text-slate-500 text-xs lg:hidden mb-4">
-          On mobile — tap the <strong className="text-slate-300">Preview</strong> tab above to see your CV before downloading.
+      {/* Header */}
+      <div className="text-center">
+        <p className="text-slate-400 text-sm">
+          Select a template — the <strong className="text-white">Live Preview</strong> updates instantly.
+          <span className="lg:hidden"> Tap <strong className="text-indigo-300">Preview</strong> above to see it.</span>
         </p>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
-        {CV_FORMATS.map(fmt => (
-          <button key={fmt.id} type="button"
-            onClick={() => { setSelectedFormat(fmt.id); generate(fmt.id); }}
-            className={`text-left p-3 sm:p-4 rounded-xl border transition-all group active:scale-95 ${
-              selectedFormat === fmt.id
-                ? "border-indigo-500/60 bg-indigo-500/10"
-                : "border-white/[0.08] bg-white/[0.02] hover:border-indigo-500/40 hover:bg-indigo-500/[0.06]"
+      {/* Category filter */}
+      <div className="flex flex-wrap gap-2">
+        {["All", ...Object.keys(FORMAT_CATEGORIES)].map(cat => (
+          <button key={cat} type="button" onClick={() => setTemplateCategory(cat)}
+            className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
+              templateCategory === cat
+                ? "bg-indigo-600 text-white shadow-md shadow-indigo-500/25"
+                : "bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:border-white/20"
             }`}>
-            <div className="text-xl sm:text-2xl mb-1.5 leading-none">{fmt.flag}</div>
-            <div className="text-white text-xs sm:text-sm font-semibold group-hover:text-indigo-300 transition-colors leading-tight mb-0.5">{fmt.name}</div>
-            <div className="text-indigo-400/70 text-xs mb-1 leading-tight">{fmt.region}</div>
-            <div className="hidden sm:block text-slate-600 text-xs leading-relaxed">{fmt.desc}</div>
-            {fmt.photo && <div className="mt-1 text-xs text-slate-600">📷 Photo</div>}
+            {cat}
           </button>
         ))}
       </div>
+
+      {/* Template cards grid */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        {CV_FORMATS
+          .filter(fmt =>
+            templateCategory === "All" ||
+            (FORMAT_CATEGORIES[templateCategory] ?? []).includes(fmt.id)
+          )
+          .map(fmt => {
+            const ats = FORMAT_ATS[fmt.id];
+            const isSelected = selectedFormat === fmt.id;
+            return (
+              <button key={fmt.id} type="button"
+                onClick={() => setSelectedFormat(fmt.id)}
+                className={`group relative text-left rounded-xl border transition-all duration-200 overflow-hidden ${
+                  isSelected
+                    ? "border-indigo-500/70 bg-indigo-500/8 shadow-[0_0_24px_rgba(99,102,241,0.15)]"
+                    : "border-white/8 bg-white/[0.02] hover:border-white/15 hover:bg-white/[0.04]"
+                }`}>
+
+                {/* Selected checkmark */}
+                {isSelected && (
+                  <div className="absolute top-2 right-2 z-10 w-5 h-5 rounded-full bg-indigo-500 flex items-center justify-center shadow-md">
+                    <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 12 12">
+                      <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                )}
+
+                {/* Thumbnail */}
+                <div className="p-2.5 pb-0">
+                  <FormatThumb fmt={fmt} />
+                </div>
+
+                {/* Info */}
+                <div className="p-2.5 pt-2">
+                  <div className="flex items-center gap-1 mb-0.5">
+                    <span className="text-sm leading-none">{fmt.flag}</span>
+                    <span className={`text-xs font-semibold leading-tight transition-colors ${isSelected ? "text-indigo-300" : "text-white group-hover:text-indigo-300"}`}>
+                      {fmt.name}
+                    </span>
+                  </div>
+                  <div className="text-slate-500 text-[10px] mb-1.5 leading-tight">{fmt.region}</div>
+                  {ats && (
+                    <div className="flex items-center gap-1">
+                      <div className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: ats.color }} />
+                      <span className="text-[10px] font-medium" style={{ color: ats.color }}>{ats.label}</span>
+                    </div>
+                  )}
+                </div>
+              </button>
+            );
+          })}
+      </div>
+
+      {/* Generate CTA */}
+      {selectedFormat && (
+        <div className="flex flex-col sm:flex-row gap-3 pt-2">
+          <button type="button" onClick={() => generate(selectedFormat)}
+            className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-semibold text-sm shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:scale-[1.01] active:scale-[0.99] transition-all">
+            <Download className="w-4 h-4" />
+            Download {CV_FORMATS.find(f => f.id === selectedFormat)?.name ?? "CV"} as PDF
+          </button>
+        </div>
+      )}
     </div>,
   ];
 
