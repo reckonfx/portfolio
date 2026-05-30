@@ -426,7 +426,7 @@ export default function CVBuilderPage() {
       </div>
 
       {/* Content */}
-      <div className="max-w-3xl mx-auto px-4 py-8">
+      <div className="max-w-3xl mx-auto px-4 pt-8 pb-28">
         <div className="mb-6">
           <h2 className="text-xl font-bold text-white">{STEPS[step]}</h2>
           <p className="text-slate-500 text-sm mt-1">
@@ -445,7 +445,7 @@ export default function CVBuilderPage() {
 
       {/* Navigation */}
       {!isLast && (
-        <div className="sticky bottom-0 bg-[#0d1117]/95 backdrop-blur border-t border-white/[0.06]">
+        <div className="fixed bottom-0 left-0 right-0 z-20 bg-[#0d1117]/95 backdrop-blur border-t border-white/[0.06]">
           <div className="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
             {!isFirst ? (
               <button type="button" onClick={() => setStep(s => s - 1)}
