@@ -154,7 +154,7 @@ export default function CVBuilderPage() {
 
   function generate(formatId: string) {
     const data = buildData(personal, avatar, work, edu, skills, projects, certs);
-    try { sessionStorage.setItem("cv-builder-data", JSON.stringify(data)); } catch {}
+    try { localStorage.setItem("cv-builder-data", JSON.stringify(data)); } catch {}
     window.open(`/cv/preview?format=${formatId}`, "_blank");
   }
 

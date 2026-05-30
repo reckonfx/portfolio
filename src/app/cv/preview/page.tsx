@@ -13,11 +13,11 @@ function PreviewInner() {
 
   useEffect(() => {
     try {
-      const stored = sessionStorage.getItem("cv-builder-data");
-      if (!stored) { setError("No CV data found. Please go back and fill the form."); return; }
+      const stored = localStorage.getItem("cv-builder-data");
+      if (!stored) { setError("no-data"); return; }
       setData(JSON.parse(stored) as PortfolioData);
     } catch {
-      setError("Could not load CV data. Please go back and try again.");
+      setError("no-data");
     }
   }, []);
 

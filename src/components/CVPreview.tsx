@@ -1531,10 +1531,32 @@ export function CVPreview({ data, format }: { data: PortfolioData; format: strin
     }
   }
 
-  function shareViaWhatsApp() {
-    const url = window.location.href;
-    const text = `Hi, please view and download my CV here: ${url}`;
-    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank");
+  async function shareViaWhatsApp() {
+    if (generating) return;
+    setGenerating(true);
+    try {
+      const pdfDataUri = await buildPDF();
+      const base64 = pdfDataUri.split(",")[1];
+      const bytes = Uint8Array.from(atob(base64), c => c.charCodeAt(0));
+      const blob = new Blob([bytes], { type: "application/pdf" });
+      const name = clean(data.personalInfo.name).replace(/\s+/g, "_") || "CV";
+      const filename = `${name}_CV.pdf`;
+      const file = new File([blob], filename, { type: "application/pdf" });
+
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ title: filename, files: [file] });
+      } else {
+        // Fallback for desktop: just download the PDF
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url; a.download = filename; a.click();
+        URL.revokeObjectURL(url);
+      }
+    } catch (err) {
+      if ((err as Error).name !== "AbortError") console.error("Share failed:", err);
+    } finally {
+      setGenerating(false);
+    }
   }
 
   function shareViaEmail() {
@@ -1572,12 +1594,13 @@ export function CVPreview({ data, format }: { data: PortfolioData; format: strin
         <div className="flex gap-2">
           <button
             onClick={shareViaWhatsApp}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-white text-sm font-medium"
+            disabled={generating}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-white text-sm font-medium disabled:opacity-60"
             style={{ background: "#25d366" }}
-            title="Share via WhatsApp"
+            title="Share PDF via WhatsApp"
           >
             <WhatsAppIcon />
-            <span className="hidden sm:inline">WhatsApp</span>
+            <span className="hidden sm:inline">Share PDF</span>
           </button>
           <button
             onClick={shareViaEmail}
