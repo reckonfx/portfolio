@@ -899,18 +899,20 @@ const LEBENSLAUF_HTML_LABELS = {
   en: {
     title: "Curriculum Vitae", personal: "Personal Information",
     fields: { email: "Email", phone: "Phone", address: "Address", nationality: "Nationality", dob: "Date of Birth", pob: "Place of Birth", marital: "Marital Status" },
+    add: "[Add]", dobPlaceholder: "[DD.MM.YYYY]", cityPlaceholder: "[City]",
     work: "Work Experience", edu: "Education", skills: "Technical Skills",
     lang: "Languages", langLine: "English (Fluent) | [Add your languages]",
     projects: "Key Projects", certs: "Certifications",
-    sign: "Signature", city: "[City]", date: "[DD.MM.YYYY]",
+    sign: "Signature",
   },
   de: {
     title: "Lebenslauf", personal: "Persönliche Angaben",
     fields: { email: "E-Mail", phone: "Telefon", address: "Anschrift", nationality: "Nationalität", dob: "Geburtsdatum", pob: "Geburtsort", marital: "Familienstand" },
+    add: "[Hinzufügen]", dobPlaceholder: "[TT.MM.JJJJ]", cityPlaceholder: "[Ort]",
     work: "Berufserfahrung", edu: "Ausbildung", skills: "Technische Kenntnisse",
     lang: "Sprachkenntnisse", langLine: "Englisch (Fließend) | [Sprachen hinzufügen]",
     projects: "Schlüsselprojekte", certs: "Zertifizierungen",
-    sign: "Unterschrift", city: "[Ort]", date: "[TT.MM.JJJJ]",
+    sign: "Unterschrift",
   },
 };
 
@@ -953,6 +955,13 @@ function LebenslaufCV({ data, lang = "en" }: { data: PortfolioData; lang?: "en" 
   const proj = data.projects.filter(pr => pr.featured).slice(0, 2);
   const skills = [...new Set(data.techStack.flatMap(c => c.items.map(i => i.name)))];
 
+  // System date formatted for the locale
+  const now = new Date();
+  const dd = String(now.getDate()).padStart(2, "0");
+  const mm = String(now.getMonth() + 1).padStart(2, "0");
+  const yyyy = now.getFullYear();
+  const todayStr = `${dd}.${mm}.${yyyy}`;
+
   return (
     <div style={{ fontFamily: "Arial, sans-serif", fontSize: "10pt", color: "#1a1a1a", background: "#fff" }}>
       {/* Header */}
@@ -966,11 +975,11 @@ function LebenslaufCV({ data, lang = "en" }: { data: PortfolioData; lang?: "en" 
           <div style={{ fontSize: "8pt", fontWeight: "bold", color: MID, textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "4px" }}>{L.personal}</div>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2px 20px", fontSize: "8pt" }}>
             <span><span style={{ color: MID }}>{L.fields.email}: </span>{p.email}</span>
-            <span><span style={{ color: MID }}>{L.fields.nationality}: </span>{p.nationality || "[Add]"}</span>
+            <span><span style={{ color: MID }}>{L.fields.nationality}: </span>{p.nationality || L.add}</span>
             <span><span style={{ color: MID }}>{L.fields.phone}: </span>{p.phone}</span>
-            <span><span style={{ color: MID }}>{L.fields.dob}: </span>{p.dateOfBirth || "[DD.MM.YYYY]"}</span>
+            <span><span style={{ color: MID }}>{L.fields.dob}: </span>{p.dateOfBirth || L.dobPlaceholder}</span>
             <span><span style={{ color: MID }}>{L.fields.address}: </span>{p.location}</span>
-            <span><span style={{ color: MID }}>{L.fields.pob}: </span>{p.placeOfBirth || "[Add]"}</span>
+            <span><span style={{ color: MID }}>{L.fields.pob}: </span>{p.placeOfBirth || L.add}</span>
           </div>
         </div>
         {p.avatar && (
@@ -1008,7 +1017,7 @@ function LebenslaufCV({ data, lang = "en" }: { data: PortfolioData; lang?: "en" 
         )}
         {/* Signature */}
         <div data-cv-section="true" style={{ marginTop: "20px", paddingTop: "10px", borderTop: "0.5px solid #aaa" }}>
-          <div style={{ fontSize: "9pt", color: MID, marginBottom: "20px" }}>{L.city}, {L.date}</div>
+          <div style={{ fontSize: "9pt", color: MID, marginBottom: "20px" }}>{L.cityPlaceholder}, {todayStr}</div>
           <div style={{ fontSize: "9pt", fontWeight: "bold", color: A, marginBottom: "4px" }}>{L.sign}:</div>
           <div style={{ borderBottom: "0.5px solid #aaa", width: "160px", marginBottom: "4px" }} />
           <div style={{ fontSize: "9pt", color: A }}>{p.name}</div>

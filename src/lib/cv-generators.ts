@@ -1389,20 +1389,22 @@ const LEBENSLAUF_LABELS = {
   en: {
     title: "Curriculum Vitae", personal: "Personal Information",
     fields: { email: "Email:", phone: "Phone:", address: "Address:", nationality: "Nationality:", dob: "Date of Birth:", pob: "Place of Birth:" },
+    add: "[Add]", dobPlaceholder: "[DD.MM.YYYY]", cityPlaceholder: "[City]",
     work: "Work Experience", edu: "Education",
     skills: "Technical Skills", lang: "Languages",
     langLine: "English (Fluent)   |   [Add your languages]",
     projects: "Key Projects", certs: "Certifications",
-    sign: "Signature", city: "[City]", date: "[DD.MM.YYYY]",
+    sign: "Signature",
   },
   de: {
     title: "Lebenslauf", personal: "Persönliche Angaben",
     fields: { email: "E-Mail:", phone: "Telefon:", address: "Anschrift:", nationality: "Nationalität:", dob: "Geburtsdatum:", pob: "Geburtsort:" },
+    add: "[Hinzufügen]", dobPlaceholder: "[TT.MM.JJJJ]", cityPlaceholder: "[Ort]",
     work: "Berufserfahrung", edu: "Ausbildung",
     skills: "Technische Kenntnisse", lang: "Sprachkenntnisse",
     langLine: "Englisch (Fließend)   |   [Sprachen hinzufügen]",
     projects: "Schlüsselprojekte", certs: "Zertifizierungen",
-    sign: "Unterschrift", city: "[Ort]", date: "[TT.MM.JJJJ]",
+    sign: "Unterschrift",
   },
 };
 
@@ -1453,9 +1455,9 @@ export function generateLebenslaufCV(data: PortfolioData, lang: "en" | "de" = "e
       doc.y += 6;
 
       const personalData: [string, string][] = [
-        [L.fields.email, p.email], [L.fields.nationality, p.nationality || "[Add]"],
-        [L.fields.phone, p.phone], [L.fields.dob, p.dateOfBirth || (lang === "de" ? "[TT.MM.JJJJ]" : "[DD.MM.YYYY]")],
-        [L.fields.address, p.location], [L.fields.pob, p.placeOfBirth || "[Add]"],
+        [L.fields.email, p.email], [L.fields.nationality, p.nationality || L.add],
+        [L.fields.phone, p.phone], [L.fields.dob, p.dateOfBirth || L.dobPlaceholder],
+        [L.fields.address, p.location], [L.fields.pob, p.placeOfBirth || L.add],
       ];
       const colW2 = textW / 2;
       doc.font("Helvetica").fontSize(8.5);
@@ -1553,8 +1555,13 @@ export function generateLebenslaufCV(data: PortfolioData, lang: "en" | "de" = "e
       doc.y += 14;
       doc.rect(M, doc.y, CW, 0.5).fill("#aaaaaa");
       doc.y += 10;
+      const now = new Date();
+      const dd = String(now.getDate()).padStart(2, "0");
+      const mm2 = String(now.getMonth() + 1).padStart(2, "0");
+      const yyyy = now.getFullYear();
+      const todayStr = `${dd}.${mm2}.${yyyy}`;
       doc.fillColor(MID).font("Helvetica").fontSize(9)
-        .text(`${L.city}, ${L.date}`, M, doc.y);
+        .text(`${L.cityPlaceholder}, ${todayStr}`, M, doc.y);
       doc.y += 28;
       doc.fillColor(DARK).font("Helvetica-Bold").fontSize(9)
         .text(`${L.sign}:`, M, doc.y);
