@@ -166,9 +166,9 @@ export default function CVBuilderPage() {
     <div key="personal" className="space-y-6">
       <div className={card}>
         <h3 className="text-white font-semibold mb-4">Profile Photo</h3>
-        <div className="flex items-start gap-5">
+        <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
           <div className="relative flex-shrink-0">
-            <div className="w-24 h-24 rounded-full overflow-hidden bg-white/[0.04] border border-white/10 flex items-center justify-center">
+            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden bg-white/[0.04] border border-white/10 flex items-center justify-center">
               {avatar
                 // eslint-disable-next-line @next/next/no-img-element
                 ? <img src={avatar} alt="Avatar" className="w-full h-full object-cover object-top" />
@@ -181,11 +181,11 @@ export default function CVBuilderPage() {
               </button>
             )}
           </div>
-          <div className="flex-1 border-2 border-dashed border-white/10 rounded-xl p-5 text-center hover:border-indigo-500/40 cursor-pointer transition-colors"
+          <div className="flex-1 w-full border-2 border-dashed border-white/10 rounded-xl p-4 sm:p-5 text-center hover:border-indigo-500/40 cursor-pointer transition-colors"
             onClick={() => fileRef.current?.click()}>
             <Upload className="w-5 h-5 text-slate-500 mx-auto mb-2" />
             <p className="text-slate-400 text-sm">Click to upload photo</p>
-            <p className="text-slate-600 text-xs mt-1">JPG, PNG, WebP</p>
+            <p className="text-slate-600 text-xs mt-1">JPG, PNG, WebP — optional</p>
             <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handlePhoto} />
           </div>
         </div>
@@ -213,8 +213,8 @@ export default function CVBuilderPage() {
         <button type="button" onClick={() => setShowRegional(v => !v)}
           className="flex items-center gap-2 text-slate-400 text-sm hover:text-white transition-colors w-full text-left">
           <span className="text-indigo-400">+</span>
-          <span>{showRegional ? "Hide" : "Show"} Regional CV Details</span>
-          <span className="text-slate-600 text-xs ml-1">(Nationality, DOB, Religion — for Gulf, German, South Asian CVs)</span>
+          <span>{showRegional ? "Hide" : "Add"} Regional Details</span>
+          <span className="text-slate-600 text-xs ml-1 hidden sm:inline">(Nationality, DOB, Religion — for Gulf, German, South Asian CVs)</span>
         </button>
         {showRegional && (
           <div className="grid sm:grid-cols-2 gap-4 mt-4">
@@ -240,8 +240,9 @@ export default function CVBuilderPage() {
                 {(["work", "entrepreneurship"] as const).map(t => (
                   <button key={t} type="button"
                     onClick={() => setWork(w => w.map((x, j) => j === i ? { ...x, type: t } : x))}
-                    className={`px-3 py-1 text-xs transition-colors ${e.type === t ? "bg-indigo-600 text-white" : "text-slate-500 hover:text-slate-300"}`}>
-                    {t === "work" ? "Employment" : "Self-Employed"}
+                    className={`px-2.5 sm:px-3 py-1 text-xs transition-colors ${e.type === t ? "bg-indigo-600 text-white" : "text-slate-500 hover:text-slate-300"}`}>
+                    <span className="sm:hidden">{t === "work" ? "Job" : "Freelance"}</span>
+                    <span className="hidden sm:inline">{t === "work" ? "Employment" : "Self-Employed"}</span>
                   </button>
                 ))}
               </div>
@@ -375,15 +376,15 @@ export default function CVBuilderPage() {
     // ── Step 6: Choose Format ─────────────────────────────────────────────────
     <div key="format" className="space-y-4">
       <p className="text-slate-400 text-sm text-center">Select a format — your CV generates instantly as a downloadable PDF.</p>
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
         {CV_FORMATS.map(fmt => (
           <button key={fmt.id} type="button" onClick={() => generate(fmt.id)}
-            className="text-left p-4 rounded-xl border border-white/[0.08] bg-white/[0.02] hover:border-indigo-500/50 hover:bg-indigo-500/[0.06] transition-all group">
-            <div className="text-2xl mb-2 leading-none">{fmt.flag}</div>
-            <div className="text-white text-sm font-semibold group-hover:text-indigo-300 transition-colors leading-tight mb-0.5">{fmt.name}</div>
-            <div className="text-indigo-400/70 text-xs mb-1.5">{fmt.region}</div>
-            <div className="text-slate-600 text-xs leading-relaxed">{fmt.desc}</div>
-            {fmt.photo && <div className="mt-2 text-xs text-slate-600">📷 Includes photo</div>}
+            className="text-left p-3 sm:p-4 rounded-xl border border-white/[0.08] bg-white/[0.02] hover:border-indigo-500/50 hover:bg-indigo-500/[0.06] transition-all group active:scale-95">
+            <div className="text-xl sm:text-2xl mb-1.5 sm:mb-2 leading-none">{fmt.flag}</div>
+            <div className="text-white text-xs sm:text-sm font-semibold group-hover:text-indigo-300 transition-colors leading-tight mb-0.5">{fmt.name}</div>
+            <div className="text-indigo-400/70 text-xs mb-1 sm:mb-1.5 leading-tight">{fmt.region}</div>
+            <div className="hidden sm:block text-slate-600 text-xs leading-relaxed">{fmt.desc}</div>
+            {fmt.photo && <div className="mt-1 sm:mt-2 text-xs text-slate-600">📷 Photo</div>}
           </button>
         ))}
       </div>
@@ -424,21 +425,23 @@ export default function CVBuilderPage() {
       `}</style>
       {/* Header */}
       <div className="border-b border-white/[0.06] bg-[#0d1117]/80 backdrop-blur sticky top-0 z-10">
-        <div className="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between">
+        <div className="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-indigo-400" />
-            <span className="font-bold text-white">CV Builder</span>
+            <Sparkles className="w-4 h-4 text-indigo-400" />
+            <span className="font-bold text-white text-sm">CV Builder</span>
+            {/* Current step name on mobile */}
+            <span className="sm:hidden text-slate-500 text-xs">— {STEPS[step]}</span>
           </div>
-          <span className="text-slate-500 text-sm">Step {step + 1} of {STEPS.length}</span>
+          <span className="text-slate-500 text-xs">{step + 1} / {STEPS.length}</span>
         </div>
 
         {/* Progress bar */}
-        <div className="max-w-3xl mx-auto px-4 pb-4">
-          <div className="flex gap-1.5">
+        <div className="max-w-3xl mx-auto px-4 pb-3">
+          <div className="flex gap-1">
             {STEPS.map((s, i) => (
               <div key={i} className="flex-1">
                 <div className={`h-1 rounded-full transition-colors ${i <= step ? "bg-indigo-500" : "bg-white/10"}`} />
-                <div className={`text-xs mt-1.5 text-center hidden sm:block truncate transition-colors ${i === step ? "text-indigo-400" : i < step ? "text-slate-500" : "text-slate-700"}`}>{s}</div>
+                <div className={`text-xs mt-1 text-center hidden sm:block truncate transition-colors ${i === step ? "text-indigo-400" : i < step ? "text-slate-500" : "text-slate-700"}`}>{s}</div>
               </div>
             ))}
           </div>
@@ -464,8 +467,8 @@ export default function CVBuilderPage() {
       </div>
 
       {/* Navigation — always visible */}
-      <div className="fixed bottom-0 left-0 right-0 z-20 bg-[#0d1117]/95 backdrop-blur border-t border-white/[0.06]">
-        <div className="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+      <div className="fixed bottom-0 left-0 right-0 z-20 bg-[#0d1117]/95 backdrop-blur border-t border-white/[0.06] safe-area-inset-bottom">
+        <div className="max-w-3xl mx-auto px-4 py-3 sm:py-4 flex items-center justify-between gap-4">
           {!isFirst ? (
             <button type="button" onClick={() => setStep(s => s - 1)}
               className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-white/10 text-slate-400 hover:text-white hover:border-white/20 transition-colors text-sm">

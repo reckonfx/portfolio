@@ -1583,7 +1583,7 @@ export function CVPreview({ data, format }: { data: PortfolioData; format: strin
   return (
     <>
       {/* Instruction bar — hidden when printing */}
-      <div className="print:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 py-3 text-sm"
+      <div className="print:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-3 sm:px-5 py-2.5 sm:py-3 text-sm"
         style={{ background: "#0d1117", borderBottom: "1px solid rgba(255,255,255,0.1)", color: "#fff" }}>
         <div className="flex items-center gap-3">
           <button
