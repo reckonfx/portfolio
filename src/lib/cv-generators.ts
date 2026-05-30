@@ -931,3 +931,187 @@ export function generateCanadaCV(data: PortfolioData): Promise<Buffer> {
     }
   );
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// PAKISTAN / INDIA CV  (deep navy, photo top-right, personal details grid,
+//                       career objective, declaration, references)
+// ─────────────────────────────────────────────────────────────────────────────
+export function generatePakIndiaCV(data: PortfolioData): Promise<Buffer> {
+  const M = 44;
+  const CW = A4_W - M * 2;
+  const ACCENT = "#1e3a5f";
+  const LIGHT  = "#eef2f8";
+  const photoW = 82, photoH = 102;
+
+  return buildPDF(
+    { size: "A4", margins: { top: M, bottom: M, left: M, right: M }, info: { Title: `${data.personalInfo.name} — CV` } },
+    (doc) => {
+      const p = data.personalInfo;
+      const photo = avatarPath(p.avatar);
+
+      // Header stripe
+      doc.rect(0, 0, A4_W, 186).fill(ACCENT);
+
+      // Photo (passport-style, top-right)
+      if (photo) {
+        try {
+          doc.rect(A4_W - M - photoW - 2, 17, photoW + 4, photoH + 4).fill("#2a4f7a");
+          doc.image(photo, A4_W - M - photoW, 19, { width: photoW, height: photoH });
+        } catch {}
+      }
+
+      const textW = CW - (photo ? photoW + 18 : 0);
+
+      // Name + title
+      doc.fillColor("#ffffff").font("Helvetica-Bold").fontSize(20)
+        .text(clean(p.name), M, 26, { width: textW });
+      doc.font("Helvetica").fontSize(10).fillColor("#9bb8d4")
+        .text(clean(p.title), M, doc.y + 2, { width: textW });
+
+      // Personal details grid (4 rows × 2 columns)
+      const colW2 = textW / 2;
+      const grid: [string, string][] = [
+        [`Email: ${p.email}`,    `Phone: ${p.phone}`],
+        [`Location: ${p.location}`, `Nationality: [Add]`],
+        [`CNIC / ID No: [Add]`,  `Date of Birth: [Add]`],
+        [`Religion: [Add]`,      `Marital Status: [Add]`],
+      ];
+      let gy = doc.y + 9;
+      doc.fontSize(7.8).fillColor("#8faec8");
+      for (const [c1, c2] of grid) {
+        doc.text(c1, M, gy, { lineBreak: false });
+        doc.text(c2, M + colW2, gy, { lineBreak: false });
+        gy += 12.5;
+      }
+      if (p.social.linkedin || p.social.github) {
+        const links = [p.social.linkedin, p.social.github].filter(Boolean)
+          .map(l => l.replace("https://www.", "").replace("https://", ""))
+          .join("   |   ");
+        doc.fontSize(7.5).fillColor("#6f90aa").text(links, M, gy + 2, { lineBreak: false });
+      }
+      doc.y = 196;
+
+      // Section helper
+      const section = (title: string) => {
+        checkPage(doc, 70, M);
+        doc.rect(M, doc.y, CW, 1).fill(ACCENT);
+        doc.y += 3;
+        doc.fillColor(ACCENT).font("Helvetica-Bold").fontSize(9.5)
+          .text(title.toUpperCase(), M, doc.y, { characterSpacing: 0.8 });
+        doc.y += 8;
+        doc.fillColor("#111827").font("Helvetica").fontSize(10);
+      };
+
+      // Career Objective
+      section("Career Objective");
+      doc.text(cut(clean(p.bio), 350), M, doc.y, { width: CW, lineGap: 2 });
+      doc.y += 12;
+
+      // Work Experience
+      const work = data.experiences.filter(e => e.type === "work" || e.type === "entrepreneurship");
+      if (work.length) {
+        section("Work Experience");
+        for (const e of work) {
+          checkPage(doc, 65, M);
+          doc.font("Helvetica-Bold").fontSize(10.5).fillColor("#111827")
+            .text(clean(e.title), M, doc.y, { width: CW - 90 });
+          doc.fontSize(9).fillColor("#6b7280")
+            .text(e.period, M + CW - 88, doc.y - 13, { lineBreak: false });
+          doc.fillColor(ACCENT).font("Helvetica").fontSize(9.5)
+            .text(clean(e.company), M, doc.y);
+          doc.y += 2;
+          doc.fillColor("#111827").fontSize(9.5)
+            .text(clean(e.description), M, doc.y, { width: CW, lineGap: 1.5 });
+          if (e.tech.length) { doc.y += 4; tagRow(doc, e.tech.slice(0, 8), M, CW, LIGHT, ACCENT); }
+          else doc.y += 10;
+        }
+      }
+
+      // Key Projects
+      const proj = data.projects.filter(pr => pr.featured).slice(0, 3);
+      if (proj.length) {
+        section("Key Projects");
+        for (const pr of proj) {
+          checkPage(doc, 60, M);
+          doc.font("Helvetica-Bold").fontSize(10.5).fillColor("#111827")
+            .text(clean(pr.title), M, doc.y, { width: CW });
+          doc.y += 2;
+          doc.font("Helvetica").fontSize(9.5)
+            .text(cut(pr.description, 230), M, doc.y, { width: CW, lineGap: 1.5 });
+          if (pr.tech.length) { doc.y += 4; tagRow(doc, pr.tech.slice(0, 9), M, CW, LIGHT, ACCENT); }
+          else doc.y += 10;
+        }
+      }
+
+      // Technical Skills
+      const skills = [...new Set(data.techStack.flatMap(c => c.items.map(i => i.name)))].slice(0, 28);
+      section("Technical Skills");
+      tagRow(doc, skills, M, CW, LIGHT, ACCENT);
+      doc.y += 4;
+
+      // Education
+      const edu = data.experiences.filter(e => e.type === "education");
+      if (edu.length) {
+        section("Education");
+        for (const e of edu) {
+          checkPage(doc, 45, M);
+          doc.font("Helvetica-Bold").fontSize(10.5).fillColor("#111827")
+            .text(clean(e.title), M, doc.y, { width: CW - 90 });
+          doc.fontSize(9).fillColor("#6b7280")
+            .text(e.period, M + CW - 88, doc.y - 13, { lineBreak: false });
+          doc.fillColor(ACCENT).font("Helvetica").fontSize(9.5)
+            .text(clean(e.company), M, doc.y);
+          doc.y += 2;
+          doc.fillColor("#111827").fontSize(9.5)
+            .text(clean(e.description), M, doc.y, { width: CW, lineGap: 1.5 });
+          doc.y += 10;
+        }
+      }
+
+      // Certifications
+      if (data.certifications.length) {
+        section("Certifications");
+        for (const c of data.certifications) {
+          checkPage(doc, 28, M);
+          doc.font("Helvetica-Bold").fontSize(10).fillColor("#111827")
+            .text(clean(c.name), M, doc.y, { width: CW - 50 });
+          doc.fontSize(9).fillColor("#6b7280")
+            .text(String(c.year), M + CW - 48, doc.y - 12, { lineBreak: false });
+          doc.font("Helvetica").fontSize(9).fillColor("#6b7280")
+            .text(c.issuer, M, doc.y);
+          doc.y += 8;
+        }
+      }
+
+      // Languages
+      section("Languages Known");
+      doc.font("Helvetica").fontSize(9.5).fillColor("#374151")
+        .text("English (Fluent)   |   Urdu (Native)   |   Arabic (Basic)", M, doc.y, { lineBreak: false });
+      doc.y += 16;
+
+      // Declaration
+      checkPage(doc, 80, M);
+      doc.rect(M, doc.y, CW, 0.5).fill("#d1d5db");
+      doc.y += 10;
+      doc.fillColor("#374151").font("Helvetica-Bold").fontSize(9).text("DECLARATION", M, doc.y);
+      doc.y += 6;
+      doc.font("Helvetica").fontSize(8.5).fillColor("#6b7280")
+        .text(
+          "I hereby declare that all the information mentioned above is true to the best of my knowledge and belief. " +
+          "I shall be held responsible for any false information provided herein.",
+          M, doc.y, { width: CW, lineGap: 1.5 }
+        );
+      doc.y += 16;
+      doc.fillColor("#374151").fontSize(9)
+        .text("Date: ________________", M, doc.y, { lineBreak: false });
+      doc.text("Signature: ________________", M + CW - 170, doc.y, { lineBreak: false });
+      doc.y += 6;
+      doc.fillColor("#374151").fontSize(8.5).text("Place: ________________", M, doc.y);
+      doc.y += 14;
+
+      // References
+      doc.fillColor("#6b7280").font("Helvetica").fontSize(9)
+        .text("References: Available upon request", M, doc.y);
+    }
+  );
+}

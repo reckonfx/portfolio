@@ -724,6 +724,132 @@ function CanSec({ title, color, children }: { title: string; color: string; chil
   );
 }
 
+// ── Pakistan / India CV ───────────────────────────────────────────────────────
+
+function PakIndiaCV({ data }: { data: PortfolioData }) {
+  const p = data.personalInfo;
+  const A = "#1e3a5f";
+  const BG = "#eef2f8";
+  const work = data.experiences.filter(e => e.type !== "education");
+  const edu = data.experiences.filter(e => e.type === "education");
+  const proj = data.projects.filter(pr => pr.featured).slice(0, 3);
+  const skills = [...new Set(data.techStack.flatMap(c => c.items.map(i => i.name)))];
+
+  return (
+    <div style={{ fontFamily: "Arial, sans-serif", fontSize: "10pt", color: "#111", background: "#fff" }}>
+      {/* Header */}
+      <div style={{ background: A, color: "#fff", padding: "20px 28px", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+        <div style={{ flex: 1 }}>
+          <div style={{ fontSize: "20pt", fontWeight: "bold", marginBottom: "2px" }}>{p.name}</div>
+          <div style={{ fontSize: "10pt", opacity: 0.7, marginBottom: "9px" }}>{clean(p.title)}</div>
+          {/* Personal details grid */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2px 20px", fontSize: "8pt", color: "#8faec8" }}>
+            <span>Email: {p.email}</span>
+            <span>Phone: {p.phone}</span>
+            <span>Location: {p.location}</span>
+            <span>Nationality: [Add]</span>
+            <span>CNIC / ID No: [Add]</span>
+            <span>Date of Birth: [Add]</span>
+            <span>Religion: [Add]</span>
+            <span>Marital Status: [Add]</span>
+          </div>
+          {(p.social.linkedin || p.social.github) && (
+            <div style={{ fontSize: "7.5pt", color: "#6f90aa", marginTop: "5px" }}>
+              {p.social.linkedin && <span>{p.social.linkedin.replace("https://www.", "").replace("https://", "")}</span>}
+              {p.social.linkedin && p.social.github && <span style={{ margin: "0 8px" }}>|</span>}
+              {p.social.github && <span>{p.social.github.replace("https://", "")}</span>}
+            </div>
+          )}
+        </div>
+        {p.avatar && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={p.avatar} alt="Profile" style={{ width: "82px", height: "102px", objectFit: "cover", border: "3px solid #2a4f7a", marginLeft: "16px", flexShrink: 0 }} />
+        )}
+      </div>
+
+      <div style={{ padding: "16px 28px" }}>
+        {/* Career Objective */}
+        <Sec title="Career Objective" color={A}>
+          <p style={{ margin: 0, lineHeight: 1.6, fontSize: "9.5pt" }}>{cut(p.bio, 350)}</p>
+        </Sec>
+
+        {/* Work Experience */}
+        {work.length > 0 && (
+          <Sec title="Work Experience" color={A}>
+            {work.map((e, i) => <ExpBlock key={i} title={e.title} company={e.company} period={e.period} desc={e.description} tech={e.tech} accent={A} tagBg={BG} />)}
+          </Sec>
+        )}
+
+        {/* Key Projects */}
+        {proj.length > 0 && (
+          <Sec title="Key Projects" color={A}>
+            {proj.map((pr, i) => (
+              <div key={i} style={{ marginBottom: "11px", pageBreakInside: "avoid" }}>
+                <strong style={{ fontSize: "10.5pt" }}>{clean(pr.title)}</strong>
+                <div style={{ fontSize: "9.5pt", lineHeight: 1.55, marginTop: "2px" }}>{cut(pr.description, 230)}</div>
+                {pr.tech.length > 0 && <Tags items={pr.tech.slice(0, 10)} bg={BG} color={A} />}
+              </div>
+            ))}
+          </Sec>
+        )}
+
+        {/* Technical Skills */}
+        <Sec title="Technical Skills" color={A}>
+          <Tags items={skills.slice(0, 28)} bg={BG} color={A} />
+        </Sec>
+
+        {/* Education */}
+        {edu.length > 0 && (
+          <Sec title="Education" color={A}>
+            {edu.map((e, i) => <ExpBlock key={i} title={e.title} company={e.company} period={e.period} desc={e.description} tech={e.tech} accent={A} tagBg={BG} />)}
+          </Sec>
+        )}
+
+        {/* Certifications */}
+        {data.certifications.length > 0 && (
+          <Sec title="Certifications" color={A}>
+            {data.certifications.map((c, i) => (
+              <div key={i} style={{ display: "flex", justifyContent: "space-between", marginBottom: "6px" }}>
+                <div>
+                  <div style={{ fontWeight: "bold", fontSize: "10pt" }}>{clean(c.name)}</div>
+                  <div style={{ fontSize: "8.5pt", color: "#777" }}>{c.issuer}</div>
+                </div>
+                <div style={{ fontSize: "9pt", color: "#777" }}>{c.year}</div>
+              </div>
+            ))}
+          </Sec>
+        )}
+
+        {/* Languages */}
+        <Sec title="Languages Known" color={A}>
+          <div style={{ fontSize: "9.5pt", color: "#374151" }}>
+            English (Fluent)&nbsp;&nbsp;|&nbsp;&nbsp;Urdu (Native)&nbsp;&nbsp;|&nbsp;&nbsp;Arabic (Basic)
+          </div>
+        </Sec>
+
+        {/* Declaration */}
+        <div data-cv-section="true" style={{ marginBottom: "12px", borderTop: "1px solid #d1d5db", paddingTop: "10px" }}>
+          <div style={{ fontSize: "9pt", fontWeight: "bold", color: "#374151", marginBottom: "5px", letterSpacing: "0.5px" }}>DECLARATION</div>
+          <div style={{ fontSize: "8.5pt", color: "#6b7280", lineHeight: 1.5 }}>
+            I hereby declare that all the information mentioned above is true to the best of my knowledge and belief.
+            I shall be held responsible for any false information provided herein.
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between", marginTop: "14px", fontSize: "9pt", color: "#374151" }}>
+            <span>Date: ________________</span>
+            <span>Signature: ________________</span>
+          </div>
+          <div style={{ marginTop: "4px", fontSize: "8.5pt", color: "#374151" }}>Place: ________________</div>
+        </div>
+
+        {/* References */}
+        <div style={{ fontSize: "9pt", color: "#6b7280", fontStyle: "italic" }}>
+          References: Available upon request
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── Shared Section helper ─────────────────────────────────────────────────────
 
 function Sec({ title, color, children }: { title: string; color: string; children: ReactNode }) {
@@ -744,6 +870,7 @@ const FORMAT_NAMES: Record<string, string> = {
   europass: "Europass CV",
   usa: "USA Resume",
   canada: "Canadian CV",
+  pakIndia: "Pakistan / India CV",
 };
 
 function WhatsAppIcon() {
@@ -1006,6 +1133,7 @@ export function CVPreview({ data, format }: { data: PortfolioData; format: strin
       case "emirati":  return <EmiratiCV data={data} />;
       case "europass": return <EuropassCV data={data} />;
       case "canada":   return <CanadaCV data={data} />;
+      case "pakIndia": return <PakIndiaCV data={data} />;
       default:         return <USACV data={data} />;
     }
   }

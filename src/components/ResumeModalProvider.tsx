@@ -68,6 +68,14 @@ const FORMATS = [
     description: "Canadian format with competencies grid and red accent theme",
     photo: false,
   },
+  {
+    id: "pakIndia",
+    name: "Pakistan / India CV",
+    flag: "🇵🇰",
+    region: "Pakistan · India · Diaspora",
+    description: "South Asian format with personal details grid, career objective, declaration, and references",
+    photo: true,
+  },
 ];
 
 // ── Provider (holds state + renders modal) ────────────────────────────────────

@@ -7,6 +7,7 @@ import {
   generateEuropassCV,
   generateUSACV,
   generateCanadaCV,
+  generatePakIndiaCV,
 } from "@/lib/cv-generators";
 
 export const dynamic = "force-dynamic";
@@ -18,6 +19,7 @@ const generators: Record<string, (data: Awaited<ReturnType<typeof readData>>) =>
   europass: generateEuropassCV,
   usa: generateUSACV,
   canada: generateCanadaCV,
+  pakIndia: generatePakIndiaCV,
 };
 
 export async function GET(req: Request) {
