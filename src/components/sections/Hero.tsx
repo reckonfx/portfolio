@@ -127,15 +127,19 @@ export function Hero({ data }: { data: PersonalInfo }) {
             {data.availability}
           </motion.div>
 
-          {/* Business value headline */}
-          <motion.h1
+          {/* Name headline */}
+          <motion.div
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.1 }}
-            className="text-[2.6rem] sm:text-5xl lg:text-6xl xl:text-[4rem] font-bold text-white tracking-tight leading-[1.1] mb-5"
           >
-            {data.bio}
-          </motion.h1>
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-none mb-2">
+              {data.name.split(" ")[0]}
+            </h1>
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-none mb-6 gradient-text">
+              {data.name.split(" ").slice(1).join(" ")}
+            </h1>
+          </motion.div>
 
           {/* Typing specialization */}
           <motion.div
@@ -153,19 +157,15 @@ export function Hero({ data }: { data: PersonalInfo }) {
             />
           </motion.div>
 
-          {/* Name + location row */}
+          {/* Location */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-slate-500 mb-8 justify-center lg:justify-start"
+            className="flex items-center gap-1.5 text-slate-500 text-sm mb-8 justify-center lg:justify-start"
           >
-            <span className="font-semibold text-slate-300">{data.name}</span>
-            <span className="hidden sm:inline w-px h-3.5 bg-white/15" />
-            <span className="flex items-center gap-1.5">
-              <MapPin className="w-3.5 h-3.5" />
-              {data.location}
-            </span>
+            <MapPin className="w-3.5 h-3.5" />
+            {data.location}
           </motion.div>
 
           {/* CTA buttons */}
