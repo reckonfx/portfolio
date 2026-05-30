@@ -1406,12 +1406,13 @@ function EmailShareDialog({
   );
 }
 
-export function CVPreview({ data, format }: { data: PortfolioData; format: string }) {
+export function CVPreview({ data, format, previewOnly }: { data: PortfolioData; format: string; previewOnly?: boolean }) {
   const [generating, setGenerating] = useState(false);
   const [emailDialogOpen, setEmailDialogOpen] = useState(false);
 
-  // Auto-download on page open (bypasses print dialog so colors are preserved)
+  // Auto-download on page open — skipped in preview-panel mode
   useEffect(() => {
+    if (previewOnly) return;
     const t = setTimeout(() => handleDownload(), 1200);
     return () => clearTimeout(t);
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -1582,8 +1583,8 @@ export function CVPreview({ data, format }: { data: PortfolioData; format: strin
 
   return (
     <>
-      {/* Instruction bar — hidden when printing */}
-      <div className="print:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-3 sm:px-5 py-2.5 sm:py-3 text-sm"
+      {/* Instruction bar — hidden in preview-panel mode and when printing */}
+      {!previewOnly && <div className="print:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-3 sm:px-5 py-2.5 sm:py-3 text-sm"
         style={{ background: "#0d1117", borderBottom: "1px solid rgba(255,255,255,0.1)", color: "#fff" }}>
         <div className="flex items-center gap-3">
           <button
@@ -1646,20 +1647,22 @@ export function CVPreview({ data, format }: { data: PortfolioData; format: strin
             ✕
           </button>
         </div>
-      </div>
+      </div>}
 
       {/* CV content — id required for html2canvas capture */}
-      <div id="cv-content" className="print:mt-0 bg-white" style={{ marginTop: "52px" }}>
+      <div id="cv-content" className="print:mt-0 bg-white" style={{ marginTop: previewOnly ? 0 : "52px" }}>
         {renderCV()}
       </div>
 
-      <EmailShareDialog
-        open={emailDialogOpen}
-        onClose={() => setEmailDialogOpen(false)}
-        senderName={data.personalInfo.name}
-        format={FORMAT_NAMES[format] ?? "CV"}
-        generatePDF={buildPDF}
-      />
+      {!previewOnly && (
+        <EmailShareDialog
+          open={emailDialogOpen}
+          onClose={() => setEmailDialogOpen(false)}
+          senderName={data.personalInfo.name}
+          format={FORMAT_NAMES[format] ?? "CV"}
+          generatePDF={buildPDF}
+        />
+      )}
     </>
   );
 }

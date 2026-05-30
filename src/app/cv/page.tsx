@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { Plus, Trash2, User, Upload, X, ChevronRight, ChevronLeft, Sparkles } from "lucide-react";
+import { useState, useRef, useEffect, useMemo } from "react";
+import { Plus, Trash2, User, Upload, X, ChevronRight, ChevronLeft, Sparkles, Eye, FileText, Download } from "lucide-react";
+import { CVPreview } from "@/components/CVPreview";
 import type { PortfolioData, Experience, Project, Certification, TechCategory } from "@/lib/types";
 
-// ─── Internal form types ───────────────────────────────────────────────────────
+// ─── Internal form types ────────────────────────────────────────────────────────
 
 interface PersonalForm {
   name: string; title: string; bio: string;
@@ -19,7 +20,7 @@ interface SkillCat { category: string; items: string; }
 interface ProjectEntry { title: string; description: string; tech: string; url: string; }
 interface CertEntry { name: string; issuer: string; year: string; }
 
-// ─── Constants ─────────────────────────────────────────────────────────────────
+// ─── Constants ──────────────────────────────────────────────────────────────────
 
 const STEPS = ["Personal Info", "Experience", "Education", "Skills", "Projects", "Certifications", "Generate CV"];
 
@@ -35,10 +36,10 @@ const CV_FORMATS = [
   { id: "anz",          name: "Australia / NZ",    flag: "🇦🇺", region: "Australia · NZ",       photo: false, desc: "Professional profile, references" },
   { id: "lebenslauf",   name: "Lebenslauf (EN)",   flag: "🇩🇪", region: "Germany — English",    photo: true,  desc: "Tabular layout, signature" },
   { id: "lebenslauf-de",name: "Lebenslauf (DE)",   flag: "🇩🇪", region: "Germany — Deutsch",    photo: true,  desc: "Berufserfahrung · Ausbildung" },
-  { id: "academic",     name: "Academic CV",       flag: "🎓", region: "Universities",          photo: false, desc: "Research, publications, no page limit" },
+  { id: "academic",     name: "Academic CV",       flag: "🎓",  region: "Universities",          photo: false, desc: "Research, publications, no page limit" },
 ];
 
-// ─── Styling helpers ───────────────────────────────────────────────────────────
+// ─── Styling helpers ────────────────────────────────────────────────────────────
 
 const inp = "w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2.5 text-sm placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:bg-slate-700/80 transition-colors cursor-text";
 const inpStyle = { color: "#e2e8f0", caretColor: "#e2e8f0" };
@@ -49,7 +50,6 @@ const card = "bg-slate-900 border border-slate-800 rounded-xl p-5";
 function Field({ label, children, className = "" }: { label: string; children: React.ReactNode; className?: string }) {
   return <div className={className}><label className={lbl}>{label}</label>{children}</div>;
 }
-
 function AddBtn({ onClick, label }: { onClick: () => void; label: string }) {
   return (
     <button type="button" onClick={onClick}
@@ -58,7 +58,6 @@ function AddBtn({ onClick, label }: { onClick: () => void; label: string }) {
     </button>
   );
 }
-
 function DelBtn({ onClick }: { onClick: () => void }) {
   return (
     <button type="button" onClick={onClick}
@@ -68,7 +67,7 @@ function DelBtn({ onClick }: { onClick: () => void }) {
   );
 }
 
-// ─── Build PortfolioData from form state ───────────────────────────────────────
+// ─── Build PortfolioData from form state ────────────────────────────────────────
 
 function buildData(
   personal: PersonalForm, avatar: string,
@@ -123,17 +122,112 @@ function buildData(
   };
 }
 
-// ─── Main page ────────────────────────────────────────────────────────────────
+// ─── Live Preview Panel ─────────────────────────────────────────────────────────
+
+function PreviewPanel({
+  data, format, onFormatChange, onGenerate,
+}: {
+  data: PortfolioData;
+  format: string;
+  onFormatChange: (f: string) => void;
+  onGenerate: (f: string) => void;
+}) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(0.48);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const obs = new ResizeObserver(([entry]) => {
+      const w = entry.contentRect.width - 32; // 16px padding each side
+      setScale(Math.min(1, Math.max(0.3, w / 794)));
+    });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  const scaledH = Math.round(1123 * scale);
+  const fmt = CV_FORMATS.find(f => f.id === format);
+
+  return (
+    <div className="flex flex-col h-full">
+      {/* Panel header */}
+      <div className="flex items-center justify-between px-4 py-3 border-b border-white/6 flex-shrink-0">
+        <div className="flex items-center gap-2">
+          <Eye className="w-4 h-4 text-indigo-400" />
+          <span className="text-white text-sm font-semibold">Live Preview</span>
+          <span className="hidden xl:inline text-slate-600 text-xs">· updates as you type</span>
+        </div>
+        <button
+          onClick={() => onGenerate(format)}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold transition-colors"
+        >
+          <Download className="w-3.5 h-3.5" />
+          <span className="hidden sm:inline">Download PDF</span>
+          <span className="sm:hidden">PDF</span>
+        </button>
+      </div>
+
+      {/* Format selector */}
+      <div className="px-4 py-2.5 border-b border-white/4 flex-shrink-0">
+        <select
+          value={format}
+          onChange={e => onFormatChange(e.target.value)}
+          className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-indigo-500 cursor-pointer"
+          style={{ color: "#e2e8f0" }}
+        >
+          {CV_FORMATS.map(f => (
+            <option key={f.id} value={f.id}>{f.flag} {f.name} — {f.region}</option>
+          ))}
+        </select>
+        {fmt && (
+          <div className="flex items-center gap-2 mt-1.5 px-1">
+            <span className="text-slate-500 text-xs">{fmt.desc}</span>
+            {fmt.photo && <span className="text-slate-600 text-xs">· 📷 Photo included</span>}
+          </div>
+        )}
+      </div>
+
+      {/* Scaled CV preview */}
+      <div ref={containerRef} className="flex-1 overflow-y-auto overflow-x-hidden p-4">
+        <div
+          style={{ height: `${scaledH}px`, position: "relative", overflow: "hidden" }}
+          className="rounded-lg shadow-2xl border border-white/10"
+        >
+          <div
+            style={{
+              transform: `scale(${scale})`,
+              transformOrigin: "top left",
+              width: "794px",
+              pointerEvents: "none",
+              userSelect: "none",
+            }}
+          >
+            <CVPreview data={data} format={format} previewOnly />
+          </div>
+        </div>
+        <p className="text-slate-600 text-xs text-center mt-3">
+          Click <strong className="text-slate-400">Download PDF</strong> for the full-quality file
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// ─── Main Page ──────────────────────────────────────────────────────────────────
 
 export default function CVBuilderPage() {
   const [step, setStep] = useState(0);
+  const [mobileTab, setMobileTab] = useState<"form" | "preview">("form");
+  const [selectedFormat, setSelectedFormat] = useState("usa");
+
   const [personal, setPersonal] = useState<PersonalForm>({
     name: "", title: "", bio: "", email: "", phone: "", location: "",
     website: "", linkedin: "", github: "",
     nationality: "", dateOfBirth: "", placeOfBirth: "",
     religion: "", maritalStatus: "", cnic: "",
   });
-  const [avatar, setAvatar] = useState(""); // base64 data URL
+  const [avatar, setAvatar] = useState("");
   const [work, setWork] = useState<WorkEntry[]>([{ title: "", company: "", period: "", description: "", tech: "", type: "work" }]);
   const [edu, setEdu] = useState<EduEntry[]>([{ degree: "", institution: "", period: "", description: "" }]);
   const [skills, setSkills] = useState<SkillCat[]>([{ category: "", items: "" }]);
@@ -143,6 +237,12 @@ export default function CVBuilderPage() {
   const fileRef = useRef<HTMLInputElement>(null);
 
   const sp = (k: keyof PersonalForm) => (v: string) => setPersonal(p => ({ ...p, [k]: v }));
+
+  // Build preview data reactively
+  const previewData = useMemo(
+    () => buildData(personal, avatar, work, edu, skills, projects, certs),
+    [personal, avatar, work, edu, skills, projects, certs],
+  );
 
   function handlePhoto(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -158,12 +258,23 @@ export default function CVBuilderPage() {
     window.open(`/cv/preview?format=${formatId}`, "_blank");
   }
 
-  // ── Steps ───────────────────────────────────────────────────────────────────
+  function canProceed() {
+    if (step === 0) return personal.name.trim() && personal.title.trim() && personal.email.trim() && personal.bio.trim();
+    if (step === 1) return work.some(e => e.title.trim());
+    if (step === 2) return edu.some(e => e.degree.trim());
+    if (step === 3) return skills.some(s => s.category.trim() && s.items.trim());
+    return true;
+  }
+
+  const isFirst = step === 0;
+  const isLast  = step === STEPS.length - 1;
+
+  // ── Step content ──────────────────────────────────────────────────────────────
 
   const stepContent = [
 
-    // ── Step 0: Personal Info ────────────────────────────────────────────────
-    <div key="personal" className="space-y-6">
+    // Step 0: Personal Info
+    <div key="personal" className="space-y-5">
       <div className={card}>
         <h3 className="text-white font-semibold mb-4">Profile Photo</h3>
         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
@@ -205,7 +316,7 @@ export default function CVBuilderPage() {
         </div>
         <Field label="Professional Summary *" className="mt-4">
           <textarea className={ta} style={inpStyle} rows={4} value={personal.bio} onChange={e => sp("bio")(e.target.value)}
-            placeholder="Write a 2-4 sentence professional summary describing your background, key skills, and what you bring to the table..." />
+            placeholder="Write a 2-4 sentence professional summary..." />
         </Field>
       </div>
 
@@ -229,7 +340,7 @@ export default function CVBuilderPage() {
       </div>
     </div>,
 
-    // ── Step 1: Work Experience ───────────────────────────────────────────────
+    // Step 1: Experience
     <div key="work" className="space-y-4">
       {work.map((e, i) => (
         <div key={i} className={card}>
@@ -257,7 +368,7 @@ export default function CVBuilderPage() {
           <Field label="Description / Responsibilities" className="mt-4">
             <textarea className={ta} style={inpStyle} rows={3} value={e.description}
               onChange={ev => setWork(w => w.map((x, j) => j === i ? { ...x, description: ev.target.value } : x))}
-              placeholder="Describe your key responsibilities and achievements. Include numbers where possible (e.g. Led team of 5, increased performance by 40%)." />
+              placeholder="Describe key responsibilities and achievements..." />
           </Field>
           <Field label="Technologies Used (comma-separated)" className="mt-4">
             <input className={inp} style={inpStyle} value={e.tech} onChange={ev => setWork(w => w.map((x, j) => j === i ? { ...x, tech: ev.target.value } : x))} placeholder="React, Node.js, PostgreSQL, Docker" />
@@ -267,7 +378,7 @@ export default function CVBuilderPage() {
       <AddBtn onClick={() => setWork(w => [...w, { title: "", company: "", period: "", description: "", tech: "", type: "work" }])} label="Add Another Experience" />
     </div>,
 
-    // ── Step 2: Education ─────────────────────────────────────────────────────
+    // Step 2: Education
     <div key="edu" className="space-y-4">
       {edu.map((e, i) => (
         <div key={i} className={card}>
@@ -283,16 +394,16 @@ export default function CVBuilderPage() {
           <Field label="Description / Achievements" className="mt-4">
             <textarea className={ta} style={inpStyle} rows={2} value={e.description}
               onChange={ev => setEdu(d => d.map((x, j) => j === i ? { ...x, description: ev.target.value } : x))}
-              placeholder="Graduated with honours. Thesis on machine learning. CGPA: 3.8/4.0" />
+              placeholder="Graduated with honours. CGPA: 3.8/4.0" />
           </Field>
         </div>
       ))}
       <AddBtn onClick={() => setEdu(d => [...d, { degree: "", institution: "", period: "", description: "" }])} label="Add Another Education" />
     </div>,
 
-    // ── Step 3: Skills ────────────────────────────────────────────────────────
+    // Step 3: Skills
     <div key="skills" className="space-y-4">
-      <p className="text-slate-500 text-sm">Group your skills into categories. Each category will appear as a tagged section in your CV.</p>
+      <p className="text-slate-500 text-sm">Group your skills into categories.</p>
       {skills.map((s, i) => (
         <div key={i} className={card}>
           <div className="flex items-center justify-between mb-4">
@@ -304,7 +415,7 @@ export default function CVBuilderPage() {
               <input className={inp} style={inpStyle} value={s.category} onChange={ev => setSkills(sk => sk.map((x, j) => j === i ? { ...x, category: ev.target.value } : x))} placeholder="Frontend" />
             </Field>
             <Field label="Skills (comma-separated) *" className="sm:col-span-2">
-              <input className={inp} style={inpStyle} value={s.items} onChange={ev => setSkills(sk => sk.map((x, j) => j === i ? { ...x, items: ev.target.value } : x))} placeholder="React, TypeScript, Next.js, Tailwind CSS" />
+              <input className={inp} style={inpStyle} value={s.items} onChange={ev => setSkills(sk => sk.map((x, j) => j === i ? { ...x, items: ev.target.value } : x))} placeholder="React, TypeScript, Next.js" />
             </Field>
           </div>
         </div>
@@ -312,9 +423,9 @@ export default function CVBuilderPage() {
       <AddBtn onClick={() => setSkills(sk => [...sk, { category: "", items: "" }])} label="Add Another Category" />
     </div>,
 
-    // ── Step 4: Projects (optional) ───────────────────────────────────────────
+    // Step 4: Projects
     <div key="projects" className="space-y-4">
-      <p className="text-slate-500 text-sm">Optional — add notable projects. Only featured projects appear in your CV (all added here are featured).</p>
+      <p className="text-slate-500 text-sm">Optional — add notable projects.</p>
       {projects.length === 0 && (
         <div className={`${card} text-center py-8`}>
           <p className="text-slate-500 text-sm mb-3">No projects added yet</p>
@@ -334,7 +445,7 @@ export default function CVBuilderPage() {
           <Field label="Description" className="mt-4">
             <textarea className={ta} style={inpStyle} rows={2} value={p.description}
               onChange={ev => setProjects(pr => pr.map((x, j) => j === i ? { ...x, description: ev.target.value } : x))}
-              placeholder="Brief description of what the project does and your role." />
+              placeholder="Brief description of what the project does." />
           </Field>
           <Field label="Technologies (comma-separated)" className="mt-4">
             <input className={inp} style={inpStyle} value={p.tech} onChange={ev => setProjects(pr => pr.map((x, j) => j === i ? { ...x, tech: ev.target.value } : x))} placeholder="Next.js, Stripe, Supabase" />
@@ -346,9 +457,9 @@ export default function CVBuilderPage() {
       )}
     </div>,
 
-    // ── Step 5: Certifications (optional) ─────────────────────────────────────
+    // Step 5: Certifications
     <div key="certs" className="space-y-4">
-      <p className="text-slate-500 text-sm">Optional — list any certifications, courses, or professional qualifications.</p>
+      <p className="text-slate-500 text-sm">Optional — list certifications or professional qualifications.</p>
       {certs.length === 0 && (
         <div className={`${card} text-center py-8`}>
           <p className="text-slate-500 text-sm mb-3">No certifications added yet</p>
@@ -373,40 +484,47 @@ export default function CVBuilderPage() {
       )}
     </div>,
 
-    // ── Step 6: Choose Format ─────────────────────────────────────────────────
-    <div key="format" className="space-y-4">
-      <p className="text-slate-400 text-sm text-center">Select a format — your CV generates instantly as a downloadable PDF.</p>
+    // Step 6: Generate
+    <div key="format" className="space-y-5">
+      <div className={`${card} text-center py-6`}>
+        <FileText className="w-10 h-10 text-indigo-400 mx-auto mb-3" />
+        <h3 className="text-white font-semibold text-lg mb-2">Your CV is ready!</h3>
+        <p className="text-slate-400 text-sm mb-6 max-w-sm mx-auto">
+          Choose a format below to download your CV as a PDF. The <strong className="text-white">Live Preview</strong> on the right updates with your selected format.
+        </p>
+        <p className="text-slate-500 text-xs lg:hidden mb-4">
+          On mobile — tap the <strong className="text-slate-300">Preview</strong> tab above to see your CV before downloading.
+        </p>
+      </div>
+
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
         {CV_FORMATS.map(fmt => (
-          <button key={fmt.id} type="button" onClick={() => generate(fmt.id)}
-            className="text-left p-3 sm:p-4 rounded-xl border border-white/[0.08] bg-white/[0.02] hover:border-indigo-500/50 hover:bg-indigo-500/[0.06] transition-all group active:scale-95">
-            <div className="text-xl sm:text-2xl mb-1.5 sm:mb-2 leading-none">{fmt.flag}</div>
+          <button key={fmt.id} type="button"
+            onClick={() => { setSelectedFormat(fmt.id); generate(fmt.id); }}
+            className={`text-left p-3 sm:p-4 rounded-xl border transition-all group active:scale-95 ${
+              selectedFormat === fmt.id
+                ? "border-indigo-500/60 bg-indigo-500/10"
+                : "border-white/[0.08] bg-white/[0.02] hover:border-indigo-500/40 hover:bg-indigo-500/[0.06]"
+            }`}>
+            <div className="text-xl sm:text-2xl mb-1.5 leading-none">{fmt.flag}</div>
             <div className="text-white text-xs sm:text-sm font-semibold group-hover:text-indigo-300 transition-colors leading-tight mb-0.5">{fmt.name}</div>
-            <div className="text-indigo-400/70 text-xs mb-1 sm:mb-1.5 leading-tight">{fmt.region}</div>
+            <div className="text-indigo-400/70 text-xs mb-1 leading-tight">{fmt.region}</div>
             <div className="hidden sm:block text-slate-600 text-xs leading-relaxed">{fmt.desc}</div>
-            {fmt.photo && <div className="mt-1 sm:mt-2 text-xs text-slate-600">📷 Photo</div>}
+            {fmt.photo && <div className="mt-1 text-xs text-slate-600">📷 Photo</div>}
           </button>
         ))}
       </div>
     </div>,
   ];
 
-  const isFirst = step === 0;
-  const isLast  = step === STEPS.length - 1;
-
-  function canProceed() {
-    if (step === 0) return personal.name.trim() && personal.title.trim() && personal.email.trim() && personal.bio.trim();
-    if (step === 1) return work.some(e => e.title.trim());
-    if (step === 2) return edu.some(e => e.degree.trim());
-    if (step === 3) return skills.some(s => s.category.trim() && s.items.trim());
-    return true;
-  }
+  // ── Render ────────────────────────────────────────────────────────────────────
 
   return (
-    <div className="cv-builder min-h-screen bg-[#0a0b0e] text-white" style={{ colorScheme: "dark" }}>
+    <div className="cv-builder min-h-screen bg-[#0a0b0e] text-white flex flex-col" style={{ colorScheme: "dark" }}>
       <style>{`
         .cv-builder input,
-        .cv-builder textarea {
+        .cv-builder textarea,
+        .cv-builder select {
           background-color: #1e293b !important;
           color: #e2e8f0 !important;
           -webkit-text-fill-color: #e2e8f0 !important;
@@ -422,22 +540,44 @@ export default function CVBuilderPage() {
           color: #64748b !important;
           -webkit-text-fill-color: #64748b !important;
         }
+        .cv-builder select option {
+          background-color: #1e293b;
+          color: #e2e8f0;
+        }
       `}</style>
-      {/* Header */}
-      <div className="border-b border-white/[0.06] bg-[#0d1117]/80 backdrop-blur sticky top-0 z-10">
-        <div className="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-2">
+
+      {/* ── Header ── */}
+      <header className="border-b border-white/[0.06] bg-[#0d1117]/90 backdrop-blur sticky top-0 z-30 flex-shrink-0">
+        <div className="flex items-center justify-between px-4 py-3 lg:pr-0">
+          {/* Logo */}
+          <div className="flex items-center gap-2 flex-shrink-0">
             <Sparkles className="w-4 h-4 text-indigo-400" />
             <span className="font-bold text-white text-sm">CV Builder</span>
-            {/* Current step name on mobile */}
-            <span className="sm:hidden text-slate-500 text-xs">— {STEPS[step]}</span>
           </div>
-          <span className="text-slate-500 text-xs">{step + 1} / {STEPS.length}</span>
+
+          {/* Mobile tabs: Form / Preview */}
+          <div className="flex lg:hidden bg-white/5 rounded-lg p-0.5 border border-white/8">
+            <button
+              onClick={() => setMobileTab("form")}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all ${mobileTab === "form" ? "bg-indigo-600 text-white" : "text-slate-400 hover:text-white"}`}
+            >
+              <FileText className="w-3.5 h-3.5" /> Form
+            </button>
+            <button
+              onClick={() => setMobileTab("preview")}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all ${mobileTab === "preview" ? "bg-indigo-600 text-white" : "text-slate-400 hover:text-white"}`}
+            >
+              <Eye className="w-3.5 h-3.5" /> Preview
+            </button>
+          </div>
+
+          {/* Step count (desktop) */}
+          <span className="hidden lg:block text-slate-500 text-xs pr-4">{step + 1} / {STEPS.length}</span>
         </div>
 
-        {/* Progress bar */}
-        <div className="max-w-3xl mx-auto px-4 pb-3">
-          <div className="flex gap-1">
+        {/* Progress bar — form steps */}
+        <div className={`px-4 pb-3 ${mobileTab === "preview" ? "hidden lg:block" : ""}`}>
+          <div className="flex gap-1 lg:mr-0">
             {STEPS.map((s, i) => (
               <div key={i} className="flex-1">
                 <div className={`h-1 rounded-full transition-colors ${i <= step ? "bg-indigo-500" : "bg-white/10"}`} />
@@ -446,54 +586,78 @@ export default function CVBuilderPage() {
             ))}
           </div>
         </div>
-      </div>
+      </header>
 
-      {/* Content */}
-      <div className="max-w-3xl mx-auto px-4 pt-8 pb-28">
-        <div className="mb-6">
-          <h2 className="text-xl font-bold text-white">{STEPS[step]}</h2>
-          <p className="text-slate-500 text-sm mt-1">
-            {step === 0 && "Start with your contact details and professional summary."}
-            {step === 1 && "Add your work history. Include your most recent position first."}
-            {step === 2 && "List your educational background, most recent first."}
-            {step === 3 && "Group your skills by category so they display clearly in your CV."}
-            {step === 4 && "Add any notable projects you'd like to highlight."}
-            {step === 5 && "List any certifications or professional courses."}
-            {step === 6 && "Choose your CV style — a PDF will open in a new tab."}
-          </p>
-        </div>
+      {/* ── Body: two-column on desktop ── */}
+      <div className="flex flex-1 overflow-hidden min-h-0">
 
-        {stepContent[step]}
-      </div>
-
-      {/* Navigation — always visible */}
-      <div className="fixed bottom-0 left-0 right-0 z-20 bg-[#0d1117]/95 backdrop-blur border-t border-white/[0.06] safe-area-inset-bottom">
-        <div className="max-w-3xl mx-auto px-4 py-3 sm:py-4 flex items-center justify-between gap-4">
-          {!isFirst ? (
-            <button type="button" onClick={() => setStep(s => s - 1)}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-white/10 text-slate-400 hover:text-white hover:border-white/20 transition-colors text-sm">
-              <ChevronLeft className="w-4 h-4" /> Back
-            </button>
-          ) : <div />}
-
-          {!isLast && (
-            <div className="flex items-center gap-3">
-              {(step === 4 || step === 5) && (
-                <button type="button" onClick={() => setStep(s => s + 1)}
-                  className="px-4 py-2.5 rounded-lg text-slate-500 hover:text-slate-300 text-sm transition-colors">
-                  Skip
-                </button>
-              )}
-              <button type="button" onClick={() => setStep(s => s + 1)}
-                disabled={!canProceed()}
-                className="flex items-center gap-2 px-6 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-medium transition-colors">
-                {step === STEPS.length - 2 ? "Choose Format" : "Continue"}
-                <ChevronRight className="w-4 h-4" />
-              </button>
+        {/* Left: Form panel */}
+        <div className={`flex-1 overflow-y-auto ${mobileTab === "preview" ? "hidden lg:block" : ""}`}>
+          <div className="max-w-2xl mx-auto px-4 pt-6 pb-28 lg:pb-24">
+            <div className="mb-5">
+              <h2 className="text-xl font-bold text-white">{STEPS[step]}</h2>
+              <p className="text-slate-500 text-sm mt-1">
+                {step === 0 && "Start with your contact details and professional summary."}
+                {step === 1 && "Add your work history. Include your most recent position first."}
+                {step === 2 && "List your educational background, most recent first."}
+                {step === 3 && "Group your skills by category so they display clearly in your CV."}
+                {step === 4 && "Add any notable projects you'd like to highlight."}
+                {step === 5 && "List any certifications or professional courses."}
+                {step === 6 && "Choose your CV format to generate and download your PDF."}
+              </p>
             </div>
-          )}
+            {stepContent[step]}
+          </div>
+        </div>
+
+        {/* Right: Live preview panel (desktop always / mobile when preview tab) */}
+        <div className={`
+          lg:w-[400px] xl:w-[440px] lg:border-l border-white/6 bg-[#090a0d] flex-shrink-0
+          ${mobileTab === "preview" ? "flex flex-col flex-1" : "hidden lg:flex lg:flex-col"}
+        `}>
+          <PreviewPanel
+            data={previewData}
+            format={selectedFormat}
+            onFormatChange={setSelectedFormat}
+            onGenerate={generate}
+          />
         </div>
       </div>
+
+      {/* ── Fixed bottom nav (form mode only on mobile, always on desktop) ── */}
+      {(mobileTab === "form" || true) && (
+        <div className={`
+          fixed bottom-0 left-0 z-20 bg-[#0d1117]/95 backdrop-blur border-t border-white/[0.06]
+          right-0 lg:right-[400px] xl:right-[440px]
+          ${mobileTab === "preview" ? "hidden lg:block" : ""}
+        `}>
+          <div className="max-w-2xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+            {!isFirst ? (
+              <button type="button" onClick={() => setStep(s => s - 1)}
+                className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-white/10 text-slate-400 hover:text-white hover:border-white/20 transition-colors text-sm">
+                <ChevronLeft className="w-4 h-4" /> Back
+              </button>
+            ) : <div />}
+
+            {!isLast && (
+              <div className="flex items-center gap-3">
+                {(step === 4 || step === 5) && (
+                  <button type="button" onClick={() => setStep(s => s + 1)}
+                    className="px-4 py-2.5 rounded-lg text-slate-500 hover:text-slate-300 text-sm transition-colors">
+                    Skip
+                  </button>
+                )}
+                <button type="button" onClick={() => setStep(s => s + 1)}
+                  disabled={!canProceed()}
+                  className="flex items-center gap-2 px-6 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-medium transition-colors">
+                  {step === STEPS.length - 2 ? "Choose Format" : "Continue"}
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
