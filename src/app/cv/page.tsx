@@ -491,7 +491,6 @@ export default function CVBuilderPage() {
           )}
         </div>
       </div>
-      )}
     </div>
   );
 }
