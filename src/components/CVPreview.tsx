@@ -1455,7 +1455,11 @@ export function CVPreview({ data, format }: { data: PortfolioData; format: strin
       }
       const pageH = pageNum === 0 ? PAGE1 : PAGEN;
       const posInPage = topInEl - consumed;
-      if (posInPage > pageH * 0.95) {
+      const secHeight = secRect.height;
+      const wouldOverflow = posInPage + secHeight > pageH;
+      // Push to next page if: starts in last 8% of page, OR content overflows
+      // (and the section fits on a fresh page — avoids infinite loop on giant sections)
+      if ((posInPage > pageH * 0.92 || (wouldOverflow && secHeight <= PAGEN)) && posInPage > 30) {
         sec.style.paddingTop = `${Math.ceil(pageH - posInPage)}px`;
         await new Promise<void>((res) =>
           requestAnimationFrame(() => requestAnimationFrame(() => res()))
