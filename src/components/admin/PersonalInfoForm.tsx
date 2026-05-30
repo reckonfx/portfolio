@@ -177,6 +177,19 @@ export function PersonalInfoForm({ initialData }: { initialData: PersonalInfo })
         </div>
       </AdminFormWrapper>
 
+      {/* CV Personal Details */}
+      <AdminFormWrapper title="CV Personal Details">
+        <p className="text-slate-500 text-xs mb-4">These fields appear in regional CV formats (Gulf, Saudi, Pakistan/India, Lebenslauf). Leave blank to show a placeholder.</p>
+        <div className="grid sm:grid-cols-2 gap-4">
+          <Field label="Nationality"><Input value={data.nationality ?? ""} onChange={(v) => set("nationality", v)} placeholder="e.g. Pakistani" /></Field>
+          <Field label="Date of Birth"><Input value={data.dateOfBirth ?? ""} onChange={(v) => set("dateOfBirth", v)} placeholder="e.g. 15 March 1985" /></Field>
+          <Field label="Place of Birth"><Input value={data.placeOfBirth ?? ""} onChange={(v) => set("placeOfBirth", v)} placeholder="e.g. Karachi, Pakistan" /></Field>
+          <Field label="Religion"><Input value={data.religion ?? ""} onChange={(v) => set("religion", v)} placeholder="e.g. Islam" /></Field>
+          <Field label="Marital Status"><Input value={data.maritalStatus ?? ""} onChange={(v) => set("maritalStatus", v)} placeholder="e.g. Married" /></Field>
+          <Field label="CNIC / National ID"><Input value={data.cnic ?? ""} onChange={(v) => set("cnic", v)} placeholder="e.g. 42101-1234567-8" /></Field>
+        </div>
+      </AdminFormWrapper>
+
       {/* Social Links */}
       <AdminFormWrapper title="Social Links">
         <div className="grid sm:grid-cols-2 gap-4">

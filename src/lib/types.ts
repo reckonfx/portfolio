@@ -29,6 +29,13 @@ export interface PersonalInfo {
   avatar: string;
   social: SocialLinks;
   stats: Stat[];
+  // CV-specific personal details (used by Pak/India, Saudi, Gulf, Lebenslauf formats)
+  nationality?: string;
+  dateOfBirth?: string;
+  placeOfBirth?: string;
+  religion?: string;
+  maritalStatus?: string;
+  cnic?: string;
 }
 
 export interface TechItem {

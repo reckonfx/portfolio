@@ -51,7 +51,7 @@ function ExpBlock({
   tech?: string[]; accent: string; tagBg: string;
 }) {
   return (
-    <div style={{ marginBottom: "11px", pageBreakInside: "avoid" }}>
+    <div data-cv-section="true" style={{ marginBottom: "11px" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
         <strong style={{ fontSize: "10.5pt" }}>{clean(title)}</strong>
         <span style={{ fontSize: "8.5pt", color: "#777" }}>{period}</span>
@@ -112,7 +112,7 @@ function GulfCV({ data }: { data: PortfolioData }) {
         {proj.length > 0 && (
           <Sec title="Key Projects" color={A}>
             {proj.map((pr, i) => (
-              <div key={i} style={{ marginBottom: "11px", pageBreakInside: "avoid" }}>
+              <div key={i} style={{ marginBottom: "11px", pageBreakInside: "avoid", breakInside: "avoid" }}>
                 <strong style={{ fontSize: "10.5pt" }}>{clean(pr.title)}</strong>
                 <div style={{ fontSize: "9.5pt", lineHeight: 1.55, marginTop: "2px" }}>{cut(pr.description, 230)}</div>
                 {pr.tech.length > 0 && <Tags items={pr.tech.slice(0, 10)} bg={BG} color={A} />}
@@ -167,9 +167,9 @@ function SaudiCV({ data }: { data: PortfolioData }) {
             <span>Email: {p.email}</span>
             <span>Phone: {p.phone}</span>
             <span>Location: {p.location}</span>
-            <span>Nationality: [Add]</span>
-            <span>Marital Status: [Add]</span>
-            <span>Religion: Islam</span>
+            <span>Nationality: {p.nationality || "[Add]"}</span>
+            <span>Marital Status: {p.maritalStatus || "[Add]"}</span>
+            <span>Religion: {p.religion || "Islam"}</span>
           </div>
         </div>
         {p.avatar && (
@@ -190,7 +190,7 @@ function SaudiCV({ data }: { data: PortfolioData }) {
         {proj.length > 0 && (
           <Sec title="Key Projects" color={A}>
             {proj.map((pr, i) => (
-              <div key={i} style={{ marginBottom: "11px", pageBreakInside: "avoid" }}>
+              <div key={i} style={{ marginBottom: "11px", pageBreakInside: "avoid", breakInside: "avoid" }}>
                 <strong style={{ fontSize: "10.5pt" }}>{clean(pr.title)}</strong>
                 <div style={{ fontSize: "9.5pt", lineHeight: 1.55, marginTop: "2px" }}>{cut(pr.description, 230)}</div>
                 {pr.tech.length > 0 && <Tags items={pr.tech.slice(0, 10)} bg={BG} color={A} />}
@@ -290,7 +290,7 @@ function EmiratiCV({ data }: { data: PortfolioData }) {
           <>
             <MainSec title="Work Experience" accent={RED}>
               {work.map((e, i) => (
-                <div key={i} style={{ marginBottom: "11px", pageBreakInside: "avoid" }}>
+                <div key={i} style={{ marginBottom: "11px", pageBreakInside: "avoid", breakInside: "avoid" }}>
                   <div style={{ display: "flex", justifyContent: "space-between" }}>
                     <strong style={{ fontSize: "10.5pt" }}>{clean(e.title)}</strong>
                     <span style={{ fontSize: "8.5pt", color: "#777" }}>{e.period}</span>
@@ -306,7 +306,7 @@ function EmiratiCV({ data }: { data: PortfolioData }) {
         {proj.length > 0 && (
           <MainSec title="Key Projects" accent={RED}>
             {proj.map((pr, i) => (
-              <div key={i} style={{ marginBottom: "11px", pageBreakInside: "avoid" }}>
+              <div key={i} style={{ marginBottom: "11px", pageBreakInside: "avoid", breakInside: "avoid" }}>
                 <strong style={{ fontSize: "10.5pt" }}>{clean(pr.title)}</strong>
                 <div style={{ fontSize: "9.5pt", lineHeight: 1.55, marginTop: "2px", color: "#333" }}>{cut(pr.description, 220)}</div>
               </div>
@@ -317,7 +317,7 @@ function EmiratiCV({ data }: { data: PortfolioData }) {
         {edu.length > 0 && (
           <MainSec title="Education" accent={RED}>
             {edu.map((e, i) => (
-              <div key={i} style={{ marginBottom: "11px", pageBreakInside: "avoid" }}>
+              <div key={i} style={{ marginBottom: "11px", pageBreakInside: "avoid", breakInside: "avoid" }}>
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                   <strong style={{ fontSize: "10.5pt" }}>{clean(e.title)}</strong>
                   <span style={{ fontSize: "8.5pt", color: "#777" }}>{e.period}</span>
@@ -423,7 +423,7 @@ function EuropassCV({ data }: { data: PortfolioData }) {
         {work.length > 0 && (
           <EuroSec title="Work Experience" color={A}>
             {work.map((e, i) => (
-              <div key={i} style={{ display: "flex", gap: "16px", marginBottom: "12px", pageBreakInside: "avoid" }}>
+              <div key={i} style={{ display: "flex", gap: "16px", marginBottom: "12px", pageBreakInside: "avoid", breakInside: "avoid" }}>
                 <div style={{ width: "100px", flexShrink: 0, fontSize: "8.5pt", color: "#666", paddingTop: "2px" }}>{e.period}</div>
                 <div style={{ flex: 1, borderLeft: `2px solid ${A}`, paddingLeft: "12px" }}>
                   <div style={{ fontWeight: "bold", fontSize: "10.5pt", color: "#111" }}>{clean(e.title)}</div>
@@ -439,7 +439,7 @@ function EuropassCV({ data }: { data: PortfolioData }) {
         {edu.length > 0 && (
           <EuroSec title="Education and Training" color={A}>
             {edu.map((e, i) => (
-              <div key={i} style={{ display: "flex", gap: "16px", marginBottom: "12px", pageBreakInside: "avoid" }}>
+              <div key={i} style={{ display: "flex", gap: "16px", marginBottom: "12px", pageBreakInside: "avoid", breakInside: "avoid" }}>
                 <div style={{ width: "100px", flexShrink: 0, fontSize: "8.5pt", color: "#555", paddingTop: "2px" }}>{e.period}</div>
                 <div style={{ flex: 1, borderLeft: `2px solid ${A}`, paddingLeft: "12px" }}>
                   <div style={{ fontWeight: "bold", fontSize: "10.5pt", color: "#111" }}>{clean(e.title)}</div>
@@ -461,7 +461,7 @@ function EuropassCV({ data }: { data: PortfolioData }) {
         {proj.length > 0 && (
           <EuroSec title="Projects" color={A}>
             {proj.map((pr, i) => (
-              <div key={i} style={{ display: "flex", gap: "16px", marginBottom: "12px", pageBreakInside: "avoid" }}>
+              <div key={i} style={{ display: "flex", gap: "16px", marginBottom: "12px", pageBreakInside: "avoid", breakInside: "avoid" }}>
                 <div style={{ width: "100px", flexShrink: 0, fontSize: "8.5pt", color: "#666", paddingTop: "2px" }}>{pr.date}</div>
                 <div style={{ flex: 1, borderLeft: `2px solid ${A}`, paddingLeft: "12px" }}>
                   <div style={{ fontWeight: "bold", fontSize: "10.5pt", color: "#111" }}>{clean(pr.title)}</div>
@@ -535,7 +535,7 @@ function USACV({ data }: { data: PortfolioData }) {
       {work.length > 0 && (
         <USASec title="Professional Experience">
           {work.map((e, i) => (
-            <div key={i} style={{ marginBottom: "12px", pageBreakInside: "avoid" }}>
+            <div key={i} style={{ marginBottom: "12px", pageBreakInside: "avoid", breakInside: "avoid" }}>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <strong style={{ fontSize: "10.5pt" }}>{clean(e.title)}</strong>
                 <span style={{ fontSize: "8.5pt", color: "#666" }}>{e.period}</span>
@@ -558,7 +558,7 @@ function USACV({ data }: { data: PortfolioData }) {
       {proj.length > 0 && (
         <USASec title="Selected Projects">
           {proj.map((pr, i) => (
-            <div key={i} style={{ marginBottom: "10px", pageBreakInside: "avoid" }}>
+            <div key={i} style={{ marginBottom: "10px", pageBreakInside: "avoid", breakInside: "avoid" }}>
               <strong style={{ fontSize: "10.5pt" }}>{clean(pr.title)}</strong>
               <div style={{ fontSize: "9.5pt", lineHeight: 1.55, marginTop: "2px" }}>• {cut(pr.description, 230)}</div>
               {pr.tech.length > 0 && (
@@ -656,7 +656,7 @@ function CanadaCV({ data }: { data: PortfolioData }) {
       {work.length > 0 && (
         <CanSec title="Professional Experience" color={A}>
           {work.map((e, i) => (
-            <div key={i} style={{ display: "flex", gap: "14px", marginBottom: "12px", pageBreakInside: "avoid" }}>
+            <div key={i} style={{ display: "flex", gap: "14px", marginBottom: "12px", pageBreakInside: "avoid", breakInside: "avoid" }}>
               <div style={{ width: "90px", flexShrink: 0, fontSize: "8.5pt", color: A, fontWeight: "bold", paddingTop: "2px" }}>{e.period}</div>
               <div style={{ flex: 1 }}>
                 <strong style={{ fontSize: "10.5pt" }}>{clean(e.title)}</strong>
@@ -672,7 +672,7 @@ function CanadaCV({ data }: { data: PortfolioData }) {
       {proj.length > 0 && (
         <CanSec title="Key Projects" color={A}>
           {proj.map((pr, i) => (
-            <div key={i} style={{ marginBottom: "11px", pageBreakInside: "avoid" }}>
+            <div key={i} style={{ marginBottom: "11px", pageBreakInside: "avoid", breakInside: "avoid" }}>
               <strong style={{ fontSize: "10.5pt" }}>{clean(pr.title)}</strong>
               <div style={{ fontSize: "9.5pt", lineHeight: 1.55, marginTop: "2px" }}>{cut(pr.description, 230)}</div>
               {pr.tech.length > 0 && <Tags items={pr.tech.slice(0, 9)} bg={BG} color={A} />}
@@ -772,7 +772,7 @@ function UKCV({ data }: { data: PortfolioData }) {
       {proj.length > 0 && (
         <UKSec title="Key Projects" accent={A}>
           {proj.map((pr, i) => (
-            <div key={i} style={{ marginBottom: "11px", pageBreakInside: "avoid" }}>
+            <div key={i} style={{ marginBottom: "11px", pageBreakInside: "avoid", breakInside: "avoid" }}>
               <strong style={{ fontSize: "10.5pt" }}>{clean(pr.title)}</strong>
               <div style={{ fontSize: "9.5pt", lineHeight: 1.55, marginTop: "2px" }}>{cut(pr.description, 230)}</div>
               {pr.tech.length > 0 && <Tags items={pr.tech.slice(0, 10)} bg={BG} color={A} />}
@@ -852,7 +852,7 @@ function ANZCV({ data }: { data: PortfolioData }) {
         {proj.length > 0 && (
           <ANZSec title="Key Projects" accent={A}>
             {proj.map((pr, i) => (
-              <div key={i} style={{ marginBottom: "11px", pageBreakInside: "avoid" }}>
+              <div key={i} style={{ marginBottom: "11px", pageBreakInside: "avoid", breakInside: "avoid" }}>
                 <strong style={{ fontSize: "10.5pt" }}>{clean(pr.title)}</strong>
                 <div style={{ fontSize: "9.5pt", lineHeight: 1.55, marginTop: "2px" }}>{cut(pr.description, 230)}</div>
                 {pr.tech.length > 0 && <Tags items={pr.tech.slice(0, 10)} bg={BG} color={A} />}
@@ -896,8 +896,22 @@ function ANZCV({ data }: { data: PortfolioData }) {
 // ── Germany — Lebenslauf ──────────────────────────────────────────────────────
 
 const LEBENSLAUF_HTML_LABELS = {
-  en: { title: "Curriculum Vitae", personal: "Personal Information", work: "Work Experience", edu: "Education", skills: "Technical Skills", lang: "Languages", projects: "Key Projects", certs: "Certifications", sign: "Signature" },
-  de: { title: "Lebenslauf", personal: "Persönliche Angaben", work: "Berufserfahrung", edu: "Ausbildung", skills: "Technische Kenntnisse", lang: "Sprachkenntnisse", projects: "Schlüsselprojekte", certs: "Zertifizierungen", sign: "Unterschrift" },
+  en: {
+    title: "Curriculum Vitae", personal: "Personal Information",
+    fields: { email: "Email", phone: "Phone", address: "Address", nationality: "Nationality", dob: "Date of Birth", pob: "Place of Birth", marital: "Marital Status" },
+    work: "Work Experience", edu: "Education", skills: "Technical Skills",
+    lang: "Languages", langLine: "English (Fluent) | [Add your languages]",
+    projects: "Key Projects", certs: "Certifications",
+    sign: "Signature", city: "[City]", date: "[DD.MM.YYYY]",
+  },
+  de: {
+    title: "Lebenslauf", personal: "Persönliche Angaben",
+    fields: { email: "E-Mail", phone: "Telefon", address: "Anschrift", nationality: "Nationalität", dob: "Geburtsdatum", pob: "Geburtsort", marital: "Familienstand" },
+    work: "Berufserfahrung", edu: "Ausbildung", skills: "Technische Kenntnisse",
+    lang: "Sprachkenntnisse", langLine: "Englisch (Fließend) | [Sprachen hinzufügen]",
+    projects: "Schlüsselprojekte", certs: "Zertifizierungen",
+    sign: "Unterschrift", city: "[Ort]", date: "[TT.MM.JJJJ]",
+  },
 };
 
 function LebSec({ title, children }: { title: string; children: ReactNode }) {
@@ -916,7 +930,7 @@ function LebEntry({ period, title, org, desc, tech, accent, mid, bg }: {
   tech: string[]; accent: string; mid: string; bg: string;
 }) {
   return (
-    <div style={{ display: "flex", gap: "12px", marginBottom: "10px", pageBreakInside: "avoid" }}>
+    <div data-cv-section="true" style={{ display: "flex", gap: "12px", marginBottom: "10px" }}>
       <div style={{ width: "82px", flexShrink: 0, fontSize: "8.5pt", color: mid, paddingTop: "1px" }}>{period}</div>
       <div style={{ flex: 1 }}>
         <div style={{ fontWeight: "bold", fontSize: "10.5pt", color: accent }}>{clean(title)}</div>
@@ -951,12 +965,12 @@ function LebenslaufCV({ data, lang = "en" }: { data: PortfolioData; lang?: "en" 
           <div style={{ fontSize: "10pt", color: MID, marginBottom: "10px" }}>{clean(p.title)}</div>
           <div style={{ fontSize: "8pt", fontWeight: "bold", color: MID, textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "4px" }}>{L.personal}</div>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2px 20px", fontSize: "8pt" }}>
-            <span><span style={{ color: MID }}>Email: </span>{p.email}</span>
-            <span><span style={{ color: MID }}>Nationality: </span>[Add]</span>
-            <span><span style={{ color: MID }}>Phone: </span>{p.phone}</span>
-            <span><span style={{ color: MID }}>Date of Birth: </span>[DD.MM.YYYY]</span>
-            <span><span style={{ color: MID }}>Address: </span>{p.location}</span>
-            <span><span style={{ color: MID }}>Place of Birth: </span>[Add]</span>
+            <span><span style={{ color: MID }}>{L.fields.email}: </span>{p.email}</span>
+            <span><span style={{ color: MID }}>{L.fields.nationality}: </span>{p.nationality || "[Add]"}</span>
+            <span><span style={{ color: MID }}>{L.fields.phone}: </span>{p.phone}</span>
+            <span><span style={{ color: MID }}>{L.fields.dob}: </span>{p.dateOfBirth || "[DD.MM.YYYY]"}</span>
+            <span><span style={{ color: MID }}>{L.fields.address}: </span>{p.location}</span>
+            <span><span style={{ color: MID }}>{L.fields.pob}: </span>{p.placeOfBirth || "[Add]"}</span>
           </div>
         </div>
         {p.avatar && (
@@ -980,7 +994,7 @@ function LebenslaufCV({ data, lang = "en" }: { data: PortfolioData; lang?: "en" 
           <Tags items={skills.slice(0, 28)} bg={BG} color={A} />
         </LebSec>
         <LebSec title={L.lang}>
-          <div style={{ fontSize: "9.5pt" }}>English (Fluent)&nbsp;&nbsp;|&nbsp;&nbsp;[Add your languages]</div>
+          <div style={{ fontSize: "9.5pt" }}>{L.langLine}</div>
         </LebSec>
         {proj.length > 0 && (
           <LebSec title={L.projects}>
@@ -994,7 +1008,7 @@ function LebenslaufCV({ data, lang = "en" }: { data: PortfolioData; lang?: "en" 
         )}
         {/* Signature */}
         <div data-cv-section="true" style={{ marginTop: "20px", paddingTop: "10px", borderTop: "0.5px solid #aaa" }}>
-          <div style={{ fontSize: "9pt", color: MID, marginBottom: "20px" }}>[City], [DD.MM.YYYY]</div>
+          <div style={{ fontSize: "9pt", color: MID, marginBottom: "20px" }}>{L.city}, {L.date}</div>
           <div style={{ fontSize: "9pt", fontWeight: "bold", color: A, marginBottom: "4px" }}>{L.sign}:</div>
           <div style={{ borderBottom: "0.5px solid #aaa", width: "160px", marginBottom: "4px" }} />
           <div style={{ fontSize: "9pt", color: A }}>{p.name}</div>
@@ -1041,7 +1055,7 @@ function AcademicCV({ data }: { data: PortfolioData }) {
       {edu.length > 0 && (
         <AcadSec title="Education">
           {edu.map((e, i) => (
-            <div key={i} style={{ marginBottom: "10px", pageBreakInside: "avoid" }}>
+            <div key={i} style={{ marginBottom: "10px", pageBreakInside: "avoid", breakInside: "avoid" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
                 <strong style={{ fontSize: "10.5pt" }}>{clean(e.title)}</strong>
                 <span style={{ fontSize: "8.5pt", color: MID }}>{e.period}</span>
@@ -1056,7 +1070,7 @@ function AcademicCV({ data }: { data: PortfolioData }) {
       {work.length > 0 && (
         <AcadSec title="Academic & Professional Appointments">
           {work.map((e, i) => (
-            <div key={i} style={{ marginBottom: "10px", pageBreakInside: "avoid" }}>
+            <div key={i} style={{ marginBottom: "10px", pageBreakInside: "avoid", breakInside: "avoid" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
                 <strong style={{ fontSize: "10.5pt" }}>{clean(e.title)}</strong>
                 <span style={{ fontSize: "8.5pt", color: MID }}>{e.period}</span>
@@ -1071,7 +1085,7 @@ function AcademicCV({ data }: { data: PortfolioData }) {
       {proj.length > 0 && (
         <AcadSec title="Publications & Research Projects">
           {proj.map((pr, i) => (
-            <div key={i} style={{ marginBottom: "10px", pageBreakInside: "avoid", fontSize: "9.5pt", lineHeight: 1.6 }}>
+            <div key={i} style={{ marginBottom: "10px", pageBreakInside: "avoid", breakInside: "avoid", fontSize: "9.5pt", lineHeight: 1.6 }}>
               <strong>{i + 1}.</strong>&nbsp;
               <strong>{clean(pr.title)}</strong>.&nbsp;
               {cut(pr.description, 240)}
@@ -1130,11 +1144,11 @@ function PakIndiaCV({ data }: { data: PortfolioData }) {
             <span>Email: {p.email}</span>
             <span>Phone: {p.phone}</span>
             <span>Location: {p.location}</span>
-            <span>Nationality: [Add]</span>
-            <span>CNIC / ID No: [Add]</span>
-            <span>Date of Birth: [Add]</span>
-            <span>Religion: [Add]</span>
-            <span>Marital Status: [Add]</span>
+            <span>Nationality: {p.nationality || "[Add]"}</span>
+            <span>CNIC / ID No: {p.cnic || "[Add]"}</span>
+            <span>Date of Birth: {p.dateOfBirth || "[Add]"}</span>
+            <span>Religion: {p.religion || "[Add]"}</span>
+            <span>Marital Status: {p.maritalStatus || "[Add]"}</span>
           </div>
           {(p.social.linkedin || p.social.github) && (
             <div style={{ fontSize: "7.5pt", color: "#6f90aa", marginTop: "5px" }}>
@@ -1167,7 +1181,7 @@ function PakIndiaCV({ data }: { data: PortfolioData }) {
         {proj.length > 0 && (
           <Sec title="Key Projects" color={A}>
             {proj.map((pr, i) => (
-              <div key={i} style={{ marginBottom: "11px", pageBreakInside: "avoid" }}>
+              <div key={i} style={{ marginBottom: "11px", pageBreakInside: "avoid", breakInside: "avoid" }}>
                 <strong style={{ fontSize: "10.5pt" }}>{clean(pr.title)}</strong>
                 <div style={{ fontSize: "9.5pt", lineHeight: 1.55, marginTop: "2px" }}>{cut(pr.description, 230)}</div>
                 {pr.tech.length > 0 && <Tags items={pr.tech.slice(0, 10)} bg={BG} color={A} />}

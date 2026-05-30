@@ -252,9 +252,9 @@ export function generateSaudiCV(data: PortfolioData): Promise<Buffer> {
         `Email: ${p.email}`,
         `Phone: ${p.phone}`,
         `Location: ${p.location}`,
-        "Nationality: [Add]",
-        "Marital Status: [Add]",
-        "Religion: Islam",
+        `Nationality: ${p.nationality || "[Add]"}`,
+        `Marital Status: ${p.maritalStatus || "[Add]"}`,
+        `Religion: ${p.religion || "Islam"}`,
       ];
       doc.fontSize(8.5).fillColor("#a8d5b8");
       let dx = M, dy = doc.y + 6;
@@ -972,9 +972,9 @@ export function generatePakIndiaCV(data: PortfolioData): Promise<Buffer> {
       const colW2 = textW / 2;
       const grid: [string, string][] = [
         [`Email: ${p.email}`,    `Phone: ${p.phone}`],
-        [`Location: ${p.location}`, `Nationality: [Add]`],
-        [`CNIC / ID No: [Add]`,  `Date of Birth: [Add]`],
-        [`Religion: [Add]`,      `Marital Status: [Add]`],
+        [`Location: ${p.location}`, `Nationality: ${p.nationality || "[Add]"}`],
+        [`CNIC / ID No: ${p.cnic || "[Add]"}`, `Date of Birth: ${p.dateOfBirth || "[Add]"}`],
+        [`Religion: ${p.religion || "[Add]"}`, `Marital Status: ${p.maritalStatus || "[Add]"}`],
       ];
       let gy = doc.y + 9;
       doc.fontSize(7.8).fillColor("#8faec8");
@@ -1388,15 +1388,21 @@ export function generateANZCV(data: PortfolioData): Promise<Buffer> {
 const LEBENSLAUF_LABELS = {
   en: {
     title: "Curriculum Vitae", personal: "Personal Information",
+    fields: { email: "Email:", phone: "Phone:", address: "Address:", nationality: "Nationality:", dob: "Date of Birth:", pob: "Place of Birth:" },
     work: "Work Experience", edu: "Education",
     skills: "Technical Skills", lang: "Languages",
-    projects: "Key Projects", certs: "Certifications", sign: "Signature",
+    langLine: "English (Fluent)   |   [Add your languages]",
+    projects: "Key Projects", certs: "Certifications",
+    sign: "Signature", city: "[City]", date: "[DD.MM.YYYY]",
   },
   de: {
     title: "Lebenslauf", personal: "Persönliche Angaben",
+    fields: { email: "E-Mail:", phone: "Telefon:", address: "Anschrift:", nationality: "Nationalität:", dob: "Geburtsdatum:", pob: "Geburtsort:" },
     work: "Berufserfahrung", edu: "Ausbildung",
     skills: "Technische Kenntnisse", lang: "Sprachkenntnisse",
-    projects: "Schlüsselprojekte", certs: "Zertifizierungen", sign: "Unterschrift",
+    langLine: "Englisch (Fließend)   |   [Sprachen hinzufügen]",
+    projects: "Schlüsselprojekte", certs: "Zertifizierungen",
+    sign: "Unterschrift", city: "[Ort]", date: "[TT.MM.JJJJ]",
   },
 };
 
@@ -1447,9 +1453,9 @@ export function generateLebenslaufCV(data: PortfolioData, lang: "en" | "de" = "e
       doc.y += 6;
 
       const personalData: [string, string][] = [
-        ["Email:", p.email], ["Nationality:", "[Add]"],
-        ["Phone:", p.phone], ["Date of Birth:", "[DD.MM.YYYY]"],
-        ["Address:", p.location], ["Place of Birth:", "[Add]"],
+        [L.fields.email, p.email], [L.fields.nationality, p.nationality || "[Add]"],
+        [L.fields.phone, p.phone], [L.fields.dob, p.dateOfBirth || (lang === "de" ? "[TT.MM.JJJJ]" : "[DD.MM.YYYY]")],
+        [L.fields.address, p.location], [L.fields.pob, p.placeOfBirth || "[Add]"],
       ];
       const colW2 = textW / 2;
       doc.font("Helvetica").fontSize(8.5);
@@ -1526,7 +1532,7 @@ export function generateLebenslaufCV(data: PortfolioData, lang: "en" | "de" = "e
       // Languages
       section(L.lang);
       doc.font("Helvetica").fontSize(9.5).fillColor("#333")
-        .text("English (Fluent)   |   [Add your languages]", M, doc.y, { lineBreak: false });
+        .text(L.langLine, M, doc.y, { lineBreak: false });
       doc.y += 16;
 
       // Key Projects
@@ -1548,7 +1554,7 @@ export function generateLebenslaufCV(data: PortfolioData, lang: "en" | "de" = "e
       doc.rect(M, doc.y, CW, 0.5).fill("#aaaaaa");
       doc.y += 10;
       doc.fillColor(MID).font("Helvetica").fontSize(9)
-        .text("[City], [DD.MM.YYYY]", M, doc.y);
+        .text(`${L.city}, ${L.date}`, M, doc.y);
       doc.y += 28;
       doc.fillColor(DARK).font("Helvetica-Bold").fontSize(9)
         .text(`${L.sign}:`, M, doc.y);
