@@ -40,10 +40,10 @@ const CV_FORMATS = [
 
 // ─── Styling helpers ───────────────────────────────────────────────────────────
 
-const inp = "w-full bg-white/[0.04] border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-indigo-500/60 focus:bg-white/[0.06] transition-colors cursor-text";
-const lbl = "block text-slate-400 text-xs font-medium mb-1.5";
+const inp = "w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2.5 text-slate-100 text-sm placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:bg-slate-700/80 transition-colors cursor-text";
+const lbl = "block text-slate-300 text-xs font-medium mb-1.5";
 const ta  = inp + " resize-none";
-const card = "bg-[#0d1117] border border-white/[0.06] rounded-xl p-5";
+const card = "bg-slate-900 border border-slate-800 rounded-xl p-5";
 
 function Field({ label, children, className = "" }: { label: string; children: React.ReactNode; className?: string }) {
   return <div className={className}><label className={lbl}>{label}</label>{children}</div>;
