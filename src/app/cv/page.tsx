@@ -402,7 +402,26 @@ export default function CVBuilderPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0b0e] text-white" style={{ colorScheme: "dark" }}>
+    <div className="cv-builder min-h-screen bg-[#0a0b0e] text-white" style={{ colorScheme: "dark" }}>
+      <style>{`
+        .cv-builder input,
+        .cv-builder textarea {
+          background-color: #1e293b !important;
+          color: #e2e8f0 !important;
+          -webkit-text-fill-color: #e2e8f0 !important;
+          caret-color: #e2e8f0 !important;
+        }
+        .cv-builder input:focus,
+        .cv-builder textarea:focus {
+          background-color: #263347 !important;
+          outline: none;
+        }
+        .cv-builder input::placeholder,
+        .cv-builder textarea::placeholder {
+          color: #64748b !important;
+          -webkit-text-fill-color: #64748b !important;
+        }
+      `}</style>
       {/* Header */}
       <div className="border-b border-white/[0.06] bg-[#0d1117]/80 backdrop-blur sticky top-0 z-10">
         <div className="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between">
