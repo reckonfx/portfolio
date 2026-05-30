@@ -48,7 +48,13 @@
         "value": 50,
         "suffix": "+"
       }
-    ]
+    ],
+    "nationality": "Pakistani",
+    "placeOfBirth": "Karachi, Pakistan",
+    "maritalStatus": "Married",
+    "dateOfBirth": "11th - oct-1975",
+    "religion": "Islam",
+    "cnic": "42101-3174009-1"
   },
   "techStack": [
     {
