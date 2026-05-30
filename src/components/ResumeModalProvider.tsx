@@ -76,6 +76,46 @@ const FORMATS = [
     description: "South Asian format with personal details grid, career objective, declaration, and references",
     photo: true,
   },
+  {
+    id: "uk",
+    name: "UK CV",
+    flag: "🇬🇧",
+    region: "United Kingdom",
+    description: "No photo, 2-page max, personal statement, core skills, clean navy accent",
+    photo: false,
+  },
+  {
+    id: "anz",
+    name: "Australia / NZ CV",
+    flag: "🇦🇺",
+    region: "Australia · New Zealand",
+    description: "Professional profile, teal left-bar sections, references line, 2-3 page format",
+    photo: false,
+  },
+  {
+    id: "lebenslauf",
+    name: "Lebenslauf (EN)",
+    flag: "🇩🇪",
+    region: "Germany — English headers",
+    description: "Tabular date|content layout, passport photo, personal data section, signature",
+    photo: true,
+  },
+  {
+    id: "lebenslauf-de",
+    name: "Lebenslauf (DE)",
+    flag: "🇩🇪",
+    region: "Germany — Deutsche Überschriften",
+    description: "Berufserfahrung · Ausbildung · Kenntnisse — selbes Layout, alle Überschriften auf Deutsch",
+    photo: true,
+  },
+  {
+    id: "academic",
+    name: "Academic CV",
+    flag: "🎓",
+    region: "Universities Worldwide",
+    description: "Research interests, publications, academic appointments, skills — no page limit, serif style",
+    photo: false,
+  },
 ];
 
 // ── Provider (holds state + renders modal) ────────────────────────────────────

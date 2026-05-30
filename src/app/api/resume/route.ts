@@ -8,11 +8,17 @@ import {
   generateUSACV,
   generateCanadaCV,
   generatePakIndiaCV,
+  generateUKCV,
+  generateANZCV,
+  generateLebenslaufCV,
+  generateAcademicCV,
 } from "@/lib/cv-generators";
 
 export const dynamic = "force-dynamic";
 
-const generators: Record<string, (data: Awaited<ReturnType<typeof readData>>) => Promise<Buffer>> = {
+type DataType = Awaited<ReturnType<typeof readData>>;
+
+const generators: Record<string, (data: DataType) => Promise<Buffer>> = {
   gulf: generateGulfCV,
   saudi: generateSaudiCV,
   emirati: generateEmiratiCV,
@@ -20,6 +26,11 @@ const generators: Record<string, (data: Awaited<ReturnType<typeof readData>>) =>
   usa: generateUSACV,
   canada: generateCanadaCV,
   pakIndia: generatePakIndiaCV,
+  uk: generateUKCV,
+  anz: generateANZCV,
+  lebenslauf: (data: DataType) => generateLebenslaufCV(data, "en"),
+  "lebenslauf-de": (data: DataType) => generateLebenslaufCV(data, "de"),
+  academic: generateAcademicCV,
 };
 
 export async function GET(req: Request) {

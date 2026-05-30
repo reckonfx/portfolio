@@ -724,6 +724,389 @@ function CanSec({ title, color, children }: { title: string; color: string; chil
   );
 }
 
+// ── UK CV ─────────────────────────────────────────────────────────────────────
+
+function UKSec({ title, accent, children }: { title: string; accent: string; children: ReactNode }) {
+  return (
+    <div data-cv-section="true" style={{ marginBottom: "14px" }}>
+      <div style={{ color: accent, fontWeight: "bold", fontSize: "9pt", textTransform: "uppercase", letterSpacing: "1px", marginBottom: "2px" }}>{title}</div>
+      <div style={{ borderBottom: `1px solid ${accent}`, marginBottom: "7px" }} />
+      {children}
+    </div>
+  );
+}
+
+function UKCV({ data }: { data: PortfolioData }) {
+  const p = data.personalInfo;
+  const A = "#1a4f7a";
+  const BG = "#e8f0f7";
+  const work = data.experiences.filter(e => e.type !== "education");
+  const edu = data.experiences.filter(e => e.type === "education");
+  const proj = data.projects.filter(pr => pr.featured).slice(0, 3);
+  const skills = [...new Set(data.techStack.flatMap(c => c.items.map(i => i.name)))];
+
+  return (
+    <div style={{ fontFamily: "Arial, sans-serif", fontSize: "10pt", color: "#1a1a1a", background: "#fff", padding: "32px 36px" }}>
+      <div style={{ borderBottom: `2.5px solid ${A}`, paddingBottom: "12px", marginBottom: "14px" }}>
+        <div style={{ fontSize: "24pt", fontWeight: "bold", color: "#1a1a1a", marginBottom: "2px" }}>{p.name}</div>
+        <div style={{ fontSize: "11.5pt", color: A, marginBottom: "8px" }}>{clean(p.title)}</div>
+        <div style={{ fontSize: "8.5pt", color: "#555" }}>
+          {[p.email, p.phone, p.location, p.social.linkedin?.replace("https://www.", "").replace("https://", ""), p.website?.replace(/^https?:\/\//, "")].filter(Boolean).join("   ·   ")}
+        </div>
+      </div>
+
+      <UKSec title="Personal Statement" accent={A}>
+        <p style={{ margin: 0, lineHeight: 1.6, fontSize: "9.5pt" }}>{clean(p.bio)}</p>
+      </UKSec>
+
+      <UKSec title="Core Skills" accent={A}>
+        <Tags items={skills.slice(0, 22)} bg={BG} color={A} />
+      </UKSec>
+
+      {work.length > 0 && (
+        <UKSec title="Work Experience" accent={A}>
+          {work.map((e, i) => <ExpBlock key={i} title={e.title} company={e.company} period={e.period} desc={e.description} tech={e.tech} accent={A} tagBg={BG} />)}
+        </UKSec>
+      )}
+
+      {proj.length > 0 && (
+        <UKSec title="Key Projects" accent={A}>
+          {proj.map((pr, i) => (
+            <div key={i} style={{ marginBottom: "11px", pageBreakInside: "avoid" }}>
+              <strong style={{ fontSize: "10.5pt" }}>{clean(pr.title)}</strong>
+              <div style={{ fontSize: "9.5pt", lineHeight: 1.55, marginTop: "2px" }}>{cut(pr.description, 230)}</div>
+              {pr.tech.length > 0 && <Tags items={pr.tech.slice(0, 10)} bg={BG} color={A} />}
+            </div>
+          ))}
+        </UKSec>
+      )}
+
+      {edu.length > 0 && (
+        <UKSec title="Education & Qualifications" accent={A}>
+          {edu.map((e, i) => <ExpBlock key={i} title={e.title} company={e.company} period={e.period} desc={e.description} tech={[]} accent={A} tagBg={BG} />)}
+        </UKSec>
+      )}
+
+      {data.certifications.length > 0 && (
+        <UKSec title="Professional Development" accent={A}>
+          {data.certifications.map((c, i) => (
+            <div key={i} style={{ display: "flex", justifyContent: "space-between", marginBottom: "6px" }}>
+              <div>
+                <div style={{ fontWeight: "bold", fontSize: "10pt" }}>{clean(c.name)}</div>
+                <div style={{ fontSize: "8.5pt", color: "#777" }}>{c.issuer}</div>
+              </div>
+              <div style={{ fontSize: "9pt", color: "#777" }}>{c.year}</div>
+            </div>
+          ))}
+        </UKSec>
+      )}
+    </div>
+  );
+}
+
+// ── Australia / NZ CV ─────────────────────────────────────────────────────────
+
+function ANZSec({ title, accent, children }: { title: string; accent: string; children: ReactNode }) {
+  return (
+    <div data-cv-section="true" style={{ marginBottom: "14px" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "7px" }}>
+        <div style={{ width: "3px", height: "14px", background: accent, flexShrink: 0 }} />
+        <div style={{ color: "#1a1a1a", fontWeight: "bold", fontSize: "9.5pt", textTransform: "uppercase", letterSpacing: "0.8px" }}>{title}</div>
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function ANZCV({ data }: { data: PortfolioData }) {
+  const p = data.personalInfo;
+  const A = "#1b6b72";
+  const BG = "#e0f4f5";
+  const work = data.experiences.filter(e => e.type !== "education");
+  const edu = data.experiences.filter(e => e.type === "education");
+  const proj = data.projects.filter(pr => pr.featured).slice(0, 3);
+  const skills = [...new Set(data.techStack.flatMap(c => c.items.map(i => i.name)))];
+
+  return (
+    <div style={{ fontFamily: "Arial, sans-serif", fontSize: "10pt", color: "#1a1a1a", background: "#fff" }}>
+      <div style={{ height: "5px", background: A }} />
+      <div style={{ padding: "24px 32px" }}>
+        <div style={{ marginBottom: "16px", paddingBottom: "10px", borderBottom: `1px solid ${A}` }}>
+          <div style={{ fontSize: "23pt", fontWeight: "bold", color: "#1a1a1a", marginBottom: "2px" }}>{p.name}</div>
+          <div style={{ fontSize: "11pt", color: A, marginBottom: "8px" }}>{clean(p.title)}</div>
+          <div style={{ fontSize: "8.5pt", color: "#555" }}>
+            {[p.email, p.phone, p.location, p.social.linkedin?.replace("https://www.", "").replace("https://", "")].filter(Boolean).join("   |   ")}
+          </div>
+        </div>
+
+        <ANZSec title="Professional Profile" accent={A}>
+          <p style={{ margin: 0, lineHeight: 1.6, fontSize: "9.5pt" }}>{clean(p.bio)}</p>
+        </ANZSec>
+
+        {work.length > 0 && (
+          <ANZSec title="Work Experience" accent={A}>
+            {work.map((e, i) => <ExpBlock key={i} title={e.title} company={e.company} period={e.period} desc={e.description} tech={e.tech} accent={A} tagBg={BG} />)}
+          </ANZSec>
+        )}
+
+        {proj.length > 0 && (
+          <ANZSec title="Key Projects" accent={A}>
+            {proj.map((pr, i) => (
+              <div key={i} style={{ marginBottom: "11px", pageBreakInside: "avoid" }}>
+                <strong style={{ fontSize: "10.5pt" }}>{clean(pr.title)}</strong>
+                <div style={{ fontSize: "9.5pt", lineHeight: 1.55, marginTop: "2px" }}>{cut(pr.description, 230)}</div>
+                {pr.tech.length > 0 && <Tags items={pr.tech.slice(0, 10)} bg={BG} color={A} />}
+              </div>
+            ))}
+          </ANZSec>
+        )}
+
+        <ANZSec title="Key Skills" accent={A}>
+          <Tags items={skills.slice(0, 24)} bg={BG} color={A} />
+        </ANZSec>
+
+        {edu.length > 0 && (
+          <ANZSec title="Education" accent={A}>
+            {edu.map((e, i) => <ExpBlock key={i} title={e.title} company={e.company} period={e.period} desc={e.description} tech={[]} accent={A} tagBg={BG} />)}
+          </ANZSec>
+        )}
+
+        {data.certifications.length > 0 && (
+          <ANZSec title="Certifications & Credentials" accent={A}>
+            {data.certifications.map((c, i) => (
+              <div key={i} style={{ display: "flex", justifyContent: "space-between", marginBottom: "6px" }}>
+                <div>
+                  <div style={{ fontWeight: "bold", fontSize: "10pt" }}>{clean(c.name)}</div>
+                  <div style={{ fontSize: "8.5pt", color: "#777" }}>{c.issuer}</div>
+                </div>
+                <div style={{ fontSize: "9pt", color: "#777" }}>{c.year}</div>
+              </div>
+            ))}
+          </ANZSec>
+        )}
+
+        <div style={{ marginTop: "16px", paddingTop: "8px", borderTop: "1px solid #d1d5db" }}>
+          <div style={{ fontSize: "9pt", color: "#777", fontStyle: "italic" }}>References available upon request</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Germany — Lebenslauf ──────────────────────────────────────────────────────
+
+const LEBENSLAUF_HTML_LABELS = {
+  en: { title: "Curriculum Vitae", personal: "Personal Information", work: "Work Experience", edu: "Education", skills: "Technical Skills", lang: "Languages", projects: "Key Projects", certs: "Certifications", sign: "Signature" },
+  de: { title: "Lebenslauf", personal: "Persönliche Angaben", work: "Berufserfahrung", edu: "Ausbildung", skills: "Technische Kenntnisse", lang: "Sprachkenntnisse", projects: "Schlüsselprojekte", certs: "Zertifizierungen", sign: "Unterschrift" },
+};
+
+function LebSec({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <div data-cv-section="true" style={{ marginBottom: "14px" }}>
+      <div style={{ fontWeight: "bold", fontSize: "8.5pt", color: "#2c2c2c", textTransform: "uppercase", letterSpacing: "0.5px", borderBottom: "0.5px solid #aaa", paddingBottom: "3px", marginBottom: "8px" }}>
+        {title}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function LebEntry({ period, title, org, desc, tech, accent, mid, bg }: {
+  period: string; title: string; org: string; desc: string;
+  tech: string[]; accent: string; mid: string; bg: string;
+}) {
+  return (
+    <div style={{ display: "flex", gap: "12px", marginBottom: "10px", pageBreakInside: "avoid" }}>
+      <div style={{ width: "82px", flexShrink: 0, fontSize: "8.5pt", color: mid, paddingTop: "1px" }}>{period}</div>
+      <div style={{ flex: 1 }}>
+        <div style={{ fontWeight: "bold", fontSize: "10.5pt", color: accent }}>{clean(title)}</div>
+        {org && <div style={{ fontSize: "9.5pt", color: mid, marginBottom: "2px" }}>{clean(org)}</div>}
+        {desc && <div style={{ fontSize: "9.5pt", lineHeight: 1.55, color: "#333" }}>{clean(desc)}</div>}
+        {tech.length > 0 && <Tags items={tech} bg={bg} color={accent} />}
+      </div>
+    </div>
+  );
+}
+
+function LebenslaufCV({ data, lang = "en" }: { data: PortfolioData; lang?: "en" | "de" }) {
+  const p = data.personalInfo;
+  const A = "#2c2c2c";
+  const MID = "#555";
+  const BG = "#f2f2f2";
+  const L = LEBENSLAUF_HTML_LABELS[lang];
+  const work = data.experiences.filter(e => e.type !== "education");
+  const edu = data.experiences.filter(e => e.type === "education");
+  const proj = data.projects.filter(pr => pr.featured).slice(0, 2);
+  const skills = [...new Set(data.techStack.flatMap(c => c.items.map(i => i.name)))];
+
+  return (
+    <div style={{ fontFamily: "Arial, sans-serif", fontSize: "10pt", color: "#1a1a1a", background: "#fff" }}>
+      {/* Header */}
+      <div style={{ borderBottom: "2px solid #2c2c2c", padding: "22px 32px 12px", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+        <div style={{ flex: 1 }}>
+          <div style={{ textAlign: "center", fontWeight: "bold", fontSize: "11pt", letterSpacing: "3px", color: A, marginBottom: "12px", textTransform: "uppercase" }}>
+            {L.title}
+          </div>
+          <div style={{ fontSize: "20pt", fontWeight: "bold", color: A, marginBottom: "2px" }}>{p.name}</div>
+          <div style={{ fontSize: "10pt", color: MID, marginBottom: "10px" }}>{clean(p.title)}</div>
+          <div style={{ fontSize: "8pt", fontWeight: "bold", color: MID, textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "4px" }}>{L.personal}</div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2px 20px", fontSize: "8pt" }}>
+            <span><span style={{ color: MID }}>Email: </span>{p.email}</span>
+            <span><span style={{ color: MID }}>Nationality: </span>[Add]</span>
+            <span><span style={{ color: MID }}>Phone: </span>{p.phone}</span>
+            <span><span style={{ color: MID }}>Date of Birth: </span>[DD.MM.YYYY]</span>
+            <span><span style={{ color: MID }}>Address: </span>{p.location}</span>
+            <span><span style={{ color: MID }}>Place of Birth: </span>[Add]</span>
+          </div>
+        </div>
+        {p.avatar && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={p.avatar} alt="Profile" style={{ width: "78px", height: "100px", objectFit: "cover", border: "1px solid #ccc", marginLeft: "20px", flexShrink: 0 }} />
+        )}
+      </div>
+
+      <div style={{ padding: "14px 32px" }}>
+        {work.length > 0 && (
+          <LebSec title={L.work}>
+            {work.map((e, i) => <LebEntry key={i} period={e.period} title={e.title} org={e.company} desc={e.description} tech={e.tech} accent={A} mid={MID} bg={BG} />)}
+          </LebSec>
+        )}
+        {edu.length > 0 && (
+          <LebSec title={L.edu}>
+            {edu.map((e, i) => <LebEntry key={i} period={e.period} title={e.title} org={e.company} desc={e.description} tech={[]} accent={A} mid={MID} bg={BG} />)}
+          </LebSec>
+        )}
+        <LebSec title={L.skills}>
+          <Tags items={skills.slice(0, 28)} bg={BG} color={A} />
+        </LebSec>
+        <LebSec title={L.lang}>
+          <div style={{ fontSize: "9.5pt" }}>English (Fluent)&nbsp;&nbsp;|&nbsp;&nbsp;[Add your languages]</div>
+        </LebSec>
+        {proj.length > 0 && (
+          <LebSec title={L.projects}>
+            {proj.map((pr, i) => <LebEntry key={i} period={pr.date || "—"} title={pr.title} org="" desc={cut(pr.description, 200)} tech={pr.tech.slice(0, 8)} accent={A} mid={MID} bg={BG} />)}
+          </LebSec>
+        )}
+        {data.certifications.length > 0 && (
+          <LebSec title={L.certs}>
+            {data.certifications.map((c, i) => <LebEntry key={i} period={String(c.year)} title={c.name} org={c.issuer} desc="" tech={[]} accent={A} mid={MID} bg={BG} />)}
+          </LebSec>
+        )}
+        {/* Signature */}
+        <div data-cv-section="true" style={{ marginTop: "20px", paddingTop: "10px", borderTop: "0.5px solid #aaa" }}>
+          <div style={{ fontSize: "9pt", color: MID, marginBottom: "20px" }}>[City], [DD.MM.YYYY]</div>
+          <div style={{ fontSize: "9pt", fontWeight: "bold", color: A, marginBottom: "4px" }}>{L.sign}:</div>
+          <div style={{ borderBottom: "0.5px solid #aaa", width: "160px", marginBottom: "4px" }} />
+          <div style={{ fontSize: "9pt", color: A }}>{p.name}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Academic / Research CV ────────────────────────────────────────────────────
+
+function AcadSec({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <div data-cv-section="true" style={{ marginBottom: "16px" }}>
+      <div style={{ fontWeight: "bold", fontSize: "9.5pt", textTransform: "uppercase", letterSpacing: "1.5px", borderBottom: "1px solid #1a1a1a", paddingBottom: "2px", marginBottom: "8px" }}>
+        {title}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function AcademicCV({ data }: { data: PortfolioData }) {
+  const p = data.personalInfo;
+  const MID = "#555";
+  const work = data.experiences.filter(e => e.type !== "education");
+  const edu = data.experiences.filter(e => e.type === "education");
+  const proj = data.projects.filter(pr => pr.featured);
+
+  return (
+    <div style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontSize: "10pt", color: "#1a1a1a", background: "#fff", padding: "36px 42px" }}>
+      <div style={{ textAlign: "center", marginBottom: "16px", paddingBottom: "12px", borderBottom: "1px solid #1a1a1a" }}>
+        <div style={{ fontSize: "22pt", fontWeight: "bold", marginBottom: "4px" }}>{p.name}</div>
+        <div style={{ fontSize: "10pt", color: MID, marginBottom: "8px" }}>{clean(p.title)}</div>
+        <div style={{ fontSize: "8.5pt", color: MID }}>
+          {[p.email, p.phone, p.location, p.social.linkedin?.replace("https://www.", "").replace("https://", ""), p.website?.replace(/^https?:\/\//, "")].filter(Boolean).join("   |   ")}
+        </div>
+      </div>
+
+      <AcadSec title="Research Interests">
+        <p style={{ margin: 0, lineHeight: 1.7, fontSize: "9.5pt" }}>{clean(p.bio)}</p>
+      </AcadSec>
+
+      {edu.length > 0 && (
+        <AcadSec title="Education">
+          {edu.map((e, i) => (
+            <div key={i} style={{ marginBottom: "10px", pageBreakInside: "avoid" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                <strong style={{ fontSize: "10.5pt" }}>{clean(e.title)}</strong>
+                <span style={{ fontSize: "8.5pt", color: MID }}>{e.period}</span>
+              </div>
+              <div style={{ color: MID, fontSize: "9.5pt", fontStyle: "italic" }}>{clean(e.company)}</div>
+              <div style={{ fontSize: "9.5pt", lineHeight: 1.6, marginTop: "2px" }}>{clean(e.description)}</div>
+            </div>
+          ))}
+        </AcadSec>
+      )}
+
+      {work.length > 0 && (
+        <AcadSec title="Academic & Professional Appointments">
+          {work.map((e, i) => (
+            <div key={i} style={{ marginBottom: "10px", pageBreakInside: "avoid" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                <strong style={{ fontSize: "10.5pt" }}>{clean(e.title)}</strong>
+                <span style={{ fontSize: "8.5pt", color: MID }}>{e.period}</span>
+              </div>
+              <div style={{ color: MID, fontSize: "9.5pt", fontStyle: "italic" }}>{clean(e.company)}</div>
+              <div style={{ fontSize: "9.5pt", lineHeight: 1.6, marginTop: "2px" }}>{clean(e.description)}</div>
+            </div>
+          ))}
+        </AcadSec>
+      )}
+
+      {proj.length > 0 && (
+        <AcadSec title="Publications & Research Projects">
+          {proj.map((pr, i) => (
+            <div key={i} style={{ marginBottom: "10px", pageBreakInside: "avoid", fontSize: "9.5pt", lineHeight: 1.6 }}>
+              <strong>{i + 1}.</strong>&nbsp;
+              <strong>{clean(pr.title)}</strong>.&nbsp;
+              {cut(pr.description, 240)}
+              {pr.tech.length > 0 && <span style={{ color: MID, fontStyle: "italic" }}>&nbsp;[{pr.tech.join(", ")}]</span>}
+            </div>
+          ))}
+        </AcadSec>
+      )}
+
+      <AcadSec title="Technical Skills & Tools">
+        {data.techStack.slice(0, 6).map((cat, i) => (
+          <div key={i} style={{ fontSize: "9.5pt", marginBottom: "4px" }}>
+            <strong>{clean(cat.category)}:</strong>&nbsp;
+            <span style={{ color: MID }}>{cat.items.map(item => item.name).slice(0, 10).join(", ")}</span>
+          </div>
+        ))}
+      </AcadSec>
+
+      {data.certifications.length > 0 && (
+        <AcadSec title="Awards, Grants & Qualifications">
+          {data.certifications.map((c, i) => (
+            <div key={i} style={{ display: "flex", justifyContent: "space-between", marginBottom: "6px" }}>
+              <div>
+                <strong style={{ fontSize: "10pt" }}>{clean(c.name)}</strong>
+                <div style={{ fontSize: "8.5pt", color: MID, fontStyle: "italic" }}>{c.issuer}</div>
+              </div>
+              <div style={{ fontSize: "9pt", color: MID }}>{c.year}</div>
+            </div>
+          ))}
+        </AcadSec>
+      )}
+    </div>
+  );
+}
+
 // ── Pakistan / India CV ───────────────────────────────────────────────────────
 
 function PakIndiaCV({ data }: { data: PortfolioData }) {
@@ -871,6 +1254,11 @@ const FORMAT_NAMES: Record<string, string> = {
   usa: "USA Resume",
   canada: "Canadian CV",
   pakIndia: "Pakistan / India CV",
+  uk: "UK CV",
+  anz: "Australia / NZ CV",
+  lebenslauf: "Lebenslauf (EN)",
+  "lebenslauf-de": "Lebenslauf (DE)",
+  academic: "Academic CV",
 };
 
 function WhatsAppIcon() {
@@ -1128,13 +1516,18 @@ export function CVPreview({ data, format }: { data: PortfolioData; format: strin
 
   function renderCV() {
     switch (format) {
-      case "gulf":     return <GulfCV data={data} />;
-      case "saudi":    return <SaudiCV data={data} />;
-      case "emirati":  return <EmiratiCV data={data} />;
-      case "europass": return <EuropassCV data={data} />;
-      case "canada":   return <CanadaCV data={data} />;
-      case "pakIndia": return <PakIndiaCV data={data} />;
-      default:         return <USACV data={data} />;
+      case "gulf":          return <GulfCV data={data} />;
+      case "saudi":         return <SaudiCV data={data} />;
+      case "emirati":       return <EmiratiCV data={data} />;
+      case "europass":      return <EuropassCV data={data} />;
+      case "canada":        return <CanadaCV data={data} />;
+      case "pakIndia":      return <PakIndiaCV data={data} />;
+      case "uk":            return <UKCV data={data} />;
+      case "anz":           return <ANZCV data={data} />;
+      case "lebenslauf":    return <LebenslaufCV data={data} lang="en" />;
+      case "lebenslauf-de": return <LebenslaufCV data={data} lang="de" />;
+      case "academic":      return <AcademicCV data={data} />;
+      default:              return <USACV data={data} />;
     }
   }
 
