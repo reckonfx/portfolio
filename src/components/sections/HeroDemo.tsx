@@ -198,7 +198,7 @@ export function HeroDemo({ data }: { data: PersonalInfo }) {
                 {/* Photo image — no circle, no border */}
                 <div className="absolute inset-0 rounded-2xl overflow-hidden">
                   <Image
-                    src="/uploads/avatar-coat.png"
+                    src={data.avatar}
                     alt={data.name}
                     fill
                     className="object-cover object-top"
