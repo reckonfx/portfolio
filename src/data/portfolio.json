@@ -16,7 +16,7 @@
     "website": "https://aamirshamsi.dev",
     "resume": "/api/resume",
     "availability": "Open to opportunities",
-    "avatar": "/uploads/avatar-coat.png",
+    "avatar": "/uploads/avatar.jpeg",
     "social": {
       "github": "https://github.com/reckonfx",
       "linkedin": "https://www.linkedin.com/in/aamir-shamsi-61334626/",
@@ -35,7 +35,7 @@
       },
       {
         "label": "Projects Delivered",
-        "value": 9,
+        "value": 5,
         "suffix": "+"
       },
       {
