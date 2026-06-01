@@ -139,12 +139,12 @@ export function HeroDemo({ data }: { data: PersonalInfo }) {
                 {data.title}
               </motion.p>
 
-              {/* Bio */}
+              {/* Bio — first sentence only */}
               <motion.p
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.38 }}
-                className="text-slate-500 text-sm leading-relaxed mb-8 max-w-[480px] mx-auto lg:mx-0"
+                className="text-slate-400 text-sm leading-relaxed mb-8 max-w-[440px] mx-auto lg:mx-0"
               >
-                {data.bio}
+                {data.bio.split(/(?<=\.)\s/)[0]}
               </motion.p>
 
               {/* CTA buttons */}
