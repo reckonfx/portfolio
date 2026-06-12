@@ -576,14 +576,20 @@ export function generateEuropassCV(data: PortfolioData): Promise<Buffer> {
 
       doc.y = Math.max(doc.y, headerY + photoH) + 16;
 
+      // Page-break helper that adds proper top margin on continuation pages
+      const euPage = (needed: number) => {
+        if (doc.y + needed > A4_H - M) { doc.addPage(); doc.y = M; }
+      };
+
       // Section helper (date | content two-column)
       const section = (title: string) => {
-        checkPage(doc, 70, M);
+        euPage(70);
         // Blue section header bar
-        doc.rect(M - 4, doc.y, A4_W - M * 2 + 8, 18).fill(EU_BLUE);
+        const barY = doc.y;
+        doc.rect(M - 4, barY, A4_W - M * 2 + 8, 18).fill(EU_BLUE);
         doc.fillColor("#ffffff").font("Helvetica-Bold").fontSize(9.5)
-          .text(title.toUpperCase(), M, doc.y + 4, { characterSpacing: 0.8 });
-        doc.y += 22;
+          .text(title.toUpperCase(), M, barY + 4, { characterSpacing: 0.8 });
+        doc.y = barY + 22;  // explicit reset — prevents text() from adding extra gap
         doc.fillColor("#111827").font("Helvetica").fontSize(10);
       };
 
@@ -594,7 +600,7 @@ export function generateEuropassCV(data: PortfolioData): Promise<Buffer> {
         desc: string,
         tags?: string[]
       ) => {
-        checkPage(doc, 60, M);
+        euPage(60);
         const startY = doc.y;
         // Date column
         doc.fillColor("#555").font("Helvetica").fontSize(9)
@@ -621,8 +627,8 @@ export function generateEuropassCV(data: PortfolioData): Promise<Buffer> {
         .text(clean(p.bio), MAIN_X, doc.y, { width: MAIN_W, lineGap: 2 });
       doc.y += 12;
 
-      // Experience — 3 most recent, 220-char descriptions
-      const work = data.experiences.filter(e => e.type === "work" || e.type === "entrepreneurship").slice(0, 3);
+      // Experience — 4 most recent entries
+      const work = data.experiences.filter(e => e.type === "work" || e.type === "entrepreneurship").slice(0, 4);
       if (work.length) {
         section("Work Experience");
         for (const e of work) entry(e.period, e.title, e.company, cut(e.description, 220), e.tech);
@@ -631,7 +637,7 @@ export function generateEuropassCV(data: PortfolioData): Promise<Buffer> {
       // Skills (before education — balances content across 2 pages)
       const skills = [...new Set(data.techStack.flatMap(c => c.items.map(i => i.name)))].slice(0, 28);
       section("Digital Competence");
-      checkPage(doc, 40, M);
+      euPage(40);
       tagRow(doc, skills, MAIN_X, MAIN_W, EU_LIGHT, EU_BLUE);
       doc.y += 4;
 
