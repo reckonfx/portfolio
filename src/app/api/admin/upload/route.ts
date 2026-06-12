@@ -1,6 +1,4 @@
 import { NextResponse, type NextRequest } from "next/server";
-import fs from "fs";
-import path from "path";
 import { isAuthenticated } from "@/lib/auth";
 
 export async function POST(request: NextRequest) {
@@ -21,21 +19,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "File too large (max 5MB)" }, { status: 400 });
   }
 
-  const ext = file.name.split(".").pop()?.toLowerCase() ?? "jpg";
-  const filename = `avatar-${Date.now()}.${ext}`;
-  const uploadDir = path.join(process.cwd(), "public", "uploads");
-
-  // Remove old avatar files before writing new one
-  if (fs.existsSync(uploadDir)) {
-    for (const f of fs.readdirSync(uploadDir)) {
-      if (f.startsWith("avatar-")) fs.unlinkSync(path.join(uploadDir, f));
-    }
-  } else {
-    fs.mkdirSync(uploadDir, { recursive: true });
-  }
-
   const buffer = Buffer.from(await file.arrayBuffer());
-  fs.writeFileSync(path.join(uploadDir, filename), buffer);
+  const base64 = buffer.toString("base64");
+  const dataUrl = `data:${file.type};base64,${base64}`;
 
-  return NextResponse.json({ path: `/uploads/${filename}` });
+  return NextResponse.json({ path: dataUrl });
 }

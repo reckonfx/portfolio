@@ -24,8 +24,12 @@ function cut(str: string, max: number): string {
   return s.length > max ? s.slice(0, max) + "..." : s;
 }
 
-function avatarPath(url: string): string | null {
+function avatarPath(url: string): string | Buffer | null {
   if (!url) return null;
+  if (url.startsWith("data:")) {
+    const b64 = url.split(",")[1];
+    return b64 ? Buffer.from(b64, "base64") : null;
+  }
   const p = path.join(process.cwd(), "public", url);
   return fs.existsSync(p) ? p : null;
 }
