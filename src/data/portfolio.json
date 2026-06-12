@@ -1,15 +1,15 @@
 {
   "personalInfo": {
     "name": "Aamir Ahmed Shamsi",
-    "title": "Business Automation & AI Specialist",
+    "title": "Full Stack Developer | AI & Business Automation",
     "taglines": [
-      "20+ Years in Business & Sales",
-      "Now Building with AI & Full Stack",
+      "Full Stack Developer",
+      "AI Application Developer",
       "Business Automation Specialist",
-      "AI Integration Enthusiast",
-      "Entrepreneur & Problem Solver"
+      "Entrepreneur & Problem Solver",
+      "Building Real-World Web Applications"
     ],
-    "bio": "Entrepreneur and IT professional with 20+ years of experience in sales, event management, and business development — now channelling that real-world expertise into AI, automation, and full-stack development. Founded and scaled Party Sharty over 11 years, brokered forex trading for 15+ international clients, and now building technology solutions that solve genuine business problems. I bring a rare combination of domain knowledge and technical skill to every project.",
+    "bio": "Full Stack Developer specialising in AI-powered web applications, business automation systems, and API integrations. Built production systems including a multi-platform courier rate management tool, ride-sharing platform, and AI-powered educational platform — using React, Next.js, FastAPI, Python, PostgreSQL, Docker, and OpenAI APIs. Backed by 20+ years of real-world business experience in operations, sales, and entrepreneurship — which means the software I build solves actual business problems, not just technical exercises.",
     "location": "Karachi, Pakistan",
     "email": "reckonfx@gmail.com",
     "phone": "+923002166934",
@@ -62,36 +62,11 @@
       "icon": "Monitor",
       "color": "#60a5fa",
       "items": [
-        {
-          "name": "React",
-          "level": 95,
-          "icon": "⚛️"
-        },
-        {
-          "name": "Next.js",
-          "level": 92,
-          "icon": "▲"
-        },
-        {
-          "name": "TypeScript",
-          "level": 90,
-          "icon": "🔷"
-        },
-        {
-          "name": "Tailwind CSS",
-          "level": 95,
-          "icon": "🎨"
-        },
-        {
-          "name": "Framer Motion",
-          "level": 80,
-          "icon": "✨"
-        },
-        {
-          "name": "Vue.js",
-          "level": 75,
-          "icon": "💚"
-        }
+        { "name": "React", "level": 90, "icon": "⚛️" },
+        { "name": "Next.js", "level": 88, "icon": "▲" },
+        { "name": "TypeScript", "level": 85, "icon": "🔷" },
+        { "name": "Tailwind CSS", "level": 92, "icon": "🎨" },
+        { "name": "Framer Motion", "level": 78, "icon": "✨" }
       ]
     },
     {
@@ -99,36 +74,11 @@
       "icon": "Server",
       "color": "#a78bfa",
       "items": [
-        {
-          "name": "Node.js",
-          "level": 90,
-          "icon": "🟢"
-        },
-        {
-          "name": "Python",
-          "level": 88,
-          "icon": "🐍"
-        },
-        {
-          "name": "FastAPI",
-          "level": 85,
-          "icon": "⚡"
-        },
-        {
-          "name": "GraphQL",
-          "level": 80,
-          "icon": "◈"
-        },
-        {
-          "name": "REST APIs",
-          "level": 95,
-          "icon": "🔗"
-        },
-        {
-          "name": "Go",
-          "level": 65,
-          "icon": "🐹"
-        }
+        { "name": "Node.js", "level": 82, "icon": "🟢" },
+        { "name": "Python", "level": 85, "icon": "🐍" },
+        { "name": "FastAPI", "level": 82, "icon": "⚡" },
+        { "name": "Express.js", "level": 75, "icon": "🚂" },
+        { "name": "REST APIs", "level": 90, "icon": "🔗" }
       ]
     },
     {
@@ -136,36 +86,10 @@
       "icon": "Database",
       "color": "#34d399",
       "items": [
-        {
-          "name": "PostgreSQL",
-          "level": 88,
-          "icon": "🐘"
-        },
-        {
-          "name": "MongoDB",
-          "level": 85,
-          "icon": "🍃"
-        },
-        {
-          "name": "Redis",
-          "level": 80,
-          "icon": "🔴"
-        },
-        {
-          "name": "Supabase",
-          "level": 85,
-          "icon": "⚡"
-        },
-        {
-          "name": "MySQL",
-          "level": 82,
-          "icon": "🐬"
-        },
-        {
-          "name": "Prisma",
-          "level": 85,
-          "icon": "▲"
-        }
+        { "name": "PostgreSQL", "level": 82, "icon": "🐘" },
+        { "name": "MongoDB", "level": 78, "icon": "🍃" },
+        { "name": "Supabase", "level": 82, "icon": "⚡" },
+        { "name": "MySQL", "level": 72, "icon": "🐬" }
       ]
     },
     {
@@ -173,36 +97,11 @@
       "icon": "Cloud",
       "color": "#f59e0b",
       "items": [
-        {
-          "name": "AWS",
-          "level": 82,
-          "icon": "☁️"
-        },
-        {
-          "name": "Docker",
-          "level": 88,
-          "icon": "🐳"
-        },
-        {
-          "name": "Kubernetes",
-          "level": 72,
-          "icon": "⚙️"
-        },
-        {
-          "name": "Vercel",
-          "level": 95,
-          "icon": "▲"
-        },
-        {
-          "name": "GitHub Actions",
-          "level": 90,
-          "icon": "🔄"
-        },
-        {
-          "name": "Terraform",
-          "level": 68,
-          "icon": "🏗️"
-        }
+        { "name": "Vercel", "level": 92, "icon": "▲" },
+        { "name": "Docker", "level": 80, "icon": "🐳" },
+        { "name": "GitHub Actions", "level": 82, "icon": "🔄" },
+        { "name": "AWS", "level": 68, "icon": "☁️" },
+        { "name": "HuggingFace Spaces", "level": 72, "icon": "🤗" }
       ]
     },
     {
@@ -210,36 +109,10 @@
       "icon": "Cpu",
       "color": "#f472b6",
       "items": [
-        {
-          "name": "OpenAI API",
-          "level": 90,
-          "icon": "🤖"
-        },
-        {
-          "name": "LangChain",
-          "level": 82,
-          "icon": "🔗"
-        },
-        {
-          "name": "Anthropic",
-          "level": 85,
-          "icon": "🧠"
-        },
-        {
-          "name": "TensorFlow",
-          "level": 65,
-          "icon": "📊"
-        },
-        {
-          "name": "Hugging Face",
-          "level": 70,
-          "icon": "🤗"
-        },
-        {
-          "name": "Pinecone",
-          "level": 75,
-          "icon": "🌲"
-        }
+        { "name": "OpenAI API", "level": 82, "icon": "🤖" },
+        { "name": "RAG Architecture", "level": 76, "icon": "🔍" },
+        { "name": "Qdrant", "level": 70, "icon": "🌲" },
+        { "name": "Vector Databases", "level": 72, "icon": "📊" }
       ]
     },
     {
@@ -247,122 +120,35 @@
       "icon": "Smartphone",
       "color": "#fb923c",
       "items": [
-        {
-          "name": "React Native",
-          "level": 80,
-          "icon": "📱"
-        },
-        {
-          "name": "Expo",
-          "level": 82,
-          "icon": "⚡"
-        },
-        {
-          "name": "Flutter",
-          "level": 60,
-          "icon": "🎯"
-        },
-        {
-          "name": "PWA",
-          "level": 85,
-          "icon": "🌐"
-        }
+        { "name": "React Native", "level": 78, "icon": "📱" },
+        { "name": "Expo", "level": 80, "icon": "⚡" }
       ]
     }
   ],
   "projects": [
     {
-      "id": 1779539459398,
-      "title": "Tere Ride Sharing",
-      "description": "Tere Ride Sharing Nigeria – Ride Sharing Platform (Completed Project)\n\nTere Ride Sharing Nigeria is a modern, user-friendly ride-sharing web application designed to connect passengers with nearby drivers in real time. The platform focuses on seamless booking, efficient route matching, and a smooth user experience for both riders and drivers.\n\nThis project demonstrates full-stack development skills, including responsive UI design, real-time interaction flow, and scalable architecture suitable for urban transportation services.",
-      "longDescription": "Tere Ride Sharing Nigeria – Full-Stack Ride Sharing Platform (Completed Project)\n\nTere Ride Sharing Nigeria is a modern web-based ride-sharing platform designed to streamline urban transportation by efficiently connecting passengers with available drivers in real time. The system is built with a focus on speed, reliability, and ease of use, ensuring a smooth experience for both riders and drivers across busy Nigerian cities.\n\nThe platform allows users to quickly register, log in, and book rides based on their current location and destination. Riders can view available drivers nearby, estimate fares, and confirm bookings within seconds. On the driver side, the system provides a simple interface to accept ride requests, navigate routes, and manage trip status from pickup to drop-off.\n\nA key strength of this project is its clean and responsive user interface, optimized for both desktop and mobile devices. The design prioritizes usability, ensuring that even first-time users can easily understand and interact with the platform without confusion. Real-time interaction flows simulate the core logic of modern ride-hailing applications, making the experience intuitive and efficient.\n\nFrom a technical perspective, the project demonstrates strong understanding of full-stack development principles, including frontend UI design, backend logic handling, and data flow management between users and drivers. The architecture is designed to be scalable, allowing future enhancements such as live GPS tracking, dynamic pricing, in-app payments, and rating systems.\n\nSecurity and performance considerations have also been taken into account, ensuring safe authentication processes and optimized request handling for fast response times. The system structure is modular, making it easier to maintain, debug, and extend with additional features.\n\nOverall, Tere Ride Sharing Nigeria reflects a real-world transportation solution concept, showcasing the ability to design and develop a production-style application that solves practical mobility challenges in a growing urban environment.",
-      "tech": [
-        "HTML5",
-        "CSS3",
-        "JavaScript (ES6+)",
-        "React.js",
-        "Tailwind CSS",
-        "Bootstrap",
-        "Node.js",
-        "Express.js",
-        "MongoDB",
-        "MySQL",
-        "JWT Authentication",
-        "Socket.io",
-        "Google Maps API",
-        "Vercel",
-        "Netlify",
-        "Render",
-        "AWS",
-        "DigitalOcean"
-      ],
-      "github": "",
-      "demo": "https://tere-rideshare.vercel.app/",
-      "vercel": "https://tere-rideshare.vercel.app/",
-      "image": "/projects/1779539459398-screenshot-1779709413218.jpg",
-      "featured": true,
-      "status": "Live",
-      "category": "SaaS",
-      "tags": [
-        "ride sharing",
-        "ride hailing",
-        "taxi booking app",
-        "transportation platform",
-        "on demand rides",
-        "car booking system",
-        "driver passenger app",
-        "real time booking",
-        "GPS tracking",
-        "location based service",
-        "travel app",
-        "mobility solution",
-        "urban transport",
-        "full stack project",
-        "MERN stack project",
-        "web application",
-        "responsive design",
-        "Nigeria tech project",
-        "startup project",
-        "SaaS platform",
-        "API integration"
-      ],
-      "date": "2025-05-12",
-      "client": "Tere Nigeria",
-      "stars": 0,
-      "metrics": {},
-      "video": ""
-    },
-    {
       "id": 1779540054453,
-      "title": "ZEX Rates Aggrigator",
-      "description": "ZEX Rates is a courier rate management platform for freight agents and clients. Admins upload Excel rate sheets from multiple carriers (Aramex, DHL, UPS, APX, etc.) — the system auto-detects and parses 17+ proprietary formats into a\n  unified database. Users search by destination, service, and weight to get instant price comparisons with automatic markup applied. Clients see anonymized options; agents and admins see real provider names. Built with FastAPI, React, and\n   React Native, backed by Supabase, and deployed across HuggingFace Spaces, Vercel, and Expo.",
-      "longDescription": "● ZEX Rates — Full Project Description\n\n  Overview\n  ZEX Rates is a full-stack, multi-platform courier rate management and quote comparison system built for ZEX International, a freight and logistics company. The platform solves a real operational problem: courier providers each supply\n  rate sheets in their own proprietary Excel formats, making it impossible to compare prices across carriers without manual work. ZEX Rates eliminates that entirely — admins upload raw carrier spreadsheets, the system parses and  normalizes them, and clients get instant price comparisons across all active carriers in seconds.\n\n  ---\n  The Problem It Solves\n\n  Freight agents traditionally receive rate cards from each courier as Excel files, all structured differently. To quote a shipment, an agent would open multiple spreadsheets, manually look up the destination country, find the right\n  weight bracket, apply a markup, and repeat for every carrier. With dozens of countries, multiple weight tiers, zone-based pricing logic, and different markup rules per client, this process was error-prone and time-consuming.\n\n  ZEX Rates automates the entire pipeline — from raw Excel upload to instant quote delivery — across web and mobile.\n\n  ---\n  Complexity\n\n  This project is significantly more complex than a typical CRUD application. The difficulty comes from three areas in particular.\n\n  1. The File Parsing Engine\n\n  The single hardest technical challenge was building an Excel parser that could handle 17+ distinct carrier file formats — each with its own column layout, sheet structure, naming conventions, and pricing logic. Carriers like Aramex\n  structure rates as a flat grid where each row is a country and columns represent weight tiers. DHL and UPS use a two-sheet zone system: one sheet maps countries to zones, another maps zones to prices. APX has several sub-variants\n  depending on origin hub (Dubai, Australia, Amsterdam). Some files are transposed, some use merged cells, some embed pricing in non-standard rows.\n\n  Rather than writing fragile format-specific parsers in isolation, we built a type detection system that inspects column headers, sheet names, and data patterns to identify the file type before parsing begins. Once detected, the\n  appropriate parser runs and normalizes all data into a single schema: (country, country_code, weight_kg, price, zone, rate_type). This makes every carrier's rates queryable in exactly the same way regardless of source format.\n\n  Special-case handling was required for:\n  - Australia: 4,813 postcodes mapped to carrier zones, stored as a lookup in the settings table\n  - Canada: Postal prefix → zone resolution\n  - Zone-based carriers: A two-step resolution — country → zone → rate lookup\n  - Per-kg extension pricing: Some carriers charge a base rate up to a threshold then per-kg above it\n\n  2. The Rate Calculation Engine\n\n  Once rates are parsed, the calculation engine handles quote requests. Given a destination country, service type, and weight, it must:\n  - Find all active carrier files assigned to that country and service\n  - Determine the correct pricing strategy for each file (direct, zone-based, or single-destination)\n  - Resolve the correct weight bracket or zone\n  - Apply the global markup percentage set by the admin\n  - Return results sorted by final price\n\n  The strategy is inferred from the file_type field stored at upload time, not from the data shape at query time — a deliberate architectural decision to avoid fragile runtime inference.\n\n  3. Multi-Role, Multi-Platform Access\n\n  The platform serves three distinct user roles (admin, agent, client) across four surfaces (admin web, client web, Android mobile, and the backend API) — each with different data visibility rules. Clients see anonymized \"Option 1, Option   2\" results to prevent carrier bypassing. Agents and admins see real provider names. Role enforcement happens at both the API layer (FastAPI middleware) and database layer (Supabase Row-Level Security policies).\n\n  ---\n  How It Was Built\n\n  Backend — FastAPI on HuggingFace Spaces\n\n  The API is built with FastAPI (Python), chosen for its async support, automatic OpenAPI docs, and type-safe request/response modeling. It runs in a Docker container on HuggingFace Spaces on port 7860 — a cost-effective cloud hosting\n  solution for the API layer.\n\n  All database access goes through the Supabase Python SDK using a service-role key, giving the backend full unrestricted access while the frontend clients use anon keys governed by RLS policies. Authentication tokens are issued by\n  Supabase Auth and validated with PyJWT on every protected route.\n\n  File parsing uses openpyxl and pandas for Excel handling, pdfplumber for PDF support, and Pillow for the rate sheet PNG export feature. The parser pipeline is modular — each file type has its own parser function, and a central\n  dispatcher routes files to the right one after detection.\n\n  Database — Supabase (PostgreSQL)\n\n  The schema was designed to support the full lifecycle of a rate file: upload metadata in rate_files, flattened normalized rows in parsed_rates, country-service mappings in country_service_assignments, and saved quotes in quotes. A\n  settings table holds dynamic config like markup percentage, postcode zone databases, and ticker messages.\n\n  Indexes on parsed_rates(file_id, country, weight_kg) and country_service_assignments(country, service_id) keep quote lookups fast even with large datasets. Cascade deletes ensure that removing a rate file also removes all its parsed\n  rows.\n\n  Frontend — React + Vite + Tailwind\n\n  Two separate React apps were built and deployed independently to Vercel:\n  - Admin panel (admin.zexintl.com) — file management, assignment grid, user management, settings, quote search with full provider visibility\n  - Client portal (rates.zexintl.com) — quote search, history, profile management, anonymized results\n\n  Both share the same architecture pattern: an AuthContext managing the Supabase session, an api.js Axios instance with a JWT interceptor, and a useApi hook for loading/error state. Tailwind CSS 4 handles styling — dark theme for admin,\n  cleaner light-leaning theme for client.\n\n  Mobile — React Native + Expo\n\n  The mobile app is built with React Native and Expo 54, using Expo Router 6 for file-based routing. The app mirrors both the admin and client web experiences, with separate tab navigators rendered based on the authenticated user's role.\n  Sessions persist across app restarts via AsyncStorage. File uploads use expo-document-picker to allow admins to upload rate sheets directly from their phone. The production build is distributed as a 67 MB APK built through EAS (Expo\n  Application Services).\n\n  Rate Sheets Feature\n\n  A later addition to the platform generates formatted rate sheet images and Excel exports directly from the database. The backend uses Pillow to render rate tables as PNG files — with the ZEX logo embedded as base64, an 8-color carrier\n  palette, bold text, and legible font sizing — which can be downloaded or shared to WhatsApp directly from both web and mobile.\n\n  ---\n  Deployment Architecture\n\n  ┌─────────────┬─────────────────────────────┬──────────────────────────────────┐\n  │  Component  │          Platform           │               URL                │\n  ├─────────────┼─────────────────────────────┼──────────────────────────────────┤\n  │ Backend API │ HuggingFace Spaces (Docker) │ aamirshamsi-zex-rates.hf.space   │\n  ├─────────────┼─────────────────────────────┼──────────────────────────────────┤\n  │ Admin Web   │ Vercel                      │ admin.zexintl.com                │\n  ├─────────────┼─────────────────────────────┼──────────────────────────────────┤\n  │ Client Web  │ Vercel                      │ rates.zexintl.com                │\n  ├─────────────┼─────────────────────────────┼──────────────────────────────────┤\n  │ Mobile App  │ EAS / Direct APK            │ ZEX-Rates.apk                    │\n  ├─────────────┼─────────────────────────────┼──────────────────────────────────┤\n  │ Database    │ Supabase                    │ ixiswyebtqgyvjfpyqod.supabase.co │\n  └─────────────┴─────────────────────────────┴──────────────────────────────────┘\n\n  ---\n  Scale of the Work\n\n  The project spans approximately:\n  - 5 separate deployable components (backend, 2 web apps, mobile, database)\n  - 17+ Excel file format parsers\n  - 40+ REST API endpoints\n  - 8 database tables with relational constraints and RLS policies\n  - 4,813 Australian postcodes mapped to carrier zones\n  - 3 user roles with distinct UI flows across 4 platforms\n  - A production Android APK in active use\n\n  From first principles to production across all surfaces, this represents a substantial real-world engineering effort — not a boilerplate app, but a domain-specific system designed around the genuine complexity of international freight\n  pricing.\n",
+      "title": "ZEX Rates Aggregator",
+      "description": "Courier rate management platform for ZEX International. Parses 17+ proprietary carrier Excel formats (DHL, Aramex, UPS, APX) into a unified database and delivers instant price comparisons with automatic markup. Three user roles across web (admin + client portals) and a production Android app.",
+      "longDescription": "ZEX Rates is a full-stack, multi-platform courier rate management and quote comparison system built for ZEX International, a freight and logistics company.\n\nThe Problem It Solves\nFreight agents receive rate sheets from each courier as Excel files — all structured differently. To quote a shipment, an agent would open multiple spreadsheets, manually find the destination, look up weight brackets, apply markup, and repeat for every carrier. Error-prone and time-consuming.\n\nZEX Rates automates the entire pipeline — from raw Excel upload to instant quote delivery — across web and mobile.\n\nKey Technical Challenges\n\n1. Excel Parsing Engine\nBuilt a type-detection system that identifies 17+ distinct carrier file formats (Aramex flat grid, DHL/UPS dual-sheet zone system, APX regional variants, etc.) and normalises all data into a single schema: (country, country_code, weight_kg, price, zone, rate_type). Special handling for 4,813 Australian postcodes mapped to carrier zones.\n\n2. Rate Calculation Engine\nGiven a destination, service type, and weight, the engine finds active carrier files, resolves the correct pricing strategy (direct, zone-based, or single-destination), applies the admin-set global markup, and returns results sorted by price.\n\n3. Multi-Role, Multi-Platform Access\nThree user roles (admin, agent, client) across four surfaces — admin web, client web, Android mobile, and the API. Clients see anonymised 'Option 1, Option 2' results. Agents and admins see real provider names. Role enforcement at both API middleware and database (Supabase RLS) layers.\n\nDeployment Architecture\n- Backend API: FastAPI on HuggingFace Spaces (Docker, port 7860)\n- Admin Web: Vercel → admin.zexintl.com\n- Client Web: Vercel → rates.zexintl.com\n- Mobile: React Native + Expo → production APK via EAS\n- Database: Supabase (PostgreSQL + RLS + Auth)\n\nScale\n- 5 deployable components\n- 17+ Excel format parsers\n- 40+ REST API endpoints\n- 8 database tables with relational constraints\n- 4,813 Australian postcodes mapped to carrier zones\n- 3 user roles across 4 platforms\n- Production Android APK in active use",
       "tech": [
         "FastAPI",
         "Python",
-        "Uvicorn",
         "Docker",
         "Supabase",
         "PostgreSQL",
         "React",
         "Vite",
         "Tailwind CSS",
-        "React Router",
-        "Axios",
         "React Native",
         "Expo",
-        "Expo Router",
-        "AsyncStorage",
         "openpyxl",
         "pandas",
-        "Pillow",
-        "pdfplumber",
         "PyJWT",
         "HuggingFace Spaces",
         "Vercel",
         "EAS",
         "Supabase Auth",
-        "Supabase Storage",
         "Row-Level Security"
       ],
       "github": "https://github.com/reckonfx/zax_rates.git",
@@ -375,47 +161,28 @@
       "tags": [
         "courier rate management",
         "freight quoting system",
-        "courier comparison tool",
-        "rate sheet automation",
-        "Excel parser",
-        "multi-carrier pricing",
-        "logistics software",
-        "freight management system",
-        "courier API",
-        "rate calculator",
-        "shipment quoting",
+        "excel parser",
+        "multi-platform",
         "FastAPI",
-        "React",
         "React Native",
-        "Expo",
         "Supabase",
-        "mobile freight app",
-        "admin dashboard",
-        "client portal",
-        "zone-based pricing",
-        "weight-based pricing",
-        "DHL rates",
-        "Aramex rates",
-        "UPS rates",
-        "APX rates",
-        "courier automation",
-        "logistics platform",
-        "freight   technology",
-        "courier pricing engine",
-        "international shipping rates",
-        "shipping quote app"
+        "logistics software"
       ],
       "date": "2026-03-01",
-      "client": "ZEX Couriers and cargo",
+      "client": "ZEX Couriers and Cargo",
       "stars": 0,
-      "metrics": {},
+      "metrics": {
+        "Carrier Formats": "17+",
+        "API Endpoints": "40+",
+        "Platforms": "4"
+      },
       "video": ""
     },
     {
       "id": 1779550897941,
-      "title": "Physical AI & Humanoid Robotics",
-      "description": "Physical AI & Humanoid Robotics Textbook is an interactive educational platform developed during a hackathon to simplify learning in robotics and embodied AI. The project combines a modern textbook interface with an AI-powered RAG chatbot that answers questions using contextual textbook content. It supports personalized learning, multilingual translation, and responsive UI for students and researchers exploring Physical AI, ROS 2, humanoid robotics, and Vision-Language-Action systems. The platform integrates semantic search with vector databases, enabling intelligent content retrieval and conversational learning experiences. Built with scalable modern technologies, the project demonstrates how AI can transform robotics education into a more accessible, engaging, and interactive digital experience.",
-      "longDescription": "Physical AI & Humanoid Robotics Textbook is a hackathon-based educational platform designed to bridge the gap between robotics education and modern AI-driven learning systems. The project provides a structured digital textbook experience focused on Physical AI, humanoid robotics, ROS 2, robotics simulations, and Vision-Language-Action (VLA) models, while integrating an intelligent Retrieval-Augmented Generation (RAG) chatbot for real-time question answering and interactive learning.\n\nThe platform uses semantic embeddings and vector databases to retrieve relevant textbook content dynamically, allowing users to ask natural language questions and receive context-aware AI-generated explanations. It also supports personalized learning preferences, multilingual translation capabilities, and responsive interfaces for both desktop and mobile users.\n\nThe frontend is built using a modern React/Docusaurus architecture for clean documentation and educational content presentation, while the backend uses FastAPI to manage authentication, APIs, user preferences, and AI integrations. Qdrant vector database enables semantic search, while OpenAI embedding models power intelligent retrieval and chatbot responses. The system is containerized using Docker and designed for scalable deployment with CI/CD support.\n\nThis project demonstrates the practical integration of AI, robotics education, and modern web technologies to create an engaging and intelligent self-learning ecosystem for students, researchers, and developers interested in embodied AI and humanoid robotics.",
+      "title": "Physical AI & Humanoid Robotics Textbook",
+      "description": "AI-powered interactive textbook for Physical AI and humanoid robotics education. Features a RAG chatbot built on OpenAI embeddings and Qdrant vector search for context-aware question answering across textbook content. Covers ROS 2, humanoid robotics, and Vision-Language-Action systems. Built during a hackathon.",
+      "longDescription": "Physical AI & Humanoid Robotics Textbook is a hackathon project that addresses a real gap in robotics education: complex topics like ROS 2, humanoid robotics, and Vision-Language-Action (VLA) models are scattered across academic papers, documentation, and courses — hard to navigate and even harder to query interactively.\n\nThe platform provides a structured digital textbook with an AI-powered RAG chatbot that lets users ask natural language questions and receive context-aware answers drawn from the actual textbook content.\n\nHow It Works\nTextbook content is chunked and embedded using OpenAI embedding models, then stored in a Qdrant vector database. When a user asks a question, the system performs semantic search to retrieve the most relevant content chunks, which are then passed to the LLM as context for the response. This keeps answers grounded in the textbook rather than hallucinated.\n\nTech Breakdown\n- Frontend: React + TypeScript + Docusaurus for clean documentation-style content presentation\n- Backend: FastAPI handling auth, user preferences, and AI query routing\n- Vector DB: Qdrant for semantic search and embedding storage\n- AI: OpenAI API for embeddings and chat completions\n- Infrastructure: Docker + GitHub Actions + Neon Postgres\n\nFeatures\n- Context-aware RAG chatbot\n- Multilingual translation support\n- Personalised learning preferences\n- Fully responsive for desktop and mobile",
       "tech": [
         "React",
         "TypeScript",
@@ -427,13 +194,8 @@
         "Neon Postgres",
         "Docker",
         "GitHub Actions",
-        "REST API",
-        "JWT Authentication",
-        "Vector Database",
         "RAG Architecture",
-        "Semantic Search",
-        "Responsive UI",
-        "AI Chatbot"
+        "Vector Database"
       ],
       "github": "https://github.com/reckonfx/hackathon-1-Physical_AI_book.git",
       "demo": "https://reckonfx.github.io/hackathon-1-Physical_AI_book/",
@@ -441,29 +203,16 @@
       "image": "/projects/1779550897941-screenshot-1779709080051.jpg",
       "featured": true,
       "status": "Live",
-      "category": "AI Book Generation",
+      "category": "AI Tool",
       "tags": [
         "physical ai",
         "humanoid robotics",
-        "robotics education",
         "rag chatbot",
-        "ai textbook",
-        "fastapi",
-        "react",
-        "docusaurus",
-        "vector database",
-        "qdrant",
         "openai",
-        "semantic search",
-        "ai learning platform",
-        "ros2",
-        "embodied ai",
-        "educational platform",
-        "ai assistant",
-        "machine learning",
-        "python",
-        "typescript",
-        "hackathon project"
+        "qdrant",
+        "vector database",
+        "hackathon",
+        "educational platform"
       ],
       "date": "2025-12-01",
       "client": "Hackathon",
@@ -472,66 +221,49 @@
       "video": ""
     },
     {
-      "id": 1779552901649,
-      "title": "Ishrat Entreprises ",
-      "description": "Ishrat Enterprises is a modern business portfolio and company showcase website designed to present professional services, projects, and digital capabilities with a sleek, responsive user experience. The platform highlights company expertise, project portfolios, technical skills, and service offerings through clean UI sections, animations, and optimized layouts. Built with modern frontend technologies, the website focuses on performance, scalability, and accessibility while delivering an engaging browsing experience across desktop and mobile devices. It serves as a professional digital identity for showcasing development services, client work, and business information in a visually appealing and highly interactive format.",
-      "longDescription": "Ishrat Enterprises is a professionally designed business and portfolio website created to establish a strong digital presence for showcasing services, technical expertise, and completed projects. The platform combines modern UI/UX principles with responsive web technologies to deliver a seamless and interactive experience for visitors across all devices.\n\nThe website features structured sections for company introduction, services, technical capabilities, portfolio projects, and contact information. Advanced frontend techniques such as smooth animations, responsive layouts, reusable components, and optimized rendering are used to create a modern and visually engaging interface. The project emphasizes clean architecture, scalability, fast loading performance, and user-centric navigation.\n\nThe platform is built using a modern JavaScript ecosystem with component-based development practices, enabling maintainable and scalable code structure. It supports mobile responsiveness, SEO-friendly rendering, and optimized deployment workflows through cloud hosting solutions. The design approach focuses on professionalism, minimalism, and accessibility, making it suitable for business branding, client acquisition, and showcasing technical projects.\n\nThis project demonstrates expertise in frontend engineering, responsive design systems, modern web deployment, and scalable application development while creating a polished digital identity for a professional enterprise or portfolio-based business presence.",
+      "id": 1779539459398,
+      "title": "Tere Ride Sharing",
+      "description": "Ride-sharing web application connecting passengers with nearby drivers in real time. Features user registration, ride booking with fare estimation, driver matching, and trip status management. Built with a full MERN stack, Socket.io for real-time updates, and Google Maps API for location services.",
+      "longDescription": "Tere Ride Sharing is a full-stack ride-sharing platform built for the Nigerian urban transport market. It solves the core logistics problem of connecting passengers with available drivers efficiently, without the overhead of a native mobile app.\n\nThe platform covers the complete ride lifecycle:\n- Passenger registers and books a ride by location and destination\n- System estimates fare and matches available drivers nearby\n- Driver accepts the request and manages trip status from pickup to drop-off\n- Both parties see live status updates via Socket.io\n\nTech Breakdown\n- Frontend: React.js with Tailwind CSS — responsive, works on mobile browsers\n- Backend: Node.js + Express.js REST API\n- Real-time: Socket.io for live ride status updates\n- Database: MongoDB (primary) + MySQL\n- Maps: Google Maps API for location and routing\n- Auth: JWT-based authentication\n- Deployment: Vercel (frontend), Render/AWS (backend)\n\nThis project demonstrates end-to-end full-stack development — from database design and API architecture to real-time communication and cloud deployment.",
       "tech": [
-        "Next.js",
         "React.js",
-        "TypeScript",
-        "JavaScript",
-        "Tailwind CSS",
-        "Framer Motion",
         "Node.js",
-        "Responsive Design",
+        "Express.js",
+        "MongoDB",
+        "MySQL",
+        "Socket.io",
+        "Google Maps API",
+        "JWT Authentication",
+        "Tailwind CSS",
         "Vercel",
-        "REST APIs",
-        "Component-Based Architecture",
-        "SEO Optimization",
-        "Modern UI/UX",
-        "Animation Libraries"
+        "AWS"
       ],
-      "github": "https://github.com/reckonfx/ishratEnterprises.git",
-      "demo": "https://ishrat-enterprises-xx9h-knyjfg1ls-aamir-ahmed-shamsis-projects.vercel.app/",
-      "vercel": "https://ishrat-enterprises-xx9h-knyjfg1ls-aamir-ahmed-shamsis-projects.vercel.app/",
-      "image": "/projects/1779552901649-1779709060238.png",
-      "featured": false,
+      "github": "",
+      "demo": "https://tere-rideshare.vercel.app/",
+      "vercel": "https://tere-rideshare.vercel.app/",
+      "image": "/projects/1779539459398-screenshot-1779709413218.jpg",
+      "featured": true,
       "status": "Live",
-      "category": "simple website",
+      "category": "SaaS",
       "tags": [
-        "portfolio website",
-        "business website",
-        "nextjs",
-        "reactjs",
-        "tailwindcss",
-        "typescript",
-        "frontend development",
-        "responsive website",
-        "modern ui",
-        "web development",
-        "digital portfolio",
-        "company profile",
-        "vercel deployment",
-        "ui ux",
-        "animations",
-        "scalable frontend",
-        "professional website",
-        "javascript",
-        "web application",
-        "interactive design"
+        "ride sharing",
+        "real-time",
+        "mern stack",
+        "socket.io",
+        "google maps",
+        "transportation"
       ],
-      "date": "2024-12-12",
-      "client": "Ishrat Enterprises",
+      "date": "2025-05-12",
+      "client": "Tere Nigeria",
       "stars": 0,
       "metrics": {},
       "video": ""
     },
     {
       "id": 1779718474320,
-      "title": "Personal portfolio",
-      "description": "Full-stack personal portfolio with a built-in CMS admin panel, multi-format CV generator, and real-time GitHub sync — all self-contained with no external CMS required.",
-      "longDescription": "A production-ready personal portfolio built with Next.js 16 and Tailwind CSS 4, featuring a complete content management system accessible via a password-protected admin panel. All portfolio data — projects, experience,\n  tech stack, services, testimonials, and certifications — is stored in a flat-file JSON CMS and editable live without touching code.\n\n  Key features include:\n  - Admin CMS with sections for every portfolio category, protected by a hashed session cookie with edge-runtime proxy authentication\n  - Multi-format CV generator producing region-specific PDF resumes (Gulf, Saudi, Emirati, Europass, USA, Canadian) using jsPDF with live data population\n  - Email CV sharing — sends the generated PDF as an email attachment via Gmail SMTP\n  - Project media — captures live screenshots from demo URLs via thum.io, or accepts manual image/video uploads\n  - GitHub auto-sync — every admin save commits the JSON data file to GitHub via the API, keeping Vercel's ephemeral filesystem in sync\n  - Light/Dark mode toggle with full theme support across all components\n  - Responsive design with smooth Framer Motion animations throughout\n",
+      "title": "Personal Portfolio & CV Builder",
+      "description": "Production portfolio with a built-in admin CMS and a 12-format CV generator. All content is managed via a password-protected admin panel — no external CMS required. GitHub-synced data persistence keeps the Vercel deployment always up to date.",
+      "longDescription": "A production-ready personal portfolio built with Next.js 16 and Tailwind CSS 4, featuring a complete content management system accessible via a password-protected admin panel.\n\nThe Problem It Solves\nMost portfolios are either static (hard to update) or tied to an external CMS (paid, with lock-in). This system stores all data in a flat JSON file, syncs changes to GitHub via API on every admin save, which triggers a Vercel redeploy — so the live site always reflects the latest content without touching code.\n\nKey Features\n- Admin CMS with sections for every portfolio category (projects, experience, skills, services, testimonials, certifications)\n- Multi-format CV generator producing 12 region-specific PDF resumes: Gulf, Saudi, Emirati, Europass, USA, Canada, Pakistan/India, UK, Australia/NZ, Lebenslauf (EN/DE), Academic\n- Email CV sharing — sends the generated PDF as an attachment via Gmail SMTP (Nodemailer)\n- Project media — screenshot capture from demo URLs or manual image/video upload, saved to GitHub\n- GitHub auto-sync — every admin save commits the JSON data file to GitHub via the API\n- Light/Dark mode toggle with 6 colour themes\n- Command palette (⌘K) for quick navigation\n\nTech Breakdown\n- Frontend: Next.js 16, React 19, TypeScript, Tailwind CSS 4, Framer Motion\n- CV Generation: jsPDF with custom templates per region\n- Email: Nodemailer + Gmail SMTP\n- Persistence: GitHub Contents API for file sync\n- Auth: SHA-256 hashed session cookie (edge-compatible)\n- Deployment: Vercel",
       "tech": [
         "Next.js 16",
         "React 19",
@@ -545,18 +277,61 @@
         "Turbopack"
       ],
       "github": "https://github.com/reckonfx/portfolio.git",
-      "demo": "https://portfolio-95kbt41qc-aamir-ahmed-shamsis-projects.vercel.app/",
+      "demo": "https://aamirshamsi.dev",
       "vercel": "https://portfolio-95kbt41qc-aamir-ahmed-shamsis-projects.vercel.app/",
       "image": "/projects/1779718474320-1779720835526.png",
       "video": "",
       "featured": false,
       "status": "Live",
       "category": "Portfolio Website",
-      "tags": [],
+      "tags": [
+        "portfolio",
+        "cms",
+        "cv generator",
+        "next.js",
+        "vercel",
+        "github api"
+      ],
       "date": "2026-05-25",
       "client": "Aamir Ahmed Shamsi",
       "stars": 0,
-      "metrics": {}
+      "metrics": {
+        "CV Formats": "12",
+        "Admin Sections": "7"
+      }
+    },
+    {
+      "id": 1779552901649,
+      "title": "Ishrat Enterprises",
+      "description": "First paid client project — a professional business portfolio and company showcase website. Responsive, SEO-friendly site with animated sections covering company services, portfolio, and contact information. Built with Next.js, TypeScript, Tailwind CSS, and Framer Motion.",
+      "longDescription": "Ishrat Enterprises is a professional business portfolio website — the first paid client project delivered in 2024.\n\nThe client needed a clean, modern digital presence to showcase their company services and portfolio to potential business clients. Key requirements were fast load times, mobile responsiveness, and a professional look that could stand alongside larger competitors.\n\nWhat Was Built\n- Multi-section landing page: hero, services, portfolio, about, and contact\n- Smooth scroll animations using Framer Motion\n- Fully responsive layout optimised for mobile, tablet, and desktop\n- SEO-friendly structure with proper meta tags and semantic HTML\n- Contact form integration\n- Deployed to Vercel with a custom domain\n\nTech Breakdown\n- Framework: Next.js + React.js\n- Styling: TypeScript + Tailwind CSS\n- Animations: Framer Motion\n- Deployment: Vercel",
+      "tech": [
+        "Next.js",
+        "React.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "Framer Motion",
+        "Vercel"
+      ],
+      "github": "https://github.com/reckonfx/ishratEnterprises.git",
+      "demo": "https://ishrat-enterprises-xx9h-knyjfg1ls-aamir-ahmed-shamsis-projects.vercel.app/",
+      "vercel": "https://ishrat-enterprises-xx9h-knyjfg1ls-aamir-ahmed-shamsis-projects.vercel.app/",
+      "image": "/projects/1779552901649-1779709060238.png",
+      "featured": false,
+      "status": "Live",
+      "category": "Business Website",
+      "tags": [
+        "business website",
+        "portfolio",
+        "nextjs",
+        "tailwindcss",
+        "client project"
+      ],
+      "date": "2024-12-12",
+      "client": "Ishrat Enterprises",
+      "stars": 0,
+      "metrics": {},
+      "video": ""
     }
   ],
   "services": [
@@ -605,7 +380,7 @@
       "description": "Design and deploy scalable, cost-efficient cloud infrastructure on AWS, GCP, or Azure. From setup to CI/CD pipelines.",
       "features": [
         "AWS/GCP/Azure",
-        "Docker & K8s",
+        "Docker & containers",
         "CI/CD pipelines",
         "Cost optimization"
       ],
@@ -678,6 +453,26 @@
     }
   ],
   "experiences": [
+    {
+      "title": "Freelance Full Stack Developer",
+      "company": "Self-Employed",
+      "period": "2024 — Present",
+      "description": "Designing and building production-ready web and mobile applications for clients and self-initiated projects. Delivered a multi-platform courier rate management system (ZEX Rates), a ride-sharing platform (Tere Nigeria), an AI-powered robotics education platform (hackathon), and a business portfolio website (Ishrat Enterprises). Work spans REST API design, relational database modelling, React/Next.js frontends, React Native mobile apps, and OpenAI API integrations.",
+      "tech": [
+        "React",
+        "Next.js",
+        "FastAPI",
+        "Python",
+        "PostgreSQL",
+        "Supabase",
+        "React Native",
+        "Expo",
+        "Docker",
+        "OpenAI API",
+        "Vercel"
+      ],
+      "type": "work"
+    },
     {
       "title": "Sales & Social Media Campaign Manager",
       "company": "ZEX Couriers and Cargo",
