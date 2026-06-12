@@ -561,11 +561,12 @@ export function generateEuropassCV(data: PortfolioData): Promise<Buffer> {
 
       // Contact details as table
       const row = (label: string, val: string) => {
+        const rowY = doc.y;
         doc.fillColor(EU_BLUE).font("Helvetica-Bold").fontSize(8.5)
-          .text(label, nameX, doc.y, { width: 70, lineBreak: false });
+          .text(label, nameX, rowY, { width: 70, lineBreak: false });
         doc.fillColor("#333").font("Helvetica").fontSize(8.5)
-          .text(clean(val), nameX + 72, doc.y - 0, { width: nameW - 72 });
-        doc.y += 1;
+          .text(clean(val), nameX + 72, rowY, { width: nameW - 72 });
+        doc.y = rowY + 13;
       };
       row("Email", p.email);
       row("Phone", p.phone);
@@ -627,11 +628,11 @@ export function generateEuropassCV(data: PortfolioData): Promise<Buffer> {
         .text(clean(p.bio), MAIN_X, doc.y, { width: MAIN_W, lineGap: 2 });
       doc.y += 12;
 
-      // Experience — 4 most recent entries
-      const work = data.experiences.filter(e => e.type === "work" || e.type === "entrepreneurship").slice(0, 4);
+      // Experience — all work entries
+      const work = data.experiences.filter(e => e.type === "work" || e.type === "entrepreneurship");
       if (work.length) {
         section("Work Experience");
-        for (const e of work) entry(e.period, e.title, e.company, cut(e.description, 220), e.tech);
+        for (const e of work) entry(e.period, e.title, e.company, e.description, e.tech);
       }
 
       // Skills (before education — balances content across 2 pages)
@@ -648,11 +649,11 @@ export function generateEuropassCV(data: PortfolioData): Promise<Buffer> {
         for (const e of edu) entry(e.period, e.title, e.company, e.description);
       }
 
-      // Projects
-      const proj = data.projects.filter(pr => pr.featured);
+      // Projects — all
+      const proj = data.projects;
       if (proj.length) {
         section("Projects");
-        for (const pr of proj) entry(pr.date, pr.title, pr.client, cut(pr.description, 280), pr.tech.slice(0, 8));
+        for (const pr of proj) entry(pr.date, pr.title, pr.client, pr.description, pr.tech.slice(0, 8));
       }
 
       // Certifications

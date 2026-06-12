@@ -22,12 +22,20 @@ export async function POST(request: NextRequest) {
   }
 
   const ext = file.name.split(".").pop()?.toLowerCase() ?? "jpg";
-  const filename = `avatar.${ext}`;
+  const filename = `avatar-${Date.now()}.${ext}`;
   const uploadDir = path.join(process.cwd(), "public", "uploads");
-  const filePath = path.join(uploadDir, filename);
+
+  // Remove old avatar files before writing new one
+  if (fs.existsSync(uploadDir)) {
+    for (const f of fs.readdirSync(uploadDir)) {
+      if (f.startsWith("avatar-")) fs.unlinkSync(path.join(uploadDir, f));
+    }
+  } else {
+    fs.mkdirSync(uploadDir, { recursive: true });
+  }
 
   const buffer = Buffer.from(await file.arrayBuffer());
-  fs.writeFileSync(filePath, buffer);
+  fs.writeFileSync(path.join(uploadDir, filename), buffer);
 
   return NextResponse.json({ path: `/uploads/${filename}` });
 }
