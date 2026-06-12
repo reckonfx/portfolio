@@ -578,7 +578,7 @@ export function generateEuropassCV(data: PortfolioData): Promise<Buffer> {
 
       // Section helper (date | content two-column)
       const section = (title: string) => {
-        checkPage(doc, 110, M);
+        checkPage(doc, 70, M);
         // Blue section header bar
         doc.rect(M - 4, doc.y, A4_W - M * 2 + 8, 18).fill(EU_BLUE);
         doc.fillColor("#ffffff").font("Helvetica-Bold").fontSize(9.5)
@@ -617,6 +617,7 @@ export function generateEuropassCV(data: PortfolioData): Promise<Buffer> {
 
       // Summary
       section("Personal Statement");
+      checkPage(doc, 40, M);
       doc.fillColor("#444").font("Helvetica").fontSize(9.5)
         .text(clean(p.bio), MAIN_X, doc.y, { width: MAIN_W, lineGap: 2 });
       doc.y += 12;
@@ -625,7 +626,7 @@ export function generateEuropassCV(data: PortfolioData): Promise<Buffer> {
       const work = data.experiences.filter(e => e.type === "work" || e.type === "entrepreneurship");
       if (work.length) {
         section("Work Experience");
-        for (const e of work) entry(e.period, e.title, e.company, cut(e.description, 200), e.tech);
+        for (const e of work) entry(e.period, e.title, e.company, e.description, e.tech);
       }
 
       // Education
@@ -643,7 +644,7 @@ export function generateEuropassCV(data: PortfolioData): Promise<Buffer> {
       doc.y += 4;
 
       // Projects
-      const proj = data.projects.filter(pr => pr.featured).slice(0, 5);
+      const proj = data.projects.filter(pr => pr.featured);
       if (proj.length) {
         section("Projects");
         for (const pr of proj) entry(pr.date, pr.title, pr.client, cut(pr.description, 220), pr.tech.slice(0, 8));
