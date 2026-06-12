@@ -617,17 +617,23 @@ export function generateEuropassCV(data: PortfolioData): Promise<Buffer> {
 
       // Summary
       section("Personal Statement");
-      checkPage(doc, 40, M);
       doc.fillColor("#444").font("Helvetica").fontSize(9.5)
         .text(clean(p.bio), MAIN_X, doc.y, { width: MAIN_W, lineGap: 2 });
       doc.y += 12;
 
-      // Experience — top 3 most recent to keep Europass to 2 pages
+      // Experience — 3 most recent, 220-char descriptions
       const work = data.experiences.filter(e => e.type === "work" || e.type === "entrepreneurship").slice(0, 3);
       if (work.length) {
         section("Work Experience");
         for (const e of work) entry(e.period, e.title, e.company, cut(e.description, 220), e.tech);
       }
+
+      // Skills (before education — balances content across 2 pages)
+      const skills = [...new Set(data.techStack.flatMap(c => c.items.map(i => i.name)))].slice(0, 28);
+      section("Digital Competence");
+      checkPage(doc, 40, M);
+      tagRow(doc, skills, MAIN_X, MAIN_W, EU_LIGHT, EU_BLUE);
+      doc.y += 4;
 
       // Education
       const edu = data.experiences.filter(e => e.type === "education");
@@ -636,18 +642,11 @@ export function generateEuropassCV(data: PortfolioData): Promise<Buffer> {
         for (const e of edu) entry(e.period, e.title, e.company, e.description);
       }
 
-      // Skills
-      const skills = [...new Set(data.techStack.flatMap(c => c.items.map(i => i.name)))].slice(0, 28);
-      section("Digital Competence");
-      checkPage(doc, 40, M);
-      tagRow(doc, skills, MAIN_X, MAIN_W, EU_LIGHT, EU_BLUE);
-      doc.y += 4;
-
       // Projects
       const proj = data.projects.filter(pr => pr.featured);
       if (proj.length) {
         section("Projects");
-        for (const pr of proj) entry(pr.date, pr.title, pr.client, cut(pr.description, 220), pr.tech.slice(0, 8));
+        for (const pr of proj) entry(pr.date, pr.title, pr.client, cut(pr.description, 280), pr.tech.slice(0, 8));
       }
 
       // Certifications
