@@ -62,11 +62,31 @@
       "icon": "Monitor",
       "color": "#60a5fa",
       "items": [
-        { "name": "React", "level": 90, "icon": "⚛️" },
-        { "name": "Next.js", "level": 88, "icon": "▲" },
-        { "name": "TypeScript", "level": 85, "icon": "🔷" },
-        { "name": "Tailwind CSS", "level": 92, "icon": "🎨" },
-        { "name": "Framer Motion", "level": 78, "icon": "✨" }
+        {
+          "name": "React",
+          "level": 90,
+          "icon": "⚛️"
+        },
+        {
+          "name": "Next.js",
+          "level": 88,
+          "icon": "▲"
+        },
+        {
+          "name": "TypeScript",
+          "level": 85,
+          "icon": "🔷"
+        },
+        {
+          "name": "Tailwind CSS",
+          "level": 92,
+          "icon": "🎨"
+        },
+        {
+          "name": "Framer Motion",
+          "level": 78,
+          "icon": "✨"
+        }
       ]
     },
     {
@@ -74,11 +94,31 @@
       "icon": "Server",
       "color": "#a78bfa",
       "items": [
-        { "name": "Node.js", "level": 82, "icon": "🟢" },
-        { "name": "Python", "level": 85, "icon": "🐍" },
-        { "name": "FastAPI", "level": 82, "icon": "⚡" },
-        { "name": "Express.js", "level": 75, "icon": "🚂" },
-        { "name": "REST APIs", "level": 90, "icon": "🔗" }
+        {
+          "name": "Node.js",
+          "level": 82,
+          "icon": "🟢"
+        },
+        {
+          "name": "Python",
+          "level": 85,
+          "icon": "🐍"
+        },
+        {
+          "name": "FastAPI",
+          "level": 82,
+          "icon": "⚡"
+        },
+        {
+          "name": "Express.js",
+          "level": 75,
+          "icon": "🚂"
+        },
+        {
+          "name": "REST APIs",
+          "level": 90,
+          "icon": "🔗"
+        }
       ]
     },
     {
@@ -86,10 +126,26 @@
       "icon": "Database",
       "color": "#34d399",
       "items": [
-        { "name": "PostgreSQL", "level": 82, "icon": "🐘" },
-        { "name": "MongoDB", "level": 78, "icon": "🍃" },
-        { "name": "Supabase", "level": 82, "icon": "⚡" },
-        { "name": "MySQL", "level": 72, "icon": "🐬" }
+        {
+          "name": "PostgreSQL",
+          "level": 82,
+          "icon": "🐘"
+        },
+        {
+          "name": "MongoDB",
+          "level": 78,
+          "icon": "🍃"
+        },
+        {
+          "name": "Supabase",
+          "level": 82,
+          "icon": "⚡"
+        },
+        {
+          "name": "MySQL",
+          "level": 72,
+          "icon": "🐬"
+        }
       ]
     },
     {
@@ -97,11 +153,31 @@
       "icon": "Cloud",
       "color": "#f59e0b",
       "items": [
-        { "name": "Vercel", "level": 92, "icon": "▲" },
-        { "name": "Docker", "level": 80, "icon": "🐳" },
-        { "name": "GitHub Actions", "level": 82, "icon": "🔄" },
-        { "name": "AWS", "level": 68, "icon": "☁️" },
-        { "name": "HuggingFace Spaces", "level": 72, "icon": "🤗" }
+        {
+          "name": "Vercel",
+          "level": 92,
+          "icon": "▲"
+        },
+        {
+          "name": "Docker",
+          "level": 80,
+          "icon": "🐳"
+        },
+        {
+          "name": "GitHub Actions",
+          "level": 82,
+          "icon": "🔄"
+        },
+        {
+          "name": "AWS",
+          "level": 68,
+          "icon": "☁️"
+        },
+        {
+          "name": "HuggingFace Spaces",
+          "level": 72,
+          "icon": "🤗"
+        }
       ]
     },
     {
@@ -109,10 +185,26 @@
       "icon": "Cpu",
       "color": "#f472b6",
       "items": [
-        { "name": "OpenAI API", "level": 82, "icon": "🤖" },
-        { "name": "RAG Architecture", "level": 76, "icon": "🔍" },
-        { "name": "Qdrant", "level": 70, "icon": "🌲" },
-        { "name": "Vector Databases", "level": 72, "icon": "📊" }
+        {
+          "name": "OpenAI API",
+          "level": 82,
+          "icon": "🤖"
+        },
+        {
+          "name": "RAG Architecture",
+          "level": 76,
+          "icon": "🔍"
+        },
+        {
+          "name": "Qdrant",
+          "level": 70,
+          "icon": "🌲"
+        },
+        {
+          "name": "Vector Databases",
+          "level": 72,
+          "icon": "📊"
+        }
       ]
     },
     {
@@ -120,8 +212,16 @@
       "icon": "Smartphone",
       "color": "#fb923c",
       "items": [
-        { "name": "React Native", "level": 78, "icon": "📱" },
-        { "name": "Expo", "level": 80, "icon": "⚡" }
+        {
+          "name": "React Native",
+          "level": 78,
+          "icon": "📱"
+        },
+        {
+          "name": "Expo",
+          "level": 80,
+          "icon": "⚡"
+        }
       ]
     }
   ],
