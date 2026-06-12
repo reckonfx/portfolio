@@ -622,11 +622,11 @@ export function generateEuropassCV(data: PortfolioData): Promise<Buffer> {
         .text(clean(p.bio), MAIN_X, doc.y, { width: MAIN_W, lineGap: 2 });
       doc.y += 12;
 
-      // Experience
-      const work = data.experiences.filter(e => e.type === "work" || e.type === "entrepreneurship");
+      // Experience — top 3 most recent to keep Europass to 2 pages
+      const work = data.experiences.filter(e => e.type === "work" || e.type === "entrepreneurship").slice(0, 3);
       if (work.length) {
         section("Work Experience");
-        for (const e of work) entry(e.period, e.title, e.company, e.description, e.tech);
+        for (const e of work) entry(e.period, e.title, e.company, cut(e.description, 220), e.tech);
       }
 
       // Education
