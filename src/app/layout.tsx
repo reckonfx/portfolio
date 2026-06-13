@@ -7,6 +7,7 @@ import { ResumeModalProvider } from "@/components/ResumeModalProvider";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { readData } from "@/lib/cms";
+import { buildThemeCSSVars } from "@/lib/themes";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -65,11 +66,25 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const siteTheme = readData().theme;
   const colorScheme = siteTheme?.colorScheme ?? "indigo-violet";
+  const customColor = siteTheme?.customColor;
   const defaultMode = siteTheme?.mode ?? "dark";
+  const isCustom = colorScheme === "custom" && !!customColor;
+  const customCSSVars = isCustom
+    ? Object.entries(buildThemeCSSVars(customColor!))
+        .map(([k, v]) => `${k}:${v}`)
+        .join(";")
+    : null;
 
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} theme-${colorScheme}`} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${inter.variable} ${jetbrainsMono.variable}${isCustom ? "" : ` theme-${colorScheme}`}`}
+      suppressHydrationWarning
+    >
       <body className="min-h-screen antialiased">
+        {customCSSVars && (
+          <style dangerouslySetInnerHTML={{ __html: `:root{${customCSSVars}}` }} />
+        )}
         <ThemeProvider attribute="class" defaultTheme={defaultMode} enableSystem={false}>
           <ResumeModalProvider>
             {children}

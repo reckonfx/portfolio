@@ -114,6 +114,7 @@ export interface Certification {
 export interface SiteTheme {
   colorScheme: string;
   mode: "dark" | "light";
+  customColor?: string;
 }
 
 export interface PortfolioData {

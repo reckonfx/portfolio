@@ -76,6 +76,7 @@ export default function AdminDashboard() {
         <AppearanceEditor
           initialColorScheme={siteTheme?.colorScheme ?? "indigo-violet"}
           initialMode={(siteTheme?.mode ?? "dark") as "dark" | "light"}
+          initialCustomColor={siteTheme?.customColor}
         />
       </div>
     </div>
