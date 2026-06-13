@@ -37,7 +37,7 @@ export const THEME_VAR_NAMES = [
   "--color-indigo-600", "--color-indigo-700",
   "--color-violet-400", "--color-violet-500", "--color-violet-600",
   "--theme-glow", "--theme-glow-sm", "--theme-gradient",
-  "--theme-gradient-alt", "--theme-scrollbar",
+  "--theme-gradient-alt", "--theme-scrollbar", "--theme-bg",
 ] as const;
 
 export function buildThemeCSSVars(hex: string): Record<string, string> {
@@ -58,6 +58,8 @@ export function buildThemeCSSVars(hex: string): Record<string, string> {
   const g5 = parseInt(c500.slice(3, 5), 16);
   const b5 = parseInt(c500.slice(5, 7), 16);
 
+  const bg = hslToHex(h, Math.min(Math.max(sat * 0.45, 20), 35), 10);
+
   return {
     "--color-indigo-300": c300,
     "--color-indigo-400": c400,
@@ -72,6 +74,7 @@ export function buildThemeCSSVars(hex: string): Record<string, string> {
     "--theme-gradient": `linear-gradient(135deg,${c400} 0%,${v400} 50%,${c500} 100%)`,
     "--theme-gradient-alt": `linear-gradient(135deg,${c300} 0%,${c400} 50%,${v400} 100%)`,
     "--theme-scrollbar": c600,
+    "--theme-bg": bg,
   };
 }
 

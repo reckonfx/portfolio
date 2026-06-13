@@ -15,7 +15,7 @@ export function TechStack({ data }: { data: TechCategory[] }) {
 
   return (
     <section id="stack" className="section-padding relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0d0e10] via-[#0a0b0e] to-[#0d0e10]" />
+      <div className="absolute inset-0" style={{ background: "var(--theme-bg)" }} />
       <div className="absolute top-1/2 right-0 w-96 h-96 bg-violet-600/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

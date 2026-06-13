@@ -99,7 +99,7 @@ export function Hero({ data }: { data: PersonalInfo }) {
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 grid-bg opacity-40" />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0d0e10]/60 to-[#0d0e10]" />
+      <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, transparent, var(--theme-bg))" }} />
 
       {/* Ambient glows */}
       <div className="absolute top-1/4 left-1/3 w-[700px] h-[700px] bg-indigo-600/8 rounded-full blur-[140px] pointer-events-none" />

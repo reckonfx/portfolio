@@ -51,7 +51,7 @@ export function Contact({ data }: { data: PersonalInfo }) {
 
   return (
     <section id="contact" className="section-padding relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0d0e10] to-[#0a0b0e]" />
+      <div className="absolute inset-0" style={{ background: "var(--theme-bg)" }} />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-600/8 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

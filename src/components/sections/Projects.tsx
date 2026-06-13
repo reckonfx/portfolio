@@ -219,7 +219,7 @@ export function Projects({ data }: { data: Project[] }) {
 
   return (
     <section id="projects" className="section-padding relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0d0e10] via-[#0f1014] to-[#0d0e10]" />
+      <div className="absolute inset-0" style={{ background: "var(--theme-bg)" }} />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-indigo-500/20 to-transparent" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

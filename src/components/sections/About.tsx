@@ -28,7 +28,7 @@ export function About({ data }: { data: AboutData }) {
 
   return (
     <section id="about" className="section-padding relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0d0e10] via-[#0f1014] to-[#0d0e10]" />
+      <div className="absolute inset-0" style={{ background: "var(--theme-bg)" }} />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader badge="About Me" title="The Story " highlight="Behind the Code"
