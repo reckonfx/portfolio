@@ -372,7 +372,7 @@ function EuropassCV({ data }: { data: PortfolioData }) {
   const BG = "#e8edf8";
   const work = data.experiences.filter(e => e.type !== "education");
   const edu = data.experiences.filter(e => e.type === "education");
-  const proj = data.projects.filter(pr => pr.featured).slice(0, 2);
+  const proj = data.projects;
   const skills = [...new Set(data.techStack.flatMap(c => c.items.map(i => i.name)))];
 
   return (
@@ -468,7 +468,7 @@ function EuropassCV({ data }: { data: PortfolioData }) {
                 <div style={{ flex: 1, borderLeft: `2px solid ${A}`, paddingLeft: "12px" }}>
                   <div style={{ fontWeight: "bold", fontSize: "10.5pt", color: "#111" }}>{clean(pr.title)}</div>
                   <div style={{ color: A, fontSize: "9.5pt", marginBottom: "2px" }}>{pr.client}</div>
-                  <div style={{ fontSize: "9.5pt", lineHeight: 1.55, color: "#333" }}>{cut(pr.description, 220)}</div>
+                  <div style={{ fontSize: "9.5pt", lineHeight: 1.55, color: "#333" }}>{clean(pr.description)}</div>
                   {pr.tech.length > 0 && <Tags items={pr.tech.slice(0, 8)} bg={BG} color={A} />}
                 </div>
               </div>
@@ -1503,10 +1503,8 @@ export function CVPreview({ data, format, previewOnly }: { data: PortfolioData; 
       const pageH = pageNum === 0 ? PAGE1 : PAGEN;
       const posInPage = topInEl - consumed;
       const secHeight = secRect.height;
-      const wouldOverflow = posInPage + secHeight > pageH;
-      // Push to next page if: starts in last 8% of page, OR content overflows
-      // (and the section fits on a fresh page — avoids infinite loop on giant sections)
-      if ((posInPage > pageH * 0.92 || (wouldOverflow && secHeight <= PAGEN)) && posInPage > 30) {
+      // Only push to next page if the section header would be orphaned at the very bottom
+      if (posInPage > pageH * 0.92 && posInPage > 30) {
         sec.style.paddingTop = `${Math.ceil(pageH - posInPage)}px`;
         await new Promise<void>((res) =>
           requestAnimationFrame(() => requestAnimationFrame(() => res()))
