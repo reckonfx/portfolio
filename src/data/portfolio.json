@@ -686,7 +686,7 @@
     }
   ],
   "theme": {
-    "colorScheme": "purple-fuchsia",
-    "mode": "light"
+    "colorScheme": "indigo-violet",
+    "mode": "dark"
   }
 }
