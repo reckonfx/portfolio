@@ -290,7 +290,7 @@ function EmiratiCV({ data }: { data: PortfolioData }) {
           <>
             <MainSec title="Work Experience" accent={RED}>
               {work.map((e, i) => (
-                <div key={i} style={{ marginBottom: "11px", pageBreakInside: "avoid", breakInside: "avoid" }}>
+                <div key={i} data-cv-section="true" style={{ marginBottom: "11px" }}>
                   <div style={{ display: "flex", justifyContent: "space-between" }}>
                     <strong style={{ fontSize: "10.5pt" }}>{clean(e.title)}</strong>
                     <span style={{ fontSize: "8.5pt", color: "#777" }}>{e.period}</span>
@@ -306,7 +306,7 @@ function EmiratiCV({ data }: { data: PortfolioData }) {
         {proj.length > 0 && (
           <MainSec title="Key Projects" accent={RED}>
             {proj.map((pr, i) => (
-              <div key={i} style={{ marginBottom: "11px", pageBreakInside: "avoid", breakInside: "avoid" }}>
+              <div key={i} data-cv-section="true" style={{ marginBottom: "11px" }}>
                 <strong style={{ fontSize: "10.5pt" }}>{clean(pr.title)}</strong>
                 <div style={{ fontSize: "9.5pt", lineHeight: 1.55, marginTop: "2px", color: "#333" }}>{clean(pr.description)}</div>
               </div>
@@ -317,7 +317,7 @@ function EmiratiCV({ data }: { data: PortfolioData }) {
         {edu.length > 0 && (
           <MainSec title="Education" accent={RED}>
             {edu.map((e, i) => (
-              <div key={i} style={{ marginBottom: "11px", pageBreakInside: "avoid", breakInside: "avoid" }}>
+              <div key={i} data-cv-section="true" style={{ marginBottom: "11px" }}>
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                   <strong style={{ fontSize: "10.5pt" }}>{clean(e.title)}</strong>
                   <span style={{ fontSize: "8.5pt", color: "#777" }}>{e.period}</span>
