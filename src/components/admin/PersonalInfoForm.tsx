@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useTransition, useRef } from "react";
-import Image from "next/image";
 import { savePersonalInfo } from "@/lib/actions";
 import type { PersonalInfo } from "@/lib/types";
 import { AdminFormWrapper, Field, Input, Textarea, SaveButton } from "./AdminUI";
@@ -18,11 +17,37 @@ function AvatarUploader({
   const [uploading, setUploading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  function compressImage(file: File): Promise<File> {
+    return new Promise((resolve) => {
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+      img.onload = () => {
+        const MAX = 800;
+        const scale = Math.min(1, MAX / Math.max(img.width, img.height));
+        const w = Math.round(img.width * scale);
+        const h = Math.round(img.height * scale);
+        const canvas = document.createElement("canvas");
+        canvas.width = w;
+        canvas.height = h;
+        canvas.getContext("2d")!.drawImage(img, 0, 0, w, h);
+        URL.revokeObjectURL(url);
+        canvas.toBlob(
+          (blob) => resolve(blob ? new File([blob], "avatar.jpg", { type: "image/jpeg" }) : file),
+          "image/jpeg",
+          0.82
+        );
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); resolve(file); };
+      img.src = url;
+    });
+  }
+
   async function handleFile(file: File) {
     setUploading(true);
     try {
+      const compressed = await compressImage(file);
       const fd = new FormData();
-      fd.append("file", file);
+      fd.append("file", compressed);
       const res = await fetch("/api/admin/upload", { method: "POST", body: fd });
       const json = await res.json();
       if (!res.ok) throw new Error(json.error ?? "Upload failed");
@@ -48,7 +73,8 @@ function AvatarUploader({
         <div className="p-[2px] rounded-full bg-gradient-to-br from-indigo-500 via-purple-500 to-violet-600 shadow-[0_0_20px_rgba(99,102,241,0.35)]">
           <div className="relative w-24 h-24 rounded-full overflow-hidden bg-gradient-to-br from-indigo-900 to-violet-900">
             {value ? (
-              <Image src={value} alt="Avatar" fill className="object-cover object-top" />
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={value} alt="Avatar" className="w-full h-full object-cover object-top" />
             ) : (
               <div className="w-full h-full flex items-center justify-center">
                 <User className="w-8 h-8 text-slate-600" />
