@@ -682,7 +682,8 @@
     }
   ],
   "theme": {
-    "colorScheme": "purple-fuchsia",
-    "mode": "dark"
+    "colorScheme": "custom",
+    "mode": "dark",
+    "customColor": "#4ade80"
   }
 }
