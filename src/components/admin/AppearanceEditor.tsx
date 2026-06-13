@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { Check, Moon, Sun } from "lucide-react";
 import { saveTheme } from "@/lib/actions";
@@ -19,6 +19,8 @@ export function AppearanceEditor({
   const { theme: activeMode, setTheme: setMode } = useTheme();
   const [colorScheme, setColorScheme] = useState(initialColorScheme);
   const [isPending, startTransition] = useTransition();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
 
   function previewColorScheme(scheme: string) {
     const el = document.documentElement;
@@ -36,7 +38,7 @@ export function AppearanceEditor({
     });
   }
 
-  const currentMode = activeMode ?? initialMode;
+  const currentMode = mounted ? (activeMode ?? initialMode) : initialMode;
 
   return (
     <AdminFormWrapper title="Appearance">

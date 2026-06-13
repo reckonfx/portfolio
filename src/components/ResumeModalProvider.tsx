@@ -163,10 +163,11 @@ export function ResumeModalProvider({ children }: { children: ReactNode }) {
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.92, opacity: 0, y: 16 }}
               transition={{ type: "spring", stiffness: 320, damping: 28 }}
-              className="w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden"
-              style={{ background: modalBg, border: `1px solid ${borderColor}` }}
+              className="w-full max-w-lg rounded-2xl shadow-2xl flex flex-col"
+              style={{ background: modalBg, border: `1px solid ${borderColor}`, maxHeight: "85vh" }}
             >
-              <div className="flex items-start justify-between px-6 pt-6 pb-4"
+              {/* Header — fixed */}
+              <div className="flex items-start justify-between px-6 pt-5 pb-3 flex-shrink-0"
                 style={{ borderBottom: `1px solid ${borderColor}` }}>
                 <div>
                   <h2 className="font-bold text-lg" style={{ color: headingColor }}>Download CV</h2>
@@ -183,7 +184,8 @@ export function ResumeModalProvider({ children }: { children: ReactNode }) {
                 </button>
               </div>
 
-              <div className="p-5 grid grid-cols-2 gap-3">
+              {/* Scrollable card grid */}
+              <div className="p-4 grid grid-cols-2 gap-2.5 overflow-y-auto flex-1">
                 {FORMATS.map((fmt) => {
                   const isLoading = loading === fmt.id;
                   return (
@@ -193,14 +195,14 @@ export function ResumeModalProvider({ children }: { children: ReactNode }) {
                       disabled={!!loading}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.97 }}
-                      className="text-left p-4 rounded-xl border transition-all group disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="text-left p-3 rounded-xl border transition-all group disabled:opacity-50 disabled:cursor-not-allowed"
                       style={{
                         borderColor: isLoading ? "#6366f1" : cardBorderDefault,
                         background: isLoading ? "rgba(99,102,241,0.1)" : cardBgDefault,
                       }}
                     >
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="text-2xl leading-none">{fmt.flag}</span>
+                      <div className="flex items-center gap-2 mb-1.5">
+                        <span className="text-xl leading-none">{fmt.flag}</span>
                         {isLoading && (
                           <Loader2 className="w-3.5 h-3.5 text-indigo-400 animate-spin" />
                         )}
@@ -209,14 +211,11 @@ export function ResumeModalProvider({ children }: { children: ReactNode }) {
                         style={{ color: headingColor }}>
                         {fmt.name}
                       </div>
-                      <div className="text-xs mt-0.5 mb-2 font-medium" style={{ color: mutedColor }}>
+                      <div className="text-xs mt-0.5 font-medium" style={{ color: mutedColor }}>
                         {fmt.region}
                       </div>
-                      <div className="text-xs leading-relaxed" style={{ color: dimColor }}>
-                        {fmt.description}
-                      </div>
                       {fmt.photo && (
-                        <div className="mt-2 flex items-center gap-1 text-xs text-indigo-400/70">
+                        <div className="mt-1.5 flex items-center gap-1 text-xs text-indigo-400/70">
                           <span>📷</span>
                           <span>Includes photo</span>
                         </div>
@@ -226,7 +225,9 @@ export function ResumeModalProvider({ children }: { children: ReactNode }) {
                 })}
               </div>
 
-              <div className="px-6 pb-5 text-xs text-center" style={{ color: dimColor }}>
+              {/* Footer — fixed */}
+              <div className="px-6 py-3 text-xs text-center flex-shrink-0"
+                style={{ borderTop: `1px solid ${borderColor}`, color: dimColor }}>
                 PDF is generated live from your portfolio data
               </div>
             </motion.div>
