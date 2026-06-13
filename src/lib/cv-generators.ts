@@ -541,8 +541,10 @@ export function generateEuropassCV(data: PortfolioData): Promise<Buffer> {
       doc.font("Helvetica").fontSize(8).fillColor("#aabcdd")
         .text("Europass", 14, 24, { lineBreak: false });
 
-      // EU stars decoration (simplified)
-      doc.fontSize(9).fillColor("#ffcc00").text("★★★★★★★★★★★★", A4_W - 120, 13, { lineBreak: false });
+      // EU stars — drawn as circles (Helvetica can't render ★ Unicode)
+      for (let i = 0; i < 12; i++) {
+        doc.circle(A4_W - 118 + i * 9, 18, 3.2).fill("#ffcc00");
+      }
 
       // Photo + personal info header
       const headerY = 48;
@@ -579,7 +581,8 @@ export function generateEuropassCV(data: PortfolioData): Promise<Buffer> {
       if (p.social.github) row("GitHub", p.social.github);
       if (p.website) row("Website", p.website);
 
-      doc.y = Math.max(doc.y, headerY + photoH) + 16;
+      // Cap doc.y after header — prevents photo Buffer from advancing cursor too far
+      doc.y = Math.min(Math.max(doc.y, headerY + photoH), headerY + photoH + 60) + 16;
 
       // Page-break helper that adds proper top margin on continuation pages
       const euPage = (needed: number) => {
