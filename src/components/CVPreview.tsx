@@ -425,7 +425,7 @@ function EuropassCV({ data }: { data: PortfolioData }) {
         {work.length > 0 && (
           <EuroSec title="Work Experience" color={A}>
             {work.map((e, i) => (
-              <div key={i} style={{ display: "flex", gap: "16px", marginBottom: "12px", pageBreakInside: "avoid", breakInside: "avoid" }}>
+              <div key={i} data-cv-section="true" style={{ display: "flex", gap: "16px", marginBottom: "12px" }}>
                 <div style={{ width: "100px", flexShrink: 0, fontSize: "8.5pt", color: "#666", paddingTop: "2px" }}>{e.period}</div>
                 <div style={{ flex: 1, borderLeft: `2px solid ${A}`, paddingLeft: "12px" }}>
                   <div style={{ fontWeight: "bold", fontSize: "10.5pt", color: "#111" }}>{clean(e.title)}</div>
@@ -441,7 +441,7 @@ function EuropassCV({ data }: { data: PortfolioData }) {
         {edu.length > 0 && (
           <EuroSec title="Education and Training" color={A}>
             {edu.map((e, i) => (
-              <div key={i} style={{ display: "flex", gap: "16px", marginBottom: "12px", pageBreakInside: "avoid", breakInside: "avoid" }}>
+              <div key={i} data-cv-section="true" style={{ display: "flex", gap: "16px", marginBottom: "12px" }}>
                 <div style={{ width: "100px", flexShrink: 0, fontSize: "8.5pt", color: "#555", paddingTop: "2px" }}>{e.period}</div>
                 <div style={{ flex: 1, borderLeft: `2px solid ${A}`, paddingLeft: "12px" }}>
                   <div style={{ fontWeight: "bold", fontSize: "10.5pt", color: "#111" }}>{clean(e.title)}</div>
@@ -463,7 +463,7 @@ function EuropassCV({ data }: { data: PortfolioData }) {
         {proj.length > 0 && (
           <EuroSec title="Projects" color={A}>
             {proj.map((pr, i) => (
-              <div key={i} style={{ display: "flex", gap: "16px", marginBottom: "12px", pageBreakInside: "avoid", breakInside: "avoid" }}>
+              <div key={i} data-cv-section="true" style={{ display: "flex", gap: "16px", marginBottom: "12px" }}>
                 <div style={{ width: "100px", flexShrink: 0, fontSize: "8.5pt", color: "#666", paddingTop: "2px" }}>{pr.date}</div>
                 <div style={{ flex: 1, borderLeft: `2px solid ${A}`, paddingLeft: "12px" }}>
                   <div style={{ fontWeight: "bold", fontSize: "10.5pt", color: "#111" }}>{clean(pr.title)}</div>
