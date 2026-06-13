@@ -54,7 +54,19 @@
     "maritalStatus": "Married",
     "dateOfBirth": "11th - oct-1975",
     "religion": "Islam",
-    "cnic": "42101-3174009-1"
+    "cnic": "42101-3174009-1",
+    "motherTongue": "Urdu",
+    "languages": [
+      {
+        "language": "English",
+        "level": "C1 — Advanced"
+      },
+      {
+        "language": "Urdu",
+        "level": "Native"
+      }
+    ],
+    "drivingLicence": "B"
   },
   "techStack": [
     {

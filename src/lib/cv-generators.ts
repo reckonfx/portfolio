@@ -585,6 +585,8 @@ export function generateEuropassCV(data: PortfolioData): Promise<Buffer> {
       row("Email", p.email);
       row("Phone", p.phone);
       row("Address", p.location);
+      if (p.nationality) row("Nationality", p.nationality);
+      if (p.dateOfBirth) row("Date of birth", p.dateOfBirth);
       if (p.social.linkedin) row("LinkedIn", p.social.linkedin);
       if (p.social.github) row("GitHub", p.social.github);
       if (p.website) row("Website", p.website);
@@ -676,6 +678,38 @@ export function generateEuropassCV(data: PortfolioData): Promise<Buffer> {
         section("Certifications");
         for (const c of data.certifications)
           entry(String(c.year), clean(c.name), c.issuer, "");
+      }
+
+      // Language Skills (Europass)
+      if (p.motherTongue || (p.languages && p.languages.length)) {
+        section("Language Skills");
+        if (p.motherTongue) {
+          euPage(20);
+          const mtY = doc.y;
+          doc.fillColor("#555").font("Helvetica").fontSize(9).text("Mother tongue", M, mtY, { width: DATE_W });
+          doc.fillColor("#1a1a1a").font("Helvetica-Bold").fontSize(9.5).text(clean(p.motherTongue), MAIN_X, mtY, { width: MAIN_W });
+          doc.y = mtY + 16;
+        }
+        if (p.languages && p.languages.length) {
+          euPage(20);
+          const flY = doc.y;
+          doc.fillColor("#555").font("Helvetica").fontSize(9).text("Other language(s)", M, flY, { width: DATE_W });
+          for (let i = 0; i < p.languages.length; i++) {
+            const lang = p.languages[i];
+            const lY = i === 0 ? flY : doc.y;
+            doc.fillColor("#1a1a1a").font("Helvetica-Bold").fontSize(9.5).text(clean(lang.language), MAIN_X, lY, { width: 100, lineBreak: false });
+            doc.fillColor("#555").font("Helvetica").fontSize(9).text(clean(lang.level), MAIN_X + 104, lY, { width: MAIN_W - 104 });
+            doc.y = lY + 14;
+          }
+        }
+        if (p.drivingLicence) {
+          euPage(20);
+          const dlY = doc.y;
+          doc.fillColor("#555").font("Helvetica").fontSize(9).text("Driving licence", M, dlY, { width: DATE_W });
+          doc.fillColor("#1a1a1a").font("Helvetica").fontSize(9.5).text(clean(p.drivingLicence), MAIN_X, dlY, { width: MAIN_W });
+          doc.y = dlY + 16;
+        }
+        doc.y += 4;
       }
     }
   );

@@ -216,6 +216,39 @@ export function PersonalInfoForm({ initialData }: { initialData: PersonalInfo })
         </div>
       </AdminFormWrapper>
 
+      {/* Language Skills — Europass */}
+      <AdminFormWrapper title="Language Skills (Europass)">
+        <p className="text-slate-500 text-xs mb-4">Used in the Europass CV Languages section. CEFR levels: A1/A2 (Basic), B1/B2 (Independent), C1/C2 (Proficient).</p>
+        <div className="grid sm:grid-cols-2 gap-4 mb-4">
+          <Field label="Mother Tongue">
+            <Input value={data.motherTongue ?? ""} onChange={(v) => set("motherTongue", v)} placeholder="e.g. Urdu" />
+          </Field>
+          <Field label="Driving Licence">
+            <Input value={data.drivingLicence ?? ""} onChange={(v) => set("drivingLicence", v)} placeholder="e.g. B" />
+          </Field>
+        </div>
+        <div className="text-xs text-slate-400 font-medium uppercase tracking-wider mb-3">Other Languages</div>
+        <div className="space-y-2">
+          {(data.languages ?? []).map((lang, i) => (
+            <div key={i} className="grid grid-cols-[1fr_1fr_auto] gap-2 items-center">
+              <Input value={lang.language} onChange={(v) => {
+                const updated = [...(data.languages ?? [])]; updated[i] = { ...lang, language: v };
+                set("languages", updated);
+              }} placeholder="Language" />
+              <Input value={lang.level} onChange={(v) => {
+                const updated = [...(data.languages ?? [])]; updated[i] = { ...lang, level: v };
+                set("languages", updated);
+              }} placeholder="e.g. C1 — Advanced" />
+              <button onClick={() => set("languages", (data.languages ?? []).filter((_, j) => j !== i))}
+                className="text-slate-500 hover:text-red-400 text-xs px-2">✕</button>
+            </div>
+          ))}
+          <button
+            onClick={() => set("languages", [...(data.languages ?? []), { language: "", level: "" }])}
+            className="text-indigo-400 hover:text-indigo-300 text-xs mt-1">+ Add language</button>
+        </div>
+      </AdminFormWrapper>
+
       {/* Social Links */}
       <AdminFormWrapper title="Social Links">
         <div className="grid sm:grid-cols-2 gap-4">

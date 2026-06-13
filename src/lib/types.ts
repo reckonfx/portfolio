@@ -36,6 +36,10 @@ export interface PersonalInfo {
   religion?: string;
   maritalStatus?: string;
   cnic?: string;
+  // Language skills (used by Europass)
+  motherTongue?: string;
+  languages?: { language: string; level: string }[];
+  drivingLicence?: string;
 }
 
 export interface TechItem {
