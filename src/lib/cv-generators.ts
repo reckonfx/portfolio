@@ -541,10 +541,18 @@ export function generateEuropassCV(data: PortfolioData): Promise<Buffer> {
       doc.font("Helvetica").fontSize(8).fillColor("#aabcdd")
         .text("Europass", 14, 24, { lineBreak: false });
 
-      // EU stars — drawn as circles (Helvetica can't render ★ Unicode)
-      for (let i = 0; i < 12; i++) {
-        doc.circle(A4_W - 118 + i * 9, 18, 3.2).fill("#ffcc00");
-      }
+      // EU stars — 5-pointed vector stars (Helvetica can't render ★ Unicode)
+      const drawStar = (cx: number, cy: number, r: number) => {
+        const pts: [number, number][] = [];
+        for (let i = 0; i < 5; i++) {
+          const outerA = ((i * 72) - 90) * Math.PI / 180;
+          const innerA = ((i * 72 + 36) - 90) * Math.PI / 180;
+          pts.push([cx + r * Math.cos(outerA), cy + r * Math.sin(outerA)]);
+          pts.push([cx + r * 0.4 * Math.cos(innerA), cy + r * 0.4 * Math.sin(innerA)]);
+        }
+        doc.polygon(...pts).fill("#ffcc00");
+      };
+      for (let i = 0; i < 12; i++) drawStar(A4_W - 122 + i * 10, 18, 4);
 
       // Photo + personal info header
       const headerY = 48;
