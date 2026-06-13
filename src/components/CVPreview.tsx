@@ -387,7 +387,7 @@ function EuropassCV({ data }: { data: PortfolioData }) {
       </div>
 
       {/* Personal info + photo */}
-      <div style={{ display: "flex", gap: "20px", padding: "18px 24px", borderBottom: `1px solid #ddd` }}>
+      <div style={{ display: "flex", gap: "20px", padding: "18px 24px", borderBottom: `1px solid #ddd`, alignItems: "flex-start" }}>
         {p.avatar && (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={p.avatar} alt="Profile" style={{ width: "82px", height: "100px", objectFit: "cover", flexShrink: 0, border: "1px solid #ccc" }} />
@@ -399,6 +399,8 @@ function EuropassCV({ data }: { data: PortfolioData }) {
             <tbody>
               {([
                 ["Email", p.email], ["Phone", p.phone], ["Location", p.location],
+                ...(p.nationality ? [["Nationality", p.nationality]] : []),
+                ...(p.dateOfBirth ? [["Date of birth", p.dateOfBirth]] : []),
                 ...(p.social.linkedin ? [["LinkedIn", p.social.linkedin]] : []),
                 ...(p.social.github ? [["GitHub", p.social.github]] : []),
                 ...(p.website ? [["Website", p.website]] : []),
@@ -486,6 +488,41 @@ function EuropassCV({ data }: { data: PortfolioData }) {
                 </div>
               </div>
             ))}
+          </EuroSec>
+        )}
+
+        {/* Language Skills */}
+        {(p.motherTongue || (p.languages && p.languages.length > 0) || p.drivingLicence) && (
+          <EuroSec title="Language Skills" color={A}>
+            <table style={{ fontSize: "9pt", borderCollapse: "collapse", width: "100%" }}>
+              <tbody>
+                {p.motherTongue && (
+                  <tr>
+                    <td style={{ color: "#666", width: "130px", paddingBottom: "5px", verticalAlign: "top", paddingRight: "12px" }}>Mother tongue</td>
+                    <td style={{ fontWeight: "bold", paddingBottom: "5px" }}>{p.motherTongue}</td>
+                  </tr>
+                )}
+                {p.languages && p.languages.length > 0 && (
+                  <tr>
+                    <td style={{ color: "#666", width: "130px", paddingBottom: "5px", verticalAlign: "top", paddingRight: "12px" }}>Other language(s)</td>
+                    <td style={{ paddingBottom: "5px" }}>
+                      {p.languages.map((lang, i) => (
+                        <div key={i} style={{ marginBottom: "2px" }}>
+                          <strong>{lang.language}</strong>
+                          {lang.level ? <span style={{ color: "#555" }}> — {lang.level}</span> : null}
+                        </div>
+                      ))}
+                    </td>
+                  </tr>
+                )}
+                {p.drivingLicence && (
+                  <tr>
+                    <td style={{ color: "#666", width: "130px", paddingRight: "12px" }}>Driving licence</td>
+                    <td>{p.drivingLicence}</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
           </EuroSec>
         )}
       </div>
