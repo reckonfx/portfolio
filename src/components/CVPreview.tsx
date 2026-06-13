@@ -71,7 +71,7 @@ function GulfCV({ data }: { data: PortfolioData }) {
   const BG = "#e8f0f7";
   const work = data.experiences.filter(e => e.type !== "education");
   const edu = data.experiences.filter(e => e.type === "education");
-  const proj = data.projects.filter(pr => pr.featured).slice(0, 3);
+  const proj = data.projects;
   const skills = [...new Set(data.techStack.flatMap(c => c.items.map(i => i.name)))];
 
   return (
@@ -114,7 +114,7 @@ function GulfCV({ data }: { data: PortfolioData }) {
             {proj.map((pr, i) => (
               <div key={i} style={{ marginBottom: "11px", pageBreakInside: "avoid", breakInside: "avoid" }}>
                 <strong style={{ fontSize: "10.5pt" }}>{clean(pr.title)}</strong>
-                <div style={{ fontSize: "9.5pt", lineHeight: 1.55, marginTop: "2px" }}>{cut(pr.description, 230)}</div>
+                <div style={{ fontSize: "9.5pt", lineHeight: 1.55, marginTop: "2px" }}>{clean(pr.description)}</div>
                 {pr.tech.length > 0 && <Tags items={pr.tech.slice(0, 10)} bg={BG} color={A} />}
               </div>
             ))}
@@ -154,7 +154,7 @@ function SaudiCV({ data }: { data: PortfolioData }) {
   const BG = "#e6f4ee";
   const work = data.experiences.filter(e => e.type !== "education");
   const edu = data.experiences.filter(e => e.type === "education");
-  const proj = data.projects.filter(pr => pr.featured).slice(0, 3);
+  const proj = data.projects;
   const skills = [...new Set(data.techStack.flatMap(c => c.items.map(i => i.name)))];
 
   return (
@@ -192,7 +192,7 @@ function SaudiCV({ data }: { data: PortfolioData }) {
             {proj.map((pr, i) => (
               <div key={i} style={{ marginBottom: "11px", pageBreakInside: "avoid", breakInside: "avoid" }}>
                 <strong style={{ fontSize: "10.5pt" }}>{clean(pr.title)}</strong>
-                <div style={{ fontSize: "9.5pt", lineHeight: 1.55, marginTop: "2px" }}>{cut(pr.description, 230)}</div>
+                <div style={{ fontSize: "9.5pt", lineHeight: 1.55, marginTop: "2px" }}>{clean(pr.description)}</div>
                 {pr.tech.length > 0 && <Tags items={pr.tech.slice(0, 10)} bg={BG} color={A} />}
               </div>
             ))}
@@ -233,7 +233,7 @@ function EmiratiCV({ data }: { data: PortfolioData }) {
   const RED = "#cf2028";
   const work = data.experiences.filter(e => e.type !== "education");
   const edu = data.experiences.filter(e => e.type === "education");
-  const proj = data.projects.filter(pr => pr.featured).slice(0, 3);
+  const proj = data.projects;
   const skills = [...new Set(data.techStack.flatMap(c => c.items.map(i => i.name)))].slice(0, 16);
 
   return (
@@ -308,7 +308,7 @@ function EmiratiCV({ data }: { data: PortfolioData }) {
             {proj.map((pr, i) => (
               <div key={i} style={{ marginBottom: "11px", pageBreakInside: "avoid", breakInside: "avoid" }}>
                 <strong style={{ fontSize: "10.5pt" }}>{clean(pr.title)}</strong>
-                <div style={{ fontSize: "9.5pt", lineHeight: 1.55, marginTop: "2px", color: "#333" }}>{cut(pr.description, 220)}</div>
+                <div style={{ fontSize: "9.5pt", lineHeight: 1.55, marginTop: "2px", color: "#333" }}>{clean(pr.description)}</div>
               </div>
             ))}
           </MainSec>
@@ -547,7 +547,7 @@ function USACV({ data }: { data: PortfolioData }) {
   const p = data.personalInfo;
   const work = data.experiences.filter(e => e.type !== "education");
   const edu = data.experiences.filter(e => e.type === "education");
-  const proj = data.projects.filter(pr => pr.featured).slice(0, 3);
+  const proj = data.projects;
 
   return (
     <div style={{ fontFamily: "Arial, sans-serif", fontSize: "10pt", color: "#111", background: "#fff", padding: "28px 40px" }}>
@@ -597,7 +597,7 @@ function USACV({ data }: { data: PortfolioData }) {
           {proj.map((pr, i) => (
             <div key={i} style={{ marginBottom: "10px", pageBreakInside: "avoid", breakInside: "avoid" }}>
               <strong style={{ fontSize: "10.5pt" }}>{clean(pr.title)}</strong>
-              <div style={{ fontSize: "9.5pt", lineHeight: 1.55, marginTop: "2px" }}>• {cut(pr.description, 230)}</div>
+              <div style={{ fontSize: "9.5pt", lineHeight: 1.55, marginTop: "2px" }}>• {clean(pr.description)}</div>
               {pr.tech.length > 0 && (
                 <div style={{ fontSize: "8.5pt", color: "#666", marginTop: "2px" }}>
                   <strong>Tech:</strong> {pr.tech.slice(0, 8).join(", ")}
@@ -659,7 +659,7 @@ function CanadaCV({ data }: { data: PortfolioData }) {
   const BG = "#fff0f0";
   const work = data.experiences.filter(e => e.type !== "education");
   const edu = data.experiences.filter(e => e.type === "education");
-  const proj = data.projects.filter(pr => pr.featured).slice(0, 3);
+  const proj = data.projects;
   const skills = [...new Set(data.techStack.flatMap(c => c.items.map(i => i.name)))].slice(0, 18);
 
   return (
@@ -711,7 +711,7 @@ function CanadaCV({ data }: { data: PortfolioData }) {
           {proj.map((pr, i) => (
             <div key={i} style={{ marginBottom: "11px", pageBreakInside: "avoid", breakInside: "avoid" }}>
               <strong style={{ fontSize: "10.5pt" }}>{clean(pr.title)}</strong>
-              <div style={{ fontSize: "9.5pt", lineHeight: 1.55, marginTop: "2px" }}>{cut(pr.description, 230)}</div>
+              <div style={{ fontSize: "9.5pt", lineHeight: 1.55, marginTop: "2px" }}>{clean(pr.description)}</div>
               {pr.tech.length > 0 && <Tags items={pr.tech.slice(0, 9)} bg={BG} color={A} />}
             </div>
           ))}
@@ -779,7 +779,7 @@ function UKCV({ data }: { data: PortfolioData }) {
   const BG = "#e8f0f7";
   const work = data.experiences.filter(e => e.type !== "education");
   const edu = data.experiences.filter(e => e.type === "education");
-  const proj = data.projects.filter(pr => pr.featured).slice(0, 3);
+  const proj = data.projects;
   const skills = [...new Set(data.techStack.flatMap(c => c.items.map(i => i.name)))];
 
   return (
@@ -811,7 +811,7 @@ function UKCV({ data }: { data: PortfolioData }) {
           {proj.map((pr, i) => (
             <div key={i} style={{ marginBottom: "11px", pageBreakInside: "avoid", breakInside: "avoid" }}>
               <strong style={{ fontSize: "10.5pt" }}>{clean(pr.title)}</strong>
-              <div style={{ fontSize: "9.5pt", lineHeight: 1.55, marginTop: "2px" }}>{cut(pr.description, 230)}</div>
+              <div style={{ fontSize: "9.5pt", lineHeight: 1.55, marginTop: "2px" }}>{clean(pr.description)}</div>
               {pr.tech.length > 0 && <Tags items={pr.tech.slice(0, 10)} bg={BG} color={A} />}
             </div>
           ))}
@@ -861,7 +861,7 @@ function ANZCV({ data }: { data: PortfolioData }) {
   const BG = "#e0f4f5";
   const work = data.experiences.filter(e => e.type !== "education");
   const edu = data.experiences.filter(e => e.type === "education");
-  const proj = data.projects.filter(pr => pr.featured).slice(0, 3);
+  const proj = data.projects;
   const skills = [...new Set(data.techStack.flatMap(c => c.items.map(i => i.name)))];
 
   return (
@@ -891,7 +891,7 @@ function ANZCV({ data }: { data: PortfolioData }) {
             {proj.map((pr, i) => (
               <div key={i} style={{ marginBottom: "11px", pageBreakInside: "avoid", breakInside: "avoid" }}>
                 <strong style={{ fontSize: "10.5pt" }}>{clean(pr.title)}</strong>
-                <div style={{ fontSize: "9.5pt", lineHeight: 1.55, marginTop: "2px" }}>{cut(pr.description, 230)}</div>
+                <div style={{ fontSize: "9.5pt", lineHeight: 1.55, marginTop: "2px" }}>{clean(pr.description)}</div>
                 {pr.tech.length > 0 && <Tags items={pr.tech.slice(0, 10)} bg={BG} color={A} />}
               </div>
             ))}
@@ -989,7 +989,7 @@ function LebenslaufCV({ data, lang = "en" }: { data: PortfolioData; lang?: "en" 
   const L = LEBENSLAUF_HTML_LABELS[lang];
   const work = data.experiences.filter(e => e.type !== "education");
   const edu = data.experiences.filter(e => e.type === "education");
-  const proj = data.projects.filter(pr => pr.featured).slice(0, 2);
+  const proj = data.projects;
   const skills = [...new Set(data.techStack.flatMap(c => c.items.map(i => i.name)))];
 
   // System date formatted for the locale
@@ -1044,7 +1044,7 @@ function LebenslaufCV({ data, lang = "en" }: { data: PortfolioData; lang?: "en" 
         </LebSec>
         {proj.length > 0 && (
           <LebSec title={L.projects}>
-            {proj.map((pr, i) => <LebEntry key={i} period={pr.date || "—"} title={pr.title} org="" desc={cut(pr.description, 200)} tech={pr.tech.slice(0, 8)} accent={A} mid={MID} bg={BG} />)}
+            {proj.map((pr, i) => <LebEntry key={i} period={pr.date || "—"} title={pr.title} org="" desc={clean(pr.description)} tech={pr.tech.slice(0, 8)} accent={A} mid={MID} bg={BG} />)}
           </LebSec>
         )}
         {data.certifications.length > 0 && (
@@ -1134,7 +1134,7 @@ function AcademicCV({ data }: { data: PortfolioData }) {
             <div key={i} style={{ marginBottom: "10px", pageBreakInside: "avoid", breakInside: "avoid", fontSize: "9.5pt", lineHeight: 1.6 }}>
               <strong>{i + 1}.</strong>&nbsp;
               <strong>{clean(pr.title)}</strong>.&nbsp;
-              {cut(pr.description, 240)}
+              {clean(pr.description)}
               {pr.tech.length > 0 && <span style={{ color: MID, fontStyle: "italic" }}>&nbsp;[{pr.tech.join(", ")}]</span>}
             </div>
           ))}
@@ -1175,7 +1175,7 @@ function PakIndiaCV({ data }: { data: PortfolioData }) {
   const BG = "#eef2f8";
   const work = data.experiences.filter(e => e.type !== "education");
   const edu = data.experiences.filter(e => e.type === "education");
-  const proj = data.projects.filter(pr => pr.featured).slice(0, 3);
+  const proj = data.projects;
   const skills = [...new Set(data.techStack.flatMap(c => c.items.map(i => i.name)))];
 
   return (
@@ -1229,7 +1229,7 @@ function PakIndiaCV({ data }: { data: PortfolioData }) {
             {proj.map((pr, i) => (
               <div key={i} style={{ marginBottom: "11px", pageBreakInside: "avoid", breakInside: "avoid" }}>
                 <strong style={{ fontSize: "10.5pt" }}>{clean(pr.title)}</strong>
-                <div style={{ fontSize: "9.5pt", lineHeight: 1.55, marginTop: "2px" }}>{cut(pr.description, 230)}</div>
+                <div style={{ fontSize: "9.5pt", lineHeight: 1.55, marginTop: "2px" }}>{clean(pr.description)}</div>
                 {pr.tech.length > 0 && <Tags items={pr.tech.slice(0, 10)} bg={BG} color={A} />}
               </div>
             ))}

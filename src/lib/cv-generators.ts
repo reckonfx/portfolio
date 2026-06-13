@@ -166,7 +166,7 @@ export function generateGulfCV(data: PortfolioData): Promise<Buffer> {
       }
 
       // Projects
-      const proj = data.projects.filter(pr => pr.featured).slice(0, 3);
+      const proj = data.projects;
       if (proj.length) {
         section("Key Projects");
         for (const pr of proj) {
@@ -175,7 +175,7 @@ export function generateGulfCV(data: PortfolioData): Promise<Buffer> {
             .text(clean(pr.title), M, doc.y, { width: CW });
           doc.y += 2;
           doc.font("Helvetica").fontSize(9.5)
-            .text(cut(pr.description, 230), M, doc.y, { width: CW, lineGap: 1.5 });
+            .text(clean(pr.description), M, doc.y, { width: CW, lineGap: 1.5 });
           if (pr.tech.length) { doc.y += 4; tagRow(doc, pr.tech.slice(0, 9), M, CW, LIGHT, ACCENT); }
           else doc.y += 10;
         }
@@ -300,7 +300,7 @@ export function generateSaudiCV(data: PortfolioData): Promise<Buffer> {
         }
       }
 
-      const proj = data.projects.filter(pr => pr.featured).slice(0, 3);
+      const proj = data.projects;
       if (proj.length) {
         section("Key Projects");
         for (const pr of proj) {
@@ -308,7 +308,7 @@ export function generateSaudiCV(data: PortfolioData): Promise<Buffer> {
           doc.font("Helvetica-Bold").fontSize(10.5).fillColor("#111827")
             .text(clean(pr.title), M, doc.y, { width: CW }); doc.y += 2;
           doc.font("Helvetica").fontSize(9.5)
-            .text(cut(pr.description, 230), M, doc.y, { width: CW, lineGap: 1.5 });
+            .text(clean(pr.description), M, doc.y, { width: CW, lineGap: 1.5 });
           if (pr.tech.length) { doc.y += 4; tagRow(doc, pr.tech.slice(0, 9), M, CW, LIGHT, ACCENT); }
           else doc.y += 10;
         }
@@ -473,14 +473,14 @@ export function generateEmiratiCV(data: PortfolioData): Promise<Buffer> {
       }
 
       // Projects
-      const proj = data.projects.filter(pr => pr.featured).slice(0, 3);
+      const proj = data.projects;
       if (proj.length) {
         y = mainSection("Key Projects", y);
         for (const pr of proj) {
           if (y + 65 > A4_H - 40) { doc.addPage(); y = 40; }
           doc.font("Helvetica-Bold").fontSize(10.5).fillColor("#111827").text(clean(pr.title), MAIN_X, y, { width: MAIN_W });
           y = doc.y + 2;
-          doc.font("Helvetica").fontSize(9.5).fillColor("#374151").text(cut(pr.description, 220), MAIN_X, y, { width: MAIN_W, lineGap: 1.5 });
+          doc.font("Helvetica").fontSize(9.5).fillColor("#374151").text(clean(pr.description), MAIN_X, y, { width: MAIN_W, lineGap: 1.5 });
           y = doc.y + 10;
         }
       }
@@ -812,7 +812,7 @@ export function generateUSACV(data: PortfolioData): Promise<Buffer> {
       doc.y += 4;
 
       // Projects
-      const proj = data.projects.filter(pr => pr.featured).slice(0, 3);
+      const proj = data.projects;
       if (proj.length) {
         section("Selected Projects");
         for (const pr of proj) {
@@ -821,7 +821,7 @@ export function generateUSACV(data: PortfolioData): Promise<Buffer> {
             .text(clean(pr.title), M, doc.y, { width: CW });
           doc.y += 2;
           doc.font("Helvetica").fontSize(9.5).fillColor("#374151")
-            .text(`• ${cut(pr.description, 230)}`, M + 10, doc.y, { width: CW - 10, lineGap: 1.5 });
+            .text(`• ${clean(pr.description)}`, M + 10, doc.y, { width: CW - 10, lineGap: 1.5 });
           if (pr.tech.length) {
             doc.font("Helvetica-Bold").fontSize(8.5).fillColor("#6b7280")
               .text("Tech: ", M + 10, doc.y + 3, { continued: true });
@@ -954,7 +954,7 @@ export function generateCanadaCV(data: PortfolioData): Promise<Buffer> {
       }
 
       // Key Projects
-      const proj = data.projects.filter(pr => pr.featured).slice(0, 3);
+      const proj = data.projects;
       if (proj.length) {
         section("Key Projects");
         for (const pr of proj) {
@@ -963,7 +963,7 @@ export function generateCanadaCV(data: PortfolioData): Promise<Buffer> {
             .text(clean(pr.title), M, doc.y, { width: CW });
           doc.y += 2;
           doc.font("Helvetica").fontSize(9.5).fillColor("#374151")
-            .text(cut(pr.description, 230), M, doc.y, { width: CW, lineGap: 1.5 });
+            .text(clean(pr.description), M, doc.y, { width: CW, lineGap: 1.5 });
           if (pr.tech.length) { doc.y += 4; tagRow(doc, pr.tech.slice(0, 9), M, CW, LIGHT_RED, RED); }
           else doc.y += 8;
         }
@@ -1083,7 +1083,7 @@ export function generatePakIndiaCV(data: PortfolioData): Promise<Buffer> {
       }
 
       // Key Projects
-      const proj = data.projects.filter(pr => pr.featured).slice(0, 3);
+      const proj = data.projects;
       if (proj.length) {
         section("Key Projects");
         for (const pr of proj) {
@@ -1092,7 +1092,7 @@ export function generatePakIndiaCV(data: PortfolioData): Promise<Buffer> {
             .text(clean(pr.title), M, doc.y, { width: CW });
           doc.y += 2;
           doc.font("Helvetica").fontSize(9.5)
-            .text(cut(pr.description, 230), M, doc.y, { width: CW, lineGap: 1.5 });
+            .text(clean(pr.description), M, doc.y, { width: CW, lineGap: 1.5 });
           if (pr.tech.length) { doc.y += 4; tagRow(doc, pr.tech.slice(0, 9), M, CW, LIGHT, ACCENT); }
           else doc.y += 10;
         }
@@ -1248,7 +1248,7 @@ export function generateUKCV(data: PortfolioData): Promise<Buffer> {
       }
 
       // Key Projects
-      const proj = data.projects.filter(pr => pr.featured).slice(0, 3);
+      const proj = data.projects;
       if (proj.length) {
         section("Key Projects");
         for (const pr of proj) {
@@ -1257,7 +1257,7 @@ export function generateUKCV(data: PortfolioData): Promise<Buffer> {
             .text(clean(pr.title), M, doc.y, { width: CW });
           doc.y += 2;
           doc.font("Helvetica").fontSize(9.5).fillColor("#222")
-            .text(cut(pr.description, 230), M, doc.y, { width: CW, lineGap: 1.5 });
+            .text(clean(pr.description), M, doc.y, { width: CW, lineGap: 1.5 });
           if (pr.tech.length) { doc.y += 3; tagRow(doc, pr.tech.slice(0, 9), M, CW, LIGHT, ACCENT); }
           else doc.y += 8;
         }
@@ -1372,7 +1372,7 @@ export function generateANZCV(data: PortfolioData): Promise<Buffer> {
       }
 
       // Key Projects
-      const proj = data.projects.filter(pr => pr.featured).slice(0, 3);
+      const proj = data.projects;
       if (proj.length) {
         section("Key Projects");
         for (const pr of proj) {
@@ -1381,7 +1381,7 @@ export function generateANZCV(data: PortfolioData): Promise<Buffer> {
             .text(clean(pr.title), M, doc.y, { width: CW });
           doc.y += 2;
           doc.font("Helvetica").fontSize(9.5).fillColor("#222")
-            .text(cut(pr.description, 230), M, doc.y, { width: CW, lineGap: 1.5 });
+            .text(clean(pr.description), M, doc.y, { width: CW, lineGap: 1.5 });
           if (pr.tech.length) { doc.y += 3; tagRow(doc, pr.tech.slice(0, 9), M, CW, LIGHT, ACCENT); }
           else doc.y += 8;
         }
@@ -1593,10 +1593,10 @@ export function generateLebenslaufCV(data: PortfolioData, lang: "en" | "de" = "e
       doc.y += 16;
 
       // Key Projects
-      const proj = data.projects.filter(pr => pr.featured).slice(0, 2);
+      const proj = data.projects;
       if (proj.length) {
         section(L.projects);
-        for (const pr of proj) tabEntry(pr.date || "—", pr.title, "", cut(pr.description, 200), pr.tech.slice(0, 8));
+        for (const pr of proj) tabEntry(pr.date || "—", pr.title, "", clean(pr.description), pr.tech.slice(0, 8));
       }
 
       // Certifications
@@ -1724,7 +1724,7 @@ export function generateAcademicCV(data: PortfolioData): Promise<Buffer> {
             .text(`${idx + 1}.  ${clean(pr.title)}`, M, doc.y, { width: CW });
           doc.y += 2;
           doc.font("Helvetica").fontSize(9.5).fillColor(MID)
-            .text(cut(pr.description, 280), M + 14, doc.y, { width: CW - 14, lineGap: 1.5 });
+            .text(clean(pr.description), M + 14, doc.y, { width: CW - 14, lineGap: 1.5 });
           if (pr.tech.length) {
             doc.fontSize(8.5).fillColor(MID)
               .text(`Tech: ${pr.tech.join(", ")}`, M + 14, doc.y + 2, { width: CW - 14 });
